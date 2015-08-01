@@ -2,3 +2,11 @@
 \contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Valutare se inserire le informazioni riguardo l'esecuzione di un'applicazione}{5}{section*.14}
 \defcounter {refsection}{0}\relax 
 \contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Trovare un nome migliore}{13}{section*.20}
+\defcounter {refsection}{0}\relax 
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Cosa scrivere?}{15}{section*.22}
+\defcounter {refsection}{0}\relax 
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ L'applicazione \IeC {\`e} composta da componenti (con pattern smart \& Dumb --> ogni componente ha uno stato --> rendering}{15}{section*.23}
+\defcounter {refsection}{0}\relax 
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Parlare di come viene usata per definire il layout dei componenti}{15}{section*.24}
+\defcounter {refsection}{0}\relax 
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ todo: react-native-popover e react-native-cookies}{15}{section*.25}
