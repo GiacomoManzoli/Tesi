@@ -4,172 +4,263 @@
 % !TEX spellcheck = it-IT
 
 %**************************************************************
-\chapter{Il progetto all'interno dell'azienda}
-\label{cap:progetto-azienda}
+\chapter{Framework analizzati}
+\label{cap:framework-analizzati}
 %**************************************************************
+Questo capitolo inizia con una descrizione generale della tipologia di framework analizzati, per poi andare a descrive più in dettaglio il funzionamento dei singoli framewrok, seguito da una sintesi dei pregi e difetti e un breve resoconto riguardo il prototipo realizzato.
+Infatti, per valutare al meglio ogni framework è stato realizzata un'applicazione prototipo che visualizza una gallery di immagini ottenuta mediante chiamate ad API REST.\\
+La struttura del prototipo è stata scelta in modo tale da verificare le seguenti caratteristiche:
+\begin{itemize}
+\item possibilità di disporre le immagini in una griglia;
+\item possibilità di implementare lo scroll infinito, cioè il caricamento di ulteriori dati una volta visualizzati tutti quelli disponibili;
+\item fluidità dello scroll, specialmente durante il caricamento dei dati;
+\item possibilità di personalizzare la barra di navigazione dell'applicazione.
+\end{itemize}
 
-\section{Presentazione del progetto}
+\todo[inline]{Valutare se inserire le informazioni riguardo l'esecuzione di un'applicazione}
 
-Il progetto svolto da me durante l'attività di stage consiste nello sviluppo di un'applicazione mobile, sviluppata nativamente in Android, che replica il meccanismo e il flusso utente già esistente nel web integrandolo all'interno di questo tipo di piattaforma. 
+\section{Considerazioni generali}
+Le applicazioni realizzate con questa tipologia di framework hanno alla base lo stesso funzionamento: una macchina virtuale interpreta il codice JavaScript e mediante un ``\textit{ponte}'' viene modifica l'interfaccia grafica dell'applicazione, che è realizzata con i componenti offerti dall'SDK nativo.
+Ognuno dei framework analizzati utilizza un ``\textit{ponte}'' diverso, il cui funzionamento verrà descritto più in dettaglio nell'apposita sezione.
 
-\subsection{Motivazioni}
+Un'altra caratteristica di questa tipologia di framework è l'assenza del DOM.
+Infatti, l'interfaccia di un'applicazione è composta da componenti grafici del sistema operativo che vengono creati e composti a durante l'esecuzione dell'applicazione e non da elementi HTML come nelle applicazioni ibride.
 
-Come già presentato nel capitolo 1, CoffeeStrap ha come primo e unico scopo lo sviluppo di un sistema peer-to-peer per l'apprendimento di una lingua tramite interazioni tra utenti. Lo scopo principale in questa prima fase di sviluppo consiste nels raccogliere un bacino utenti considerevole, in modo da poter capire su quale linea portare avanti l'idea e modellare quest'ultima in base al \textit{feedback} e al tipo di iterazione dell'utente medio. Prima dell'inizio del mio stage CoffeeStrap disponeva solamente dell'applicazione web, la quale possedeva circa 2000 iscritti e mediamente 15 utenti attivi al giorno. 
+Nel complesso si ottengono due grossi vantaggi:
+\begin{itemize}
+\item L'esecuzione del codice JavaScript e il rendering dell'interfaccia grafica avviene su due thread distinti, rendendo l'applicazione più fluida;
+\item Utilizzando i componenti grafici nativi si ottiene un esperienza utente più simile a quella che si ottiene con un'applicazione realizzata in Obj-C/Java.
+\end{itemize}
 
-Il progetto di stage che ho svolto nasce dunque dalla necessità di affiancare all'applicazione web l'applicazione mobile, in modo da poter fornire all'utente più possibilità di utilizzo del prodotto ed arrivare inoltre ad un considerevole incremento del bacino utenti. La considerazione principale a monte di ciò è il fatto che oggigiorno l'utente medio spende la maggior parte del proprio tempo sul proprio smartphone piuttosto che sul proprio PC, per tutti i vantaggi legati alla tecnologia mobile. È di fatto una necessità imprescindibile per una start-up in ambito \textit{web/mobile} estendersi su più piattaforme se si vuole competere in un certo tipo di mercato ed ottenere dei finanziamenti. In aggiunta CoffeeStrap può essere categorizzato di fatto come \textit{social network}, ulteriore motivo per il quale sviluppare il prodotto su mobile è di importanza fondamentale.
+\subsection{Differenze con le applicazioni ibride}
 
-L'avere a disposizione l'applicazione a qualsiasi ora del giorno e in qualsiasi luogo permette all'utente di fruire del prodotto senza limitazioni e nel momento esatto in cui ne sente la necessità. Da questo ne deriva un aumento del numero di iterazioni e della quantità di utenti attivi giornalieri, dati di fondamentale importanza per gli investitori.
+Un'applicazione ibrida consiste in un'applicazione nativa composta da una WebView\footnote{Componente delle applicazioni native che consiste in un browser web con funzionalità ridotte e che permette di visualizzare pagine web scaricate da internet oppure memorizzate in locale.} che visualizza un'insieme di pagine web realizzate utilizzando HTML5, JavaScript e CSS3, che replicano l'aspetto di un'applicazione nativa.
 
-Possiamo sintetizzare in cinque punti i vantaggi per cui un'azienda dovrebbe avere un'applicazione mobile:
+Trattandosi quindi di un'applicazione web è possibile utilizzare tutti i framework disponibili per il mondo web, come Angular, jQuery, Ionic, ecc.
+Inoltre, se è già disponibile un'applicazione web per desktop, la creazione di un'applicazione mobile ibrida risulta rapida.
 
-\begin{enumerate}
+Questo approccio viene utilizzato da qualche anno e permette di creare applicazione che possono accedere ad alcune funzionalità hardware del dispositivo come il giroscopio o la fotocamera e che possono essere commercializzate nei vari store online.
 
-\item \textbf{Visibilità}: i dati rilevati indicano che le ricerche all'interno degli \textit{App stores} siano molto elevate, motivo per cui comparire tra i risultati di ricerca rappresenta un'ottima \textbf{pubblicità} per l'azienda;
-\item \textbf{Aumento del valore del brand}: avere la propria applicazione è indice di un'azienda \textit{dinamica}, sempre attenta all'evoluzione tecnologica e al passo coi tempi. Questi valori aumentano di molto il valore dell'azienda;
-\item \textbf{Copertura mediatica}: con la tecnologia mobile è possibile coprire anche zone con scarsa connettività ad internet, coprendo una zona molto maggiore ed aprendo nuove possibilità per il business;
-\item \textbf{Crescita del mercato mobile}: il mondo mobile è in grossa crescita e prospera più velocemente rispetto al web. Lo smartphone è al giorno d'oggi uno strumento essenziale per qualsiasi persona, sia per il tempo libero che per il lavoro.
-\item \textbf{Capacità di differenziarsi dai concorrenti}: le aziende concorrenti che non dispongono di un'applicazione mobile passano in secondo piano rispetto ad un'azienda che ne dispone.
+Per supportare questo processo di sviluppo sono stati sviluppati dei framework come Cordova/PhoneGap che si occupano di gestire la WebView e di fornire un sistema di plug-in per accedere alle funzionalità native.
 
-\end{enumerate}
+Questa tipologia di applicazioni ha però delle limitazioni:
+\begin{itemize}
+\item \textbf{Prestazioni:} trattandosi di una pagina web renderizzata all'interno di un browser, non è possibile sfruttare al massimo le potenzialità della piattaforma sottostante, come il multi-threading. Questo comporta che il codice JavaScript e il rendering dell'interfaccia grafica vengano eseguiti nello stesso thread, ottenendo così un'interfaccia poco fluida.
+\item \textbf{Esperienza d'uso:} una delle caratteristiche principali delle applicazioni native sono le gesture, l'utente è abituato ad interagire con le applicazioni sviluppate in linguaggio nativo che sfruttano un sistema complesso di riconoscimento delle gesture e che non è replicabile in ambito web. 
+\item \textbf{Funzionalità:} non tutte le funzionalità che può sfruttare un'applicazione nativa sono disponibili in un'applicazione ibrida.
+\end{itemize}
 
-\begin{figure}[htpd]
+Il funzionamento dei framework analizzati in questo capitolo permette di risolvere i problemi principali delle applicazioni ibride, in quanto sfruttando i componenti nativi, non è presente il problema dell'interfaccia grafica che viene renderizzata nello stesso thread che si occupa dell'esecuzione del JavaScript.
+Sempre per il fatto che vengono utilizzati componenti nativi, è possibile sfruttare lo stesso sistema di riconoscimento delle gesture e le stesse animazioni, rendendo l'esperienza d'uso più simile a quella offerta da un'applicazione realizzata con l'SDK nativo.
+
+\section{Tabris.js}
+
+Framework pubblicato da EclipseSource\footnote{\url{http://eclipsesource.com/en/home/}} nel Maggio 2014, che permette di controllare mediante JavaScript i componenti dell'interfaccia grafica nativa, sia di iOS, sia di Android.
+
+\subsection{Come funziona}
+Tabris.js utlizza come ``\textit{ponte}'' una versione modificata di Cordova e dei plug-in personalizzati per incapsulare i componenti grafici offerti dai vari SDK nativi.
+
+Trattandosi di un framework derivato da Cordova è possibile utilizzare i plug-in di Cordova già esistenti per aggiungere nuove funzionalità, oltre  a quelle offerte framework, come per esempio l'utilizzo della fotocamera. 
+
+L'unica condizione per il corretto funzionamento dei plug-in esterni è che non dipendano dal DOM, dal momento che il DOM non è presente durante l'esecuzione di un'applicazione.
+
+\subsection{Pregi e difetti}
+
+Uno dei pregi di Tabris.js è quello che il codice JavaScript scritto è indipendente dalla piattaforma, questo permette di utilizzare lo stesso codice sorgente e lo stesso layout sia per iOS sia per Android, si occupa il framework di eseguire tutte le operazioni specifiche per le varie piattaforme.
+
+Un altro pregio deriva dall'estensibilità, è infatti possibile utilizzare sia dei plug-in di Cordova, sia i moduli disponibili su npm, con la condizione che questi non dipendano dal DOM.
+
+Le criticità di Tabris.js riguardano per lo più il layout che deve essere fatto in modo imperativo, prima definendone posizione e dimensione, e poi combinandoli tra loro in modo gerarchico.
+
+Sempre per quanto riguarda il layout, la personalizzazione è limitata in quanto risulta complesso se non impossibile definire dei componenti grafici composti o con layout particolari, come la visualizzazione a griglia.
+
+Infine, il framework non impone né suggerisce alcun pattern architetturale da adottare, lasciando completa libertà al programmatore, con il rischio che il codice sorgente dell'applicazione diventi complesso e difficile da manutenere.
+
+\subsection{Prototipo}
+
+\begin{figure}[htp]
 \centering
-\includegraphics[width=\textwidth]{../immagini/mobile-and-web-market}
-\caption{Raffronto di traffico web mobile e mobile app tra il 2011 e il 2012.}  
-\caption*{Fonte: \url{http://waracle.net/exploring-the-future-of-mobile-app-development-html5-vs-native/}}
+\includegraphics[width=\textwidth]{../immagini/prototipo-tabris}
+\caption{Screenshot del prototipo realizzato con Tabris.js}  
 \end{figure}
 
-\subsection{Aspettative}
+Nel realizzare l'applicazione prototipo sono state riscontrate varie problematiche in particolare riguardanti il layout.
+Ad esempio, non è stato possibile disporre gli elementi in una griglia e la personalizzazione della barra di navigazione si è rilevata essere molto limitata.
 
-La mia preparazione e formazione in ambito di sviluppo mobile poteva ritenersi pari a zero all'inizio dell'attività di stage. Ciononostante l'azienda era consapevole di quali fossero le mie capacità, avendo già collaborato con me e il mio \textit{team} per il progetto di ingegneria del software dell'anno accademico 2013/2014. Pochi mesi prima, in collaborazione con il team \textbf{steakholders}, avevo infatti sviluppato un framework per l'amministrazione di dati provenienti da MongoDB. CoffeeStrap ha assunto il ruolo di \textbf{committente} all'interno di questo progetto, quindi vi erano state diverse interazioni tra me e l'azienda, la quale tuttora utilizza quotidianamente come strumento di supporto. Il progetto in questione si chiama \textbf{MaaP}, rilasciato sotto licenza MIT, disponibile come pacchetto all'interno di npm\footnote{\url{https://www.npmjs.com/package/maap}}. Inoltre su github\footnote{\url{https://github.com/steakholders/maap}} è disponibile il codice sorgente.
+Un altro problema emerso durante la realizzazione del prototipo è stata la scarsa disponibilità di materiale on line, infatti oltre alle risorse messe a disposizione dai creatori e alla documentazione ufficiale, non è stato possibile trovare altre informazioni riguardanti il framework.
+Tuttavia, l'applicazione realizzata è molto fluida e l'esperienza d'uso è paragonabile a quella di un'applicazione nativa.
 
-A fronte della realizzazione di questo progetto l'azienda poneva in me delle buone aspettative circa le tempistiche di apprendimento della tecnologia e di integrazione all'interno del team, per cui il \textbf{rischio} di ospitare un'attività di stage era mitigato da questi fattori. Inoltre i membri di CoffeeStrap, avendo frequentato anch'essi il mio stesso corso di studi, erano al corrente di quale tipo di formazione l'università di Padova offrisse agli studenti e in particolare in che modo e secondo quali prassi il corso di \textit{Ingegneria del Software} preparasse questi ultimi ad essere inseriti velocemente nel mondo del lavoro, avendo alle spalle un'esperienza corposa ed istruttiva. Queste motivazioni hanno fatto sì che l'azienda decidesse di ospitare al loro interno un'attività di stage che potesse soddisfare gli obiettivi preposti. 
+\FloatBarrier
+\section{NativeScript}
 
-Considerando la durata dello stage e le tempistiche legate all'apprendimento della tecnologia, l'aspettativa da parte dell'azienda era quella di arrivare alla fine del periodo di stage con in mano un \textbf{prototipo funzionante}, pronto per essere inserito in una fase successiva di test più approfondito e di raffinamento dei componenti, comunque non ancora sufficientemente maturo per essere inserito pubblicamente nel mercato. L'aspettativa era quella di una versione dell'applicazione che in ambito informatico viene generalmente indicata come \textit{beta}.
+Framework rilasciato da Telerik nel Maggio 2015 che permette di realizzare applicazioni mobile native sia per iOS che per Android rendendo possibile utilizzare tutte le API native mediante JavaScript.
 
-Gli obiettivi minimi delineati sono i seguenti:
+\subsection{Come funziona}
 
+NativeScript utilizza come ``\textit{ponte}'' una virtual machine appositamente modificata che all'occorrenza usa il C++ per invocare le funzioni scritte in linguaggio nativo (Obj-C, Java).
+Questa virtual machine deriva da V8 se l'applicazione viene eseguita su Android o da JavaScriptCore nel caso l'applicazione venga eseguita su iOS.
+
+Le modiche subite dalla virtual machine riguardano:
 \begin{itemize}
-
-\item \textit{Signup} e \textit{login} all'applicazione da parte dell'utente;
-\item Visualizzazione e modifica delle preferenze da parte dell'utente;
-\item Comunicazione audio;
-\item Sistema di notifica, quest'ultimo punto fondamentale all'interno del progetto;
-
-\end{itemize}
-
-Oltre agli obiettivi minimi inoltre sono stati posti degli obiettivi massimi:
-
-\begin{itemize}
-
-\item Comunicazione testuale;
-\item Comunicazione video;
-
-\end{itemize}
-
-Durante il corso dell'attività di stage ciononostante i requisiti sono aumentati, in base alla necessità di realizzare appieno il flusso previsto, il quale è stato riprogettato nel medesimo periodo. Gli obiettivi sono dunque rimasti invariati ma sono stati aggiunti i seguenti:
-
-\begin{itemize}
-
-\item Richiesta di un \textbf{match} in base a una lingua, dove per \textit{match} si intende un \textit{collegamento} tra due utenti mantenibile nel tempo;
-\item Notifica di invito da parte di un utente di parlare una lingua;
-\item Creazione e mantenimento della lista di match;
-
-\end{itemize}
-
-Questi ultimi sono stati necessari per arrivare ad un'applicazione con un grado di usabilità accettabile.
-
-\subsection{Obiettivi di formazione}
-
-L'azienda, essendo di piccole dimensioni e in fase primordiale, ha come prima necessità, oltre allo sviluppo e diffusione del prodotto, la formazione di un team qualificato con all'interno elementi di natura tecnica.  Nelle aziende di questo tipo la prima necessità e risorsa sono le \textbf{persone}, in quanto il valore dell'azienda deriva dal lavoro dei suoi dipendenti. A fronte di questa necessità ospitare un'attività di stage permette all'azienda di poter integrare personale giovane, con una buona formazione e dotati di forte motivazione e stimoli, oltre che una buona elasticità mentale. 
-
-Tra gli obiettivi formativi si delineano i seguenti:
-
-\begin{itemize}
-
-\item Apprendimento della tecnologia mobile, in particolare introduzione all'utilizzo della piattaforma Android;
-\item Apprendimento del protocollo REST e comunicazione lato server tramite API;
-\item Formazione sullo sviluppo di servizi di terze parti utilizzate dall'azienda; 
-\item Introduzione alla metodologia agile scrum;
-\item Introduzione al contesto della start-up e alla sua particolare realtà.
-\item Comprensione dei limiti e delle potenzialità delle tecnologie utilizzate.
-
-\end{itemize}
-
-\section{Vincoli}
-
-\subsection{Vincoli tecnologici}
-
-All'inizio dello stage è stata fatta una valutazione riguardo lo \textit{stack tecnologico} da adottare per la realizzazione dell'applicazione. Sono state delineate tre possibilità:
-
-\begin{itemize}
-
-\item \textbf{Titanium}\footnote{\url{http://www.appcelerator.com/titanium/}}, un framework di sviluppo mobile basato su \textit{javascript} e \textit{HTML5}, che permette lo sviluppo su più piattaforme;
-
-\item \textbf{Ionic}\footnote{\url{http://ionicframework.com/}}, altro framework ibrido molto simile al precedente;
-
-\item \textbf{Nativo Android}, in cui viene messo a disposizione un vero e proprio SDK ufficiale\footnote{\url{http://developer.android.com/sdk/index.html}} per lo sviluppo, basato su Java.
-
-\end{itemize}
-
-Il vantaggio dei primi due è quello legato all'utilizzo di questo genere di framework, ovvero la possibilità di effettuare un \textit{delivery} rapido e multi piattaforma di un'applicazione. Il codice, infatti, si scrive velocemente con un meta linguaggio ed attraverso librerie esterne precompilate esso viene adattato per i diversi sistemi operativi in fase di compilazione. 
-
-D'altra parte una \textbf{criticità} di questi framework consiste nella loro rigidità in fase progettuale: il loro utilizzo, infatti, limita in parte la possibilità di sfruttare le caratteristiche native del \textit{device}, delle linee guida dell'interfaccia e del sistema operativo su cui avverrà il \textit{deployement} dell'applicazione. Spesso dunque si corre il rischio di non arrivare ad un prodotto conforme alle attese con un'interfaccia utente poco ergonomica e intuitiva. Inoltre non è garantito un supporto su lungo periodo alle medesime condizioni. Alcuni framework tendono infatti a non essere più supportati dopo un lungo periodo e il rischio è quello di dover riprogettare tutto daccapo.
-
-Sviluppare un'applicazione nativa garantisce quindi maggiore efficienza in fase di sviluppo e progettazione e porta ad un risultato migliore in termini di usabilità. Chiaramente lo svantaggio è quello di poter supportare un solo sistema operativo, motivo per cui in un futuro CoffeeStrap dovrà ad esempio instanziare un nuovo progetto per l'applicazione \textit{iOS}, molto richiesta dal mercato.
-
-Alla fine la scelta è ricaduta proprio sullo sviluppo nativo, quindi il vincolo tecnologico principale è stato lo sviluppo su piattaforma Android, utilizzando l'SDK ufficiale, ovvero il vero e proprio pacchetto di strumenti che permette lo sviluppo su questa piattaforma. Esso viene normalmente scaricato all'interno di ambienti di sviluppo integrati (IDE), in particolare \textit{Eclipse}\footnote{\url{https://eclipse.org/}} e \textit{Android Studio}. Non è stato posto un vincolo circa la scelta di quest'ultimo, che è stata totalmente a carico mio. Questi ambienti mettono a disposizione, oltre ad un ambiente di programmazione, anche strumenti per il design delle diverse schermate, che viene realizzato utilizzando il linguaggio \textit{XML}. 
-
-È stata inoltre richiesta l'integrazione all'interno dell'applicazione di tutti i servizi utilizzati dall'azienda per i diversi requisiti:
-
-\begin{itemize}
-
-\item Utilizzo dell'\textbf{SDK di facebook}\footnote{\url{https://developers.facebook.com/docs/android/getting-started?locale=it_IT}} per il login e signup all'applicazione da parte dell'utente;
-\item Utilizzo della libreria di \textbf{firebase} per il sistema di \textit{pushing};
-\item Utilizzo di una libreria per la gestione delle chiamate API al server, la quale è stata scelta e discussa durante la fase di progettazione;
-\item Utilizzo della libreria \textbf{bugsnag}, per il servizio di \textit{bug tracking};
-\item Utilizzo della libreria \textbf{opentok}\footnote{\url{https://tokbox.com/opentok/}} per il servizio WebRTC di comunicazione audio/video;
-\item Utilizzo della libreria di \textbf{mixpanel}\footnote{\url{https://mixpanel.com/}} per la piattaforma di \textit{web/mobile analysis}.
-
+\item la possibilità di intercettare l'esecuzione di una funzione JavaScript ed eseguire in risposta del codice C++ personalizzato;
+\item l'iniezione di meta dati che descrivono le API native;
 \end{itemize} 
+In questo modo il runtime di NativeScript può utilizzare i meta dati per riconoscere le funzioni JavaScript che richiedono l'esecuzione di codice nativo ed eseguire il corrispettivo codice nativo invocando le funzione con delle istruzioni scritte in C++.
 
-\begin{figure}[htpd]
+\begin{figure}[htp]
 \centering
-\includegraphics[width=\textwidth]{../immagini/vincoli-tec}
-\caption{Stack tecnologico imposto} 
+\includegraphics[width=\textwidth*3/4]{../immagini/ns-runtime}
+\caption{Schema rappresentante il runtime di NativeScript}  
+\end{figure}
+\FloatBarrier
+
+Di conseguenza il runtime di NativeScript permette di creare degli oggetti JavaScript che funzionano da proxy rispetto ad oggetti nativi, specifici della piattaforma.
+Un esempio del funzionamento è dato dal seguente codice che su iOS crea un oggetto di tipo \texttt{UIAlertView}:
+
+\begin{lstlisting}[language=JavaScript, caption=Esempio di creazione di un oggetto nativo]
+var alert = new UIAlertView();
+\end{lstlisting}
+
+All'esecuzione del JavaScript la virtual machine riconosce, grazie ai meta dati iniettati, che la funzione JavaScript deve essere eseguita come una funzione nativa.
+
+Di conseguenza, utilizzando del codice C++, invoca la corrispondente funzione Obj-C che in questo caso istanzia un oggetto UIAltertView e salva un puntatore all'oggetto nativo in modo da poter eseguire delle funzioni su di esso.
+
+Alla fine crea un oggetto JavaScript che funziona come un proxy dell'oggetto nativo precedentemente creato e lo ritorna in modo che possa essere memorizzato come oggetto locale.
+
+I meta dati che vengono iniettati nella virtual machine e descrivono tutte le funzioni offerte dalle API native della piattaforma e vengono ricavati durante il processo di compilazione dell'applicazione utilizzando la proprietà di riflessione dei linguaggi di programmazione.
+
+Il vantaggio di questa implementazione è che tutte le API native sono invocabili da JavaScript e anche le future versioni delle API saranno supportate subito, così come possono essere supportate librerie di terze parti scritte in Java/Obj-C.
+
+Per permettere il riuso del codice NativeScript fornisce dei moduli che aggiungo un livello di astrazione ulteriore rispetto alle API native, questo livello contiene sia componenti grafici sia funzionalità comuni ad entrambe le piattaforme come l'accesso al filesystem o alla rete.
+Questo livello di astrazione è opzionale ed è sempre possibile effettuare chiamate alle API native.
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=\textwidth/2]{../immagini/ns-architecture}
+\caption{Architettura di NativeScript}  
+\end{figure}
+\FloatBarrier
+
+\subsection{Pregi e difetti}
+
+Il pregio principale di NativeScript è che rende disponibili ad un'applicazione nativa realizzata in JavaScript tutte le funzionalità che possono essere presenti su un applicazione realizzata con l'SDK nativo. 
+
+Inoltre, l'interfaccia grafica di un'applicazione viene realizzata in modo dichiarativo mediante XML e CSS\footnote{NativeScript implementa un sotto insieme limitato di CSS in quando le istruzioni CSS devono essere applicate sui componenti nativi.}, in un modo analogo a quello utilizzato per le applicazioni web.
+
+Tuttavia, le funzionalità offerte dal livello di astrazione sono limitate e di conseguenza è necessario utilizzare le API native.
+Questo comporta la diminuzione del codice riusabile su più piattaforme e un notevole aumento della complessità, allontanandosi così dallo scopo principale dell'utilizzo del JavaScript per lo sviluppo di applicazioni native, che è quello di sviluppare in modo semplice e senza utilizzare le API native.
+
+\subsection{Prototipo}
+
+\begin{figure}[htp]
+\centering
+\includegraphics[width=\textwidth]{../immagini/prototipo-react-native}
+\caption{Screenshot del prototipo realizzato con NativeScript}  
 \end{figure}
 
-\subsection{Vincoli metodologici}
+Sfruttando quasi solamente i componenti generici offerti da NativeScript è stato possibile ottenere un layout simile a quello dell'applicazione attuale.
 
-CoffeeStrap ha ritenuto importante il mio inserimento all'interno del team e l'apprendimento da parte mia delle loro metodologie di lavoro, pertanto fin dalla prima settimana sono stato inserito all'interno dei meccanismi di sviluppo agile, ho partecipato attivamente agli \textbf{scrum meeting} e agli \textbf{stand-up meeting} e ho creato e svolto le mie story con gli stessi procedimenti attuati dagli altri membri. 
+Tuttavia per realizzare la visualizzazione a griglia delle immagini è stato necessario utilizzato un componente \texttt{Repeater} all'interno di una \texttt{ScrollView}, questa implementazione risulta poco efficiente e poco fluida, in quanto non essendo mappata su un componente nativo non gode delle stesse ottimizzazioni.
 
-Gli scrum meeting, decisamente i più importanti, si svolgevano normalmente il mercoledì mattina dalle 10:00 alle 13:00 e la loro frequenza era da ritenersi \textit{obbligatoria} per tutti i membri del team. Si svolgevano usualmente in una sala riunioni appositamente riservata, in cui vi erano a disposizione un tavolo, una lavagna e un proiettore. Tutti i membri si sedevano attorno al tavolo. La prima parte della riunione consisteva nell'effettuare un consuntivo dello sprint passato, analizzando quanto fatto, le problematiche incontrate e le nuove idee emerse. Nella seconda parte si instanziavano le \textit{story} e ciascuno a turno procedeva nell'assegnare alle proprie tutti i parametri. L'output di questa attività era un ``muccchio'' di story da svolgere nello \textit{sprint} successivo.
+Sono state individuate soluzioni alternative sfruttando librerie native di terze parti, che non sono state adottate in quanto ritenute troppo complesse dal momento che facevano uso largo uso di codice specifico per iOS.
 
-Gli stand-up meeting avevano un peso decisamente inferiore ma erano comunque molto utili per avere un costante monitoraggio dello sprint. Normalmente si svolgevano in una stanza diversa da quella in cui risiedevano le postazioni di lavoro, generalmente di fronte alla macchina del caffè e, come suggerisce il termine, tutti i membri partecipanti stavano in piedi. A turno ciascuno riassumeva le attività svolte nel giorno precedente, evidenziando le difficoltà riscontrate o avanzando proposte di modifica. In seguito dunque ciascuno presentava le attività che avrebbe svolto quel giorno.
+\FloatBarrier
+\section{React Native}
 
-\begin{figure}
-\begin{minipage}[b]{7cm}
+Framework sviluppato da Facebook come progetto interno per la realizzazione di applicazioni native per iOS sfruttando il JavaScript e con un funzionamento analogo a quello di React\footnote{Framework per lo sviluppo di applicazioni web pubblicato da Facebook.}.
+
+React Native è stato successivamente rilasciato come progetto open source nel Marzo 2015.
+
+\subsection{Come funziona}
+
+React Native è composto da una parte scritta in Obj-C e un'altra parte scritta in JavaScript.
+La parte realizzata in Obj-C comprende:
+\begin{itemize}
+\item una serie di classi che definiscono il ``\textit{ponte}'' che permette di alla virtual machine di invocare codice nativo;
+\item un'insieme di macro che permettono alle classi Obj-C di esportare dei metodi in modo che questi possano essere invocati dal ``\textit{ponte}'';
+\item un'insieme di classi che derivano dai componenti nativi di uso comune e che utilizzano le macro per esportare alcune funzionalità.
+\end{itemize}
+La parte realizzata in JavaScript consiste in un livello di astrazione, organizzato in moduli, che nascondere l'interazione con le componenti native, viene inoltre fornito il modulo \texttt{NativeModules} che permette di interagire direttamente con il ``\textit{ponte}'' in modo da utilizzare oggetti nativi personalizzati.
+
+Quando viene avvita un'applicazione con React Native, viene eseguito del codice Obj-C che istanzia la virtual machine che andrà ad interpretare il JavaScript e il``\textit{ponte}'' tra la virutal machine e il codice nativo.
+
+Durante l'esecuzione del codice JavaScript è possibile richiedere l'esecuzione di codice nativo usando il modulo \texttt{NativeModules}, questo modulo fornisce all'oggetto ``\textit{ponte}'' le informazioni necessarie per permettergli di identificare la porzione di codice nativo da eseguire.
+Per poter essere eseguito il codice nativo deve utilizzare le macro fornite da React Native, altrimenti il ``\textit{ponte}'' non riesce ad identificare il metodo da invocare.
+
+Al fine di ottenere prestazioni migliori, la virtual machine che esegue il JavaScript viene eseguita su un thread diverso rispetto a quello che si occupa dell'esecuzione del codice nativo e del rendering dell'interfaccia grafica.
+
+Inoltre, la comunicazione tra questi due thread viene gestita in modo asicrono ed eseguita in blocchi, in questo modo è possibile ridurre le comunicazioni tra i due thread ed evitare che l'interfaccia grafica si blocchi durante l'esecuzione del codice JavaScript.
+
+\subsection{Pregi e difetti}
+
+React Native fornisce un buon livello di astrazione rispetto la piattaforma nativa, rendendo possibile ad uno sviluppatore web di realizzare un'applicazione nativa completa senza conoscere nulla riguardo il funzionamento della piattaforma sotto stante.
+
+A causa di questa astrazione non tutte le funzionalità native sono disponibili, tuttavia è possibile adattare classi Obj-C già esistenti mediante le macro messe a disposizione dal framework, anche se questo processo prevede una buona conoscenza del linguaggio Obj-C.
+
+Tra gli altri pregi di React Native c'è la community di sviluppatori creatasi attorno a framework, infatti, nonstante si tratti di un framework pubblicato recentemente, si è già creata una community numerosa ed è già possibile trovare dei moduli open source che estendono le funzionalità base del framework.
+
+Infine il flusso di lavoro per lo sviluppo di un'applicazione con React Native risulta molto veloce, in quanto grazie all'utilizzo dei WebSocket, non è necessario eseguire la build dell'applicazione ad ogni modifica del codice sorgente, portando un notevole risparmio di tempo.
+
+\subsection{Prototipo}
+
+\begin{figure}[htp]
 \centering
-\includegraphics[width=7cm]{../immagini/scrum-meeting}
-\caption{Esempio di scrum meeting}
-\end{minipage}
-\ \hspace{2mm} \hspace{3mm} \
-\begin{minipage}[b]{7cm}
-\centering
-\includegraphics[width=7cm]{../immagini/stand-up-meeting}
-\caption{Esempio di stand-up meeting}
-\end{minipage}
+\includegraphics[width=\textwidth]{../immagini/prototipo-react-native}
+\caption{Screenshot del prototipo realizzato con React Native}  
 \end{figure}
 
-Oltre a questo c'è stato un monitoraggio costante da parte del \textit{tutor} aziendale sui processi e le metodologie da me instanziati per l'apprendimento e lo sviluppo della tecnologia, che hanno fatto sì che prendessi gradualmente confidenza con il \textit{modus operandi} adottato dall'azienda.
+Il prototipo realizzato è stato in grado di soddisfare la maggior parte delle caratteristiche ricercate, infatti è stato possibile ottenere una visualizzazione a griglia, dotata di scroll infinito e fluido.
 
-Per quanto riguarda il periodo iniziale di autoformazione non è stato imposto alcun vincolo metodologico e mi è stata lasciata completa libertà di procedere nel modo che ritenessi più opportuno. 
+Sono stati invece incontrati dei problemi riguardanti la personalizzazione della barra di navigazione, in quando il componente offerto dal framework non permette la presenza di pulsanti personalizzati nella barra di navigazione.
 
-\subsection{Vincoli temporali}
+Tuttavia sono state individuate alcune soluzioni che prevedono l'utilizzo di moduli open source che forniscono una barra di navigazione maggiormente personalizzabile.
 
-Lo stage viene distribuito in 8 settimane di calendario, per una durata complessiva di 300-320 ore lavorative. Ogni settimana sono previste 40 ore, considerando una giornata lavorativa composta di 8 ore. Lo stage può dunque considerarsi un'attività a tempo pieno.
+\FloatBarrier
+\section{Confronto finale}
+\todo[inline]{Trovare un nome migliore}
 
-Nonostante questo vincolo temporale imposto le modalità operative non prevedevano un conteggio delle ore lavorative, ma erano basate sullo svolgimento delle \textit{story}, descritte nel capitolo 1. A fronte di ciò posso affermare che quanto realizzato a livello di ore lavorative differisce in eccesso rispetto a quanto pianificato, in quanto la completa libertà di gestire il proprio tempo ha fatto sì che molto spesso le mie giornate lavorative si prolungassero oltre le 8 ore e che il sabato e la domenica (giorni non considerati in un calendario lavorativo) venissero frequentemente spesi nello sviluppo dell'applicazione.
+\begin{table}[h]
+\centering
 
-In nessun modo CoffeeStrap ha imposto vincoli temporali superiori a quanto pattuito. Queste scelte da me effettuate sono state puramente personali, derivate dalla forte motivazione e sollecitazione date dal progetto, di per se molto stimolante, e dalla crescente voglia di imparare.
+\begin{tabular}{|m{2.3cm}|m{3cm}|m{3cm}|m{3cm}|}
+\hline - & Tabris.js & NativeScript & React Native   \\ 
+\hline  
+
+Funzionamento & Utilizza dei plug-in di Cordova per rendere accessibili i componenti grafici nativi via JavaScript & Utilizza una VM modificata e dei meta dati relativi alle API native per renderne possibile l'utilizzo via JavaScript  & Utilizza delle classi Obj-C per creare un ponte tra la VM che esegue il JavaScript e le componenti native   \\ 
+
+\hline  
+
+ Possibilità di personalizzazione & Limitata a quando offerto dal framework & Come se l'applicazione fosse scritta in linguaggio nativo & Limitata a quanto offerto dal framework   \\
+ 
+\hline 
+
+ Estensibilità & Mediante plug-in di Cordova & Mediante librerie native di terze parti & Estendendo librerie native di terze parti con le macro offerte dal framework  \\ 
+
+\hline
+
+ Piattaforme supportate & iOS e Android & iOS e Android & iOS   \\
+
+\hline
+
+\end{tabular}
+
+\caption{Tabella comparativa dei framework analizzati}
+\label{my-label}
+\end{table}
+
+\FloatBarrier
+\section{Framework scelto}
+
+Dopo aver esaminato e confrontato i tre framework individuati si è scelto di utilizzare React Native nella seconda parte dello stage.
+
+Questo perché React Native si è dimostrato un framework molto potente anche se non offre l'accesso completo alle API native come fa NativeScript.
+Inoltre, la diffusione già ampia del framework e il supporto da parte di Facebook, che sta usando React Native per sviluppare le proprie applicazione, fornisce al framework un'ampia possibilità di crescita, mediante l'estensione di nuove funzionalità o il supporto di ulteriori sistemi operativi, come Android.
+
+Per quanto riguarda NativeScript, è stato scartato principalmente perché non raggiunge l'obiettivo di nascondere la complessità dello sviluppo di un'applicazione nativa con Obj-C o Swift.
+Infatti, l'obiettivo che si vuole raggiungere sviluppando un'applicazione nativa in JavaScript è quello di riutilizzare il più possibile le competenze derivate dallo sviluppo web senza dover imparare tutti i dettagli dello sviluppo con l'SDK nativo.
+
+Infine, Tabris.js è stato scartato perché è risultato troppo limitato e non è stato in grado di soddisfare alcune delle caratteristiche ricercate.
+
+
+
 

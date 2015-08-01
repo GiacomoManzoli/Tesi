@@ -102,6 +102,13 @@
                                         % 1. compilare una prima volta tesi.tex;
                                         % 2. eseguire: biber tesi
                                         % 3. compilare ancora tesi.tex.
+                                        
+\usepackage{xspace}
+\usepackage{placeins} % \FloatBarrier per fare il flush delle immagini
+\usepackage{sourcecodepro}
+\usepackage{listings}
+\usepackage{xargs} % Use more than one optional parameter in a new commands
+\usepackage[colorinlistoftodos,prependcaption]{todonotes} %todo
 
 \input{tesi-config}                     % file con le impostazioni personali
 
@@ -121,14 +128,13 @@
 % Materiale principale
 %**************************************************************
 \mainmatter
+\listoftodos[Notes]
 \input{capitoli/capitolo-1}           
-\input{capitoli/capitolo-2}             
-\input{capitoli/capitolo-3}             
-\input{capitoli/capitolo-4}             
+\input{capitoli/capitolo-2}      
 
 \appendix                               
 
-\input{capitoli/appendice-A}             % Appendice A
+%\input{capitoli/appendice-A}             % Appendice A
 
 %**************************************************************
 % Materiale finale
