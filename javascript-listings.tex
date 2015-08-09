@@ -2,8 +2,8 @@
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{backcolor}{rgb}{0.98,0.98,0.98}
 
-\renewcommand{\lstlistingname}{codice}% Listing -> codice
-\renewcommand{\lstlistlistingname}{Frammenti di codice}% List of Listings -> Frammenti di codice
+\renewcommand{\lstlistingname}{Codice}% Listing -> codice
+\renewcommand{\lstlistlistingname}{Elenco dei frammenti di codice}% List of Listings -> Frammenti di codice
 
 \lstdefinestyle{mystyle}{
     backgroundcolor=\color{backcolor},   
@@ -38,4 +38,14 @@
   morecomment=[l]{//}, % l is for line comment
   morecomment=[s]{/*}{*/}, % s is for start and end delimiter
   morestring=[b]' % defines that strings are enclosed in double quotes
+}
+
+\lstdefinelanguage{JSON}
+{
+  % list of keywords
+  morekeywords={string, boolean, int, Array, Node, Asset, AssetDetail, Filter, FilterItem},
+  sensitive=false, % keywords are not case-sensitive
+  morecomment=[l]{//}, % l is for line comment
+  morecomment=[s]{/*}{*/}, % s is for start and end delimiter
+  morestring=[b]" % defines that strings are enclosed in double quotes
 }
