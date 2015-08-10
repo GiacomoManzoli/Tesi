@@ -3,56 +3,36 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Trovare un nome migliore}{13}{section*.22}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ AskAlberto: Immagine della lista dei nodi, dove si vede pi\IeC {\`u} di qualche nodo }{24}{section*.30}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ parlare di come funzionano le animazioni con React Native}{17}{section*.24}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ AskAlberto: Quanti assets vengono caricati per volta dalla griglia?}{24}{section*.34}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ AskAlberto: Immagine della lista dei nodi, dove si vede pi\IeC {\`u} di qualche nodo }{24}{section*.31}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ AskAlberto: Immagine della lista dei filtri}{26}{section*.36}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ AskAlberto: Quanti assets vengono caricati per volta dalla griglia?}{24}{section*.35}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ AskAlberto: immagine della visualizzazione di dettaglio, sia con la sidenav aperta, sia con la sidenav chiusa}{26}{section*.37}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ AskAlberto: Immagine della lista dei filtri}{26}{section*.37}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Descrizione dell'importanza dei requisiti}{27}{section*.38}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ AskAlberto: immagine della visualizzazione di dettaglio, sia con la sidenav aperta, sia con la sidenav chiusa}{26}{section*.38}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Aggiungere dei mock up per i vari componenti grafici}{31}{section*.39}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Descrizione dell'importanza dei requisiti}{27}{section*.39}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Migliorare questa frase, probabilmente eliminare}{31}{section*.40}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Aggiungere dei mock up per i vari componenti grafici}{31}{section*.40}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ se si decide di utilizzare Flow conviene implementare le varie classi}{36}{section*.45}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Migliorare questa frase, probabilmente eliminare}{31}{section*.41}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ valutare se ha senso aggiungere i diagrammi delle attivit\IeC {\`a}}{44}{section*.60}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ se si decide di utilizzare Flow conviene implementare le varie classi}{36}{section*.46}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ discorso introduttivo}{45}{section*.61}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ valutare se ha senso aggiungere i diagrammi delle attivit\IeC {\`a}}{44}{section*.61}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Descrizione dell'adattamento del prototipo alla gallery}{45}{section*.62}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ da rivedere}{45}{section*.62}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Aggiunta di funzionalit\IeC {\`a} come lo scroll infinito}{45}{section*.63}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Immagine che mostra l'effetto del codice.}{50}{section*.63}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Descrizione dell'aggiunta del sistema di navigazione tra i nodi della gallery}{45}{section*.64}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ eventualmente aggiungere la storia del continuous deployment/integration}{53}{section*.64}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Come sono stati aggiunti i filtri alla navigazione}{45}{section*.65}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Aggiornare questa frase se si implementa la pagina di login}{53}{section*.65}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Come sono stati aggiunti i filtri alla navigazione}{45}{section*.66}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Aggiornare questa frase se si implementa la pagina di login}{54}{section*.66}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Navigazione tra pagine}{45}{section*.67}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ AskAlberto: Giusto per curiosit\IeC {\`a}, la parte collaborativa del client comunica con i WebSocket?}{54}{section*.67}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Swipe}{45}{section*.68}
-\defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Immagine con indicatore di caricamento}{45}{section*.69}
-\defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Animazione delle comparse/scomparse}{45}{section*.70}
-\defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Animazione dello swipe}{45}{section*.71}
-\defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Animazione del pinch-to-zoom non implementata}{45}{section*.72}
-\defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Errori di comunicazione}{46}{section*.73}
-\defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Commento sul risultato ottenuto e sulle presentazioni dell'applicazione}{47}{section*.74}
-\defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Tabellina riassuntiva dei requisiti soddisfatti}{47}{section*.75}
-\defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Del framework e dell'applicazione}{47}{section*.76}
-\defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Storia del log-in e dell'interfaccia grafica}{47}{section*.77}
-\defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Tecnologie studiate}{47}{section*.78}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ forse potrebbe essere necessario specificare meglio}{54}{section*.68}

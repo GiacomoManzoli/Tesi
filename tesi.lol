@@ -11,7 +11,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {lstlisting}{\numberline {5.3}Esempio dell'array da utilizzare per applicare dei filtri alla risorsa /g/{galleryCode}/contents/{args}}{34}{lstlisting.5.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {lstlisting}{\numberline {5.4}JSON Schema di GET /g/{galleryCode}/filtro/{filtro}/{args}}{34}{lstlisting.5.4}
+\contentsline {lstlisting}{\numberline {5.4}JSON Schema di GET /g/{galleryCode}/filtro/{filtro}/{args}}{35}{lstlisting.5.4}
 \defcounter {refsection}{0}\relax 
 \contentsline {lstlisting}{\numberline {5.5}JSON Schema di GET /g/{galleryCode}/filtro/{filtro}/{args}}{35}{lstlisting.5.5}
 \defcounter {refsection}{0}\relax 
@@ -34,3 +34,15 @@
 \contentsline {lstlisting}{\numberline {5.14}Action: clear assets}{40}{lstlisting.5.14}
 \defcounter {refsection}{0}\relax 
 \contentsline {lstlisting}{\numberline {5.15}Action: network error}{41}{lstlisting.5.15}
+\defcounter {refsection}{0}\relax 
+\contentsline {lstlisting}{\numberline {6.1}Funzione che gestisce l'evento onScroll della griglia che visualizza gli assets}{46}{lstlisting.6.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {lstlisting}{\numberline {6.2}NodesStore - Caricamento dei nodi}{47}{lstlisting.6.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {lstlisting}{\numberline {6.3}WardaFetcher - Caricamento degli assets considerando i filtri}{48}{lstlisting.6.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {lstlisting}{\numberline {6.4}AssetDetailPage - Animazione della comparsa/scomparsa lista dei dettagli}{49}{lstlisting.6.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {lstlisting}{\numberline {6.5}AssetDetailImage - Spostamento dell'immagine allo swipe delll'utente}{49}{lstlisting.6.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {lstlisting}{\numberline {6.6}AssetDetailPage - Animazione dello swipe}{50}{lstlisting.6.6}
