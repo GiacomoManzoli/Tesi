@@ -205,10 +205,27 @@ return (
 
 L'effetto prodotto dal quel codice è il seguente:
 
-\todo[inline]{Immagine che mostra l'effetto del codice.}
+\vspace{1em}
+\noindent
+\begin{minipage}{\textwidth}
+  \begin{minipage}[b]{0.49\textwidth}
+    \centering
+    \includegraphics[scale=0.25]{../immagini/swipe-start}
+      \captionof{figure}{Immagine all'inzio dello swipe}
+	\end{minipage}
+	  \hfill
+  \begin{minipage}[b]{0.49\textwidth}
+    \centering
+  \includegraphics[scale=0.25]{../immagini/swipe-follow}
+      \captionof{figure}{Immagine durante lo swipe}
+  \end{minipage}
+\end{minipage}
 
-Tuttavia, il codice sopra riportato sposta l'immagine in base a come l'utente ha effettuato il pan e non esegue nessuna animazione quando lo swipe viene completato e viene visualizzata un'altra immagine.
+\vspace{1em}
+Tuttavia, il codice sopra riportato sposta l'immagine in base al pan effettuato dall'utente e non esegue nessuna animazione quando lo swipe viene completato e viene visualizzata un'altra immagine.
+
 Infatti, nelle applicazioni native, una volta che l'utente ha completato uno swipe, l'immagine corrente viene mandata ``\textit{fuori dallo schermo}'' in modo animato, per poi visualizzare la nuova immagine.
+
 Mentre se l'utente non completa lo swipe, l'immagine viene fatta ritornare alla posizione iniziale, sempre in modo animato.
 
 Per implementare ciò, è stato necessario modificare il gestore dello swipe, in modo che esegua le animazioni dell'immagine quando l'utente completa o annulla lo swipe.

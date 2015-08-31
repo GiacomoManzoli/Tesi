@@ -9,7 +9,7 @@ L'oggetto esposto dal modulo contiene i seguenti metodi:
 Il metodo recupera gli assets dall'URL \texttt{contentUrl}, applicando i filtri presenti nell'array \texttt{filters}, che deve essere strutturato secondo quanto indicato nel codice \ref{lst:filters}.
 
 Una volta ottenuti i dati richiede il \textit{dispatch} dell'oggetto:
-\begin{lstlisting}[language=JSON, caption=Action: load assets]
+\begin{lstlisting}[language=JSON, caption=Action - load assets]
 {
   "actionType": string, //AssetsConstants.LOAD_ASSETS
   "assets": Array<Asset>, //Array contenente gli assets da caricare
@@ -24,7 +24,7 @@ Quando \texttt{AssetsStore} riceve questo oggetto deve caricare al suo interno i
 Il metodo recupera gli assets dall'URL \texttt{contentUrl} a partire dall'asset di indice \texttt{start}, applicando i filtri presenti nell'array \texttt{filters}.
 
 Una volta ottenuti i dati richiede il \textit{dispatch} dell'oggetto:
-\begin{lstlisting}[language=JSON, caption=Action: load more assets]
+\begin{lstlisting}[language=JSON, caption=Action - load more assets]
 {
   "actionType": string, //AssetsConstants.LOAD_MORE_ASSETS
   "assets": Array<Asset>, //Array contenente gli assets da aggiungere in coda agli assets attuali
@@ -37,7 +37,7 @@ I dati devono essere inseriti in coda a quelli già presenti, senza sovrascriver
 \item \textbf{clearAssets()}
 
 Il metodo richiede il \textit{dispatch} dell'oggetto:
-\begin{lstlisting}[language=JSON, caption=Action: clear assets]
+\begin{lstlisting}[language=JSON, caption=Action - clear assets]
 {
   "actionType": string //AssetsConstants.CLEAR_ASSETS
 }
@@ -50,7 +50,7 @@ Quando \texttt{AssetsStore} riceve questo oggetto deve cancellare tutti i dati c
 Il metodo recupera i dettagli dell'asset ricevuto come parametro, utilizzando l'URL prensente nel campo dati \texttt{asset.details.products}.
 Una volta ottenuti i dati richiede il \textit{dispatch} dell'oggetto:
 
-\begin{lstlisting}[language=JSON, caption=Action: load asset details]
+\begin{lstlisting}[language=JSON, caption=Action - load asset details]
 {
   "actionType": string, //AssetsConstants.LOAD_ASSET_DETAILS
   "assetDetails": Array<AssetDetail> //Array contenente i dettagli dell'asset

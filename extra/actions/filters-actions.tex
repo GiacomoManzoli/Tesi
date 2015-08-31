@@ -10,7 +10,7 @@ Il metodo recupera la lista dei possibili valori dell'oggetto \texttt{filter} ri
 Alla richiesta dei dati viene aggiunta l'informazione riguardante i filtri che sono correntemente applicati, in quando la lista dei valori che può assumere un filtro dipende dai filtri che sono stati applicati.
 
 Una volta ottenuti i dati richiede il \textit{dispatch} dell'oggetto:
-\begin{lstlisting}[language=JSON, caption=Action: load filter items]
+\begin{lstlisting}[language=JSON, caption=Action - load filter items]
 {
   "actionType": string, //FiltersConstants.LOAD_FILTER_ITEMS
   "filterItems: Array<FilterItem> //Array con i possibili valori
@@ -22,7 +22,7 @@ Quando \texttt{FiltersStore} riceve questo oggetto, deve caricare al suo interno
 \item \textbf{applyFilter(filterData)}
 
 Il metodo richiede il \textit{dispatch} dell'oggetto:
-\begin{lstlisting}[language=JSON, caption=Action: apply filter]
+\begin{lstlisting}[language=JSON, caption=Action - apply filter]
 {
   "actionType": string, //FiltersConstants.APPLY_FILTER
   "filterData": {filter: Filter, filterItem: FilterItem} //coincide con l'oggetto ricevuto come parametro
@@ -34,7 +34,7 @@ Quando \texttt{FiltersStore} riceve questo oggetto, deve applicare il filtro con
 \item \textbf{removeFilter(filter)}
 
 Il metodo richiede il \textit{dispatch} dell'oggetto:
-\begin{lstlisting}[language=JSON, caption=Action: remove filter]
+\begin{lstlisting}[language=JSON, caption=Action - remove filter]
 {
   "actionType": string, //FiltersConstants.REMOVE_FILTER
   "filter": Filter //Filtro da rimovure, coincide con l'oggetto ricevuto come parametro
@@ -47,7 +47,7 @@ Quando \texttt{FiltersStore} riceve questo oggetto, deve rimuovere dai filtri ap
 \item \textbf{resetAppliedFilters()}
 
 Il metodo richiede il \textit{dispatch} dell'oggetto:
-\begin{lstlisting}[language=JSON, caption=Action: clear assets]
+\begin{lstlisting}[language=JSON, caption=Action - clear assets]
 {
   "actionType": string //FiltersConstants.RESET_APPLIED_FILTERS
 }

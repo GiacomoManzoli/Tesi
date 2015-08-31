@@ -8,7 +8,7 @@
 \label{cap:framework-analizzati}
 %**************************************************************
 Questo capitolo inizia con una descrizione generale della tipologia di framework analizzati, per poi andare a descrive più in dettaglio il funzionamento dei singoli framewrok, seguito da una sintesi dei pregi e difetti e un breve resoconto riguardo il prototipo realizzato.
-Infatti, per valutare al meglio ogni framework è stato realizzata un'applicazione prototipo che visualizza una gallery di immagini ottenuta mediante chiamate ad \gls{API} REST.\\
+Infatti, per valutare al meglio ogni framework è stato realizzata un'applicazione prototipo che visualizza una gallery di immagini ottenuta mediante chiamate ad \gls{API} \gls{REST}.\\
 La struttura del prototipo è stata scelta in modo tale da verificare le seguenti caratteristiche:
 \begin{itemize}
 \item possibilità di disporre le immagini in una griglia;
@@ -20,11 +20,11 @@ La struttura del prototipo è stata scelta in modo tale da verificare le seguent
 \todo[inline]{Valutare se inserire le informazioni riguardo l'esecuzione di un'applicazione}
 
 \section{Considerazioni generali}
-Le applicazioni realizzate con questa tipologia di framework hanno alla base lo stesso funzionamento: una macchina virtuale interpreta il codice JavaScript e mediante un ``\textit{ponte}'' viene modifica l'interfaccia grafica dell'applicazione, che è realizzata con i componenti offerti dall'SDK nativo.
+Le applicazioni realizzate con questa tipologia di framework hanno alla base lo stesso funzionamento: una macchina virtuale interpreta il codice JavaScript e che utilizza un componente ``\textit{ponte}'' per modificare viene modifica l'interfaccia grafica dell'applicazione, la quale è realizzata con i componenti offerti dall'SDK nativo.
 Ognuno dei framework analizzati utilizza un ``\textit{ponte}'' diverso, il cui funzionamento verrà descritto più in dettaglio nell'apposita sezione.
 
-Un'altra caratteristica di questa tipologia di framework è l'assenza del DOM.
-Infatti, l'interfaccia di un'applicazione è composta da componenti grafici del sistema operativo che vengono creati e composti a durante l'esecuzione dell'applicazione e non da elementi HTML come nelle applicazioni ibride.
+Un'altra caratteristica di questa tipologia di framework è l'assenza del \gls{DOM}.
+Infatti, l'interfaccia di un'applicazione di questo tipo è composta da componenti grafici del sistema operativo che vengono creati e composti a durante l'esecuzione dell'applicazione e non da elementi HTML come nelle applicazioni ibride.
 
 Nel complesso si ottengono due grossi vantaggi:
 \begin{itemize}
@@ -34,43 +34,48 @@ Nel complesso si ottengono due grossi vantaggi:
 
 \subsection{Differenze con le applicazioni ibride}
 
-Un'applicazione ibrida consiste in un'applicazione nativa composta da una WebView\footnote{Componente delle applicazioni native che consiste in un browser web con funzionalità ridotte e che permette di visualizzare pagine web scaricate da internet oppure memorizzate in locale.} che visualizza un'insieme di pagine web realizzate utilizzando HTML5, JavaScript e CSS3, che replicano l'aspetto di un'applicazione nativa.
+Un'applicazione ibrida consiste in un'applicazione nativa composta da una \gls{WebView} che visualizza un'insieme di pagine web che replicano l'aspetto di un'applicazione nativa, le quali sono realizzate utilizzando HTML5, JavaScript e CSS3.
 
-Trattandosi quindi di un'applicazione web è possibile utilizzare tutti i framework disponibili per il mondo web, come Angular, jQuery, Ionic, ecc.
-Inoltre, se è già disponibile un'applicazione web per desktop, la creazione di un'applicazione mobile ibrida risulta rapida.
+Trattandosi quindi di un'applicazione web è possibile utilizzare tutti i framework e le tecnologie disponibili nell'ambito web, come AngularJS o jQuery.
 
-Questo approccio viene utilizzato da qualche anno e permette di creare applicazione che possono accedere ad alcune funzionalità hardware del dispositivo come il giroscopio o la fotocamera e che possono essere commercializzate nei vari store online.
+Inoltre, se è già disponibile un'applicazione web per desktop, la creazione di un'applicazione mobile ibrida risulta rapida in quanto è possibile riutilizzare sia parte del codice, sia tutte le competeneze legate allo sviluppo web.
+
+Questo approccio viene utilizzato da qualche anno e permette di creare applicazioni che possono accedere ad alcune funzionalità hardware del dispositivo come il giroscopio o la fotocamera e che possono essere commercializzate nei vari store online.
 
 Per supportare questo processo di sviluppo sono stati sviluppati dei framework come Cordova/PhoneGap che si occupano di gestire la WebView e di fornire un sistema di plug-in per accedere alle funzionalità native.
 
 Questa tipologia di applicazioni ha però delle limitazioni:
 \begin{itemize}
-\item \textbf{Prestazioni:} trattandosi di una pagina web renderizzata all'interno di un browser, non è possibile sfruttare al massimo le potenzialità della piattaforma sottostante, come il multi-threading. Questo comporta che il codice JavaScript e il rendering dell'interfaccia grafica vengano eseguiti nello stesso thread, ottenendo così un'interfaccia poco fluida.
-\item \textbf{Esperienza d'uso:} una delle caratteristiche principali delle applicazioni native sono le gesture, l'utente è abituato ad interagire con le applicazioni sviluppate in linguaggio nativo che sfruttano un sistema complesso di riconoscimento delle gesture e che non è replicabile in ambito web. 
+\item \textbf{Prestazioni:} trattandosi di una pagina web renderizzata all'interno di un browser, non è possibile sfruttare al massimo le potenzialità della piattaforma sottostante, come il multi-threading. Questo comporta che il codice JavaScript e il \gls{rendering} dell'interfaccia grafica vengano eseguiti nello stesso thread, ottenendo così un'interfaccia poco fluida.
+\item \textbf{Esperienza d'uso:} una delle caratteristiche principali delle applicazioni native sono le \gls{gesture}, l'utente è abituato ad interagire con le applicazioni native, le quali sono dotate di un complessio sistema di riconoscimento delle gesture che non è ancora replicabile in ambito web.
 \item \textbf{Funzionalità:} non tutte le funzionalità che può sfruttare un'applicazione nativa sono disponibili in un'applicazione ibrida.
 \end{itemize}
 
-Il funzionamento dei framework analizzati in questo capitolo permette di risolvere i problemi principali delle applicazioni ibride, in quanto sfruttando i componenti nativi, non è presente il problema dell'interfaccia grafica che viene renderizzata nello stesso thread che si occupa dell'esecuzione del JavaScript.
-Sempre per il fatto che vengono utilizzati componenti nativi, è possibile sfruttare lo stesso sistema di riconoscimento delle gesture e le stesse animazioni, rendendo l'esperienza d'uso più simile a quella offerta da un'applicazione realizzata con l'SDK nativo.
+Il funzionamento dei framework analizzati in questo capitolo permette di risolvere i problemi principali delle applicazioni ibride, in quanto sfruttando i componenti nativi, non sono presenti i problemi prestazionali legati al rendering dell'interfaccia grafica, il quale non viene bloccato dall'esecuzione del codice JavaScript. Inoltre, sempre per il fatto che  vengono utilizzati componenti nativi, è possibile sfruttare lo stesso sistema di riconoscimento delle gesture e le stesse animazioni, rendendo l'esperienza d'uso più simile a quella offerta da un'applicazione realizzata con l'SDK nativo.
 
 \section{Tabris.js}
 
 Framework pubblicato da EclipseSource\footnote{\url{http://eclipsesource.com/en/home/}} nel Maggio 2014, che permette di controllare mediante JavaScript i componenti dell'interfaccia grafica nativa, sia di iOS, sia di Android.
 
 \subsection{Come funziona}
-Tabris.js utlizza come ``\textit{ponte}'' una versione modificata di Cordova e dei plug-in personalizzati per incapsulare i componenti grafici offerti dai vari SDK nativi.
+Tabris.js funziona utilizzando una versione modificata di Cordova, la quale grazie a dei plug-in sviluppati da EcplipseSoruce permette di interagire via JavaScript con i componenti nativi del sistema operativo.
+
+Ognuno di questi plug-in incapsula un determinato componente dell'interfaccia grafica e fornisce delle API JavaScript per controllarlo.
 
 Trattandosi di un framework derivato da Cordova è possibile utilizzare i plug-in di Cordova già esistenti per aggiungere nuove funzionalità, oltre  a quelle offerte framework, come per esempio l'utilizzo della fotocamera. 
 
 L'unica condizione per il corretto funzionamento dei plug-in esterni è che non dipendano dal DOM, dal momento che il DOM non è presente durante l'esecuzione di un'applicazione.
 
+Il framework viene pubblicato come open source, tuttavia per accedere al codice sorgente è necessario acquistare una licenza, pertanto non è stato possibile analizzare più in dettaglio il funzionamento del framework.
+
 \subsection{Pregi e difetti}
 
-Uno dei pregi di Tabris.js è quello che il codice JavaScript scritto è indipendente dalla piattaforma, questo permette di utilizzare lo stesso codice sorgente e lo stesso layout sia per iOS sia per Android, si occupa il framework di eseguire tutte le operazioni specifiche per le varie piattaforme.
+Uno dei pregi di Tabris.js è quello che il codice JavaScript scritto è indipendente dalla piattaforma, questo permette di utilizzare lo stesso codice sorgente e lo stesso layout sia per iOS sia per Android.
+\`E il framework che si occupa di eseguire tutte le operazioni specifiche per le varie piattaforme e di renderizzare gli opportuni componenti grafici.
 
-Un altro pregio deriva dall'estensibilità, è infatti possibile utilizzare sia dei plug-in di Cordova, sia i moduli disponibili su npm, con la condizione che questi non dipendano dal DOM.
+Un altro pregio deriva dall'estensibilità, è infatti possibile utilizzare sia dei plug-in di Cordova, sia i moduli disponibili su \gls{npm}, con la condizione che questi non dipendano dal DOM.
 
-Le criticità di Tabris.js riguardano per lo più il layout che deve essere fatto in modo imperativo, prima definendone posizione e dimensione, e poi combinandoli tra loro in modo gerarchico.
+Le criticità di Tabris.js riguardano per lo più il layout che deve essere fatto in modo imperativo, definendo prima la dimensione e la posizione dei vari componenti, per poi organizzarli in modo gerarchico.
 
 Sempre per quanto riguarda il layout, la personalizzazione è limitata in quanto risulta complesso se non impossibile definire dei componenti grafici composti o con layout particolari, come la visualizzazione a griglia.
 
@@ -87,7 +92,7 @@ Infine, il framework non impone né suggerisce alcun pattern architetturale da a
 Nel realizzare l'applicazione prototipo sono state riscontrate varie problematiche in particolare riguardanti il layout.
 Ad esempio, non è stato possibile disporre gli elementi in una griglia e la personalizzazione della barra di navigazione si è rilevata essere molto limitata.
 
-Un altro problema emerso durante la realizzazione del prototipo è stata la scarsa disponibilità di materiale on line, infatti oltre alle risorse messe a disposizione dai creatori e alla documentazione ufficiale, non è stato possibile trovare altre informazioni riguardanti il framework.
+Un altro problema emerso durante la realizzazione del prototipo è stata la scarsa disponibilità di materiale online, infatti oltre alle risorse messe a disposizione da EclipseSource e alla documentazione ufficiale, non è stato possibile trovare altre informazioni riguardanti il framework.
 Tuttavia, l'applicazione realizzata è molto fluida e l'esperienza d'uso è paragonabile a quella di un'applicazione nativa.
 
 \FloatBarrier
@@ -97,15 +102,16 @@ Framework rilasciato da Telerik nel Maggio 2015 che permette di realizzare appli
 
 \subsection{Come funziona}
 
-NativeScript utilizza come ``\textit{ponte}'' una virtual machine appositamente modificata che all'occorrenza usa il C++ per invocare le funzioni scritte in linguaggio nativo (Obj-C, Java).
-Questa virtual machine deriva da V8 se l'applicazione viene eseguita su Android o da JavaScriptCore nel caso l'applicazione venga eseguita su iOS.
+NativeScript utilizza come ``\textit{ponte}'' una \gls{virtual machine} appositamente modificata che all'occorrenza esegue del codice C++ per invocare le funzioni scritte in linguaggio nativo (Obj-C, Java).
+
+Questa virtual machine deriva da \gls{V8} se l'applicazione viene eseguita su Android o da \gls{JavaScriptCore} nel caso l'applicazione venga eseguita su iOS.
 
 Le modiche subite dalla virtual machine riguardano:
 \begin{itemize}
-\item la possibilità di intercettare l'esecuzione di una funzione JavaScript ed eseguire in risposta del codice C++ personalizzato;
-\item l'iniezione di meta dati che descrivono le API native;
+\item la possibilità di intercettare l'esecuzione di una funzione JavaScript ed eseguire in risposta del determinato codice C++;
+\item l'iniezione di metadati che descrivono le API native;
 \end{itemize} 
-In questo modo il runtime di NativeScript può utilizzare i meta dati per riconoscere le funzioni JavaScript che richiedono l'esecuzione di codice nativo ed eseguire il corrispettivo codice nativo invocando le funzione con delle istruzioni scritte in C++.
+In questo modo il runtime di NativeScript può utilizzare i metadati per riconoscere le funzioni JavaScript che hanno una corrispondente funzione nativa, in modo da poter richidere l'esecuzione della funzione nativa mediante del codice C++.
 
 \begin{figure}[htp]
 \centering
@@ -114,25 +120,27 @@ In questo modo il runtime di NativeScript può utilizzare i meta dati per ricono
 \end{figure}
 \FloatBarrier
 
-Di conseguenza il runtime di NativeScript permette di creare degli oggetti JavaScript che funzionano da proxy rispetto ad oggetti nativi, specifici della piattaforma.
+Di conseguenza il runtime di NativeScript permette di creare degli oggetti JavaScript che funzionano da proxy rispetto agli oggetti nativi specifici della piattaforma.
 Un esempio del funzionamento è dato dal seguente codice che su iOS crea un oggetto di tipo \texttt{UIAlertView}:
 
 \begin{lstlisting}[language=JavaScript, caption=Esempio di creazione di un oggetto nativo]
 var alert = new UIAlertView();
 \end{lstlisting}
 
-All'esecuzione del JavaScript la virtual machine riconosce, grazie ai meta dati iniettati, che la funzione JavaScript deve essere eseguita come una funzione nativa.
+All'esecuzione del JavaScript la virtual machine riconosce, grazie ai metadati iniettati, che la funzione JavaScript deve essere eseguita come una funzione nativa.
 
-Di conseguenza, utilizzando del codice C++, invoca la corrispondente funzione Obj-C che in questo caso istanzia un oggetto UIAltertView e salva un puntatore all'oggetto nativo in modo da poter eseguire delle funzioni su di esso.
+Di conseguenza, utilizzando del codice C++, invoca la corrispondente funzione Obj-C che in questo caso istanzia un oggetto \texttt{UIAlertView} e memorizza un puntatore all'oggetto nativo in modo da poterlo recuperare in seguito per eseguire delle funzioni su di esso.
 
-Alla fine crea un oggetto JavaScript che funziona come un proxy dell'oggetto nativo precedentemente creato e lo ritorna in modo che possa essere memorizzato come oggetto locale.
+Alla fine, la virtual machine crea un oggetto JavaScript che funziona come un proxy dell'oggetto nativo precedentemente creato e lo ritorna in modo che possa essere memorizzato e utilizzato come un normale oggetto JavaScript.
 
-I meta dati che vengono iniettati nella virtual machine e descrivono tutte le funzioni offerte dalle API native della piattaforma e vengono ricavati durante il processo di compilazione dell'applicazione utilizzando la proprietà di riflessione dei linguaggi di programmazione.
+I metadati che vengono iniettati nella virtual machine e che descrivono tutte le funzioni offerte dalle API native della piattaforma, vengono ricavati durante il processo di compilazione dell'applicazione utilizzando la proprietà di \gls{riflessione} dei linguaggi di programmazione.
 
-Il vantaggio di questa implementazione è che tutte le API native sono invocabili da JavaScript e anche le future versioni delle API saranno supportate subito, così come possono essere supportate librerie di terze parti scritte in Java/Obj-C.
+Il vantaggio di questa implementazione è che tutte le API native sono invocabili da JavaScript e anche le future versione delle API potranno essere supportate appena queste vegnono rilasciate.
 
-Per permettere il riuso del codice NativeScript fornisce dei moduli che aggiungo un livello di astrazione ulteriore rispetto alle API native, questo livello contiene sia componenti grafici sia funzionalità comuni ad entrambe le piattaforme come l'accesso al filesystem o alla rete.
-Questo livello di astrazione è opzionale ed è sempre possibile effettuare chiamate alle API native.
+Inoltre, questi metadati possono essere generati anche per tutte le librerie native di terze parti, rendendole disponibili in JavaScript.
+
+Per permettere il riuso del codice NativeScript fornisce dei moduli che aggiungo un livello di astrazione ulteriore rispetto alle API native, che contiene sia componenti grafici, sia funzionalità comuni ad entrambe le piattaforme, come l'accesso al filesystem o alla rete.
+Questo livello di astrazione è opzionale ed è sempre possibile effettuare chiamate dirette alle API native.
 
 \begin{figure}[htp]
 \centering
@@ -143,11 +151,12 @@ Questo livello di astrazione è opzionale ed è sempre possibile effettuare chia
 
 \subsection{Pregi e difetti}
 
-Il pregio principale di NativeScript è che rende disponibili ad un'applicazione nativa realizzata in JavaScript tutte le funzionalità che possono essere presenti su un applicazione realizzata con l'SDK nativo. 
+Il pregio principale di NativeScript è che rende disponibili ad un'applicazione nativa realizzata in JavaScript tutte le funzionalità che possono essere presenti in un'applicazione realizzata con l'SDK nativo. 
 
 Inoltre, l'interfaccia grafica di un'applicazione viene realizzata in modo dichiarativo mediante XML e CSS\footnote{NativeScript implementa un sotto insieme limitato di CSS in quando le istruzioni CSS devono essere applicate sui componenti nativi.}, in un modo analogo a quello utilizzato per le applicazioni web.
 
-Tuttavia, le funzionalità offerte dal livello di astrazione sono limitate e di conseguenza è necessario utilizzare le API native.
+Tuttavia, le funzionalità offerte dal livello di astrazione sono limitate e di conseguenza per ottenere effetti particolari è necessario utilizzare le API native.
+
 Questo comporta la diminuzione del codice riusabile su più piattaforme e un notevole aumento della complessità, allontanandosi così dallo scopo principale dell'utilizzo del JavaScript per lo sviluppo di applicazioni native, che è quello di sviluppare in modo semplice e senza utilizzare le API native.
 
 \subsection{Prototipo}
@@ -162,7 +171,7 @@ Sfruttando quasi solamente i componenti generici offerti da NativeScript è stat
 
 Tuttavia per realizzare la visualizzazione a griglia delle immagini è stato necessario utilizzato un componente \texttt{Repeater} all'interno di una \texttt{ScrollView}, questa implementazione risulta poco efficiente e poco fluida, in quanto non essendo mappata su un componente nativo non gode delle stesse ottimizzazioni.
 
-Sono state individuate soluzioni alternative sfruttando librerie native di terze parti, che non sono state adottate in quanto ritenute troppo complesse dal momento che facevano uso largo uso di codice specifico per iOS.
+Sono state individuate soluzioni alternative sfruttando librerie native di terze parti, che non sono state adottate in quanto ritenute troppo complesse dal momento che fanno largo uso di codice specifico per iOS.
 
 \FloatBarrier
 \section{React Native}
@@ -180,9 +189,10 @@ La parte realizzata in Obj-C comprende:
 \item un'insieme di macro che permettono alle classi Obj-C di esportare dei metodi in modo che questi possano essere invocati dal ``\textit{ponte}'';
 \item un'insieme di classi che derivano dai componenti nativi di uso comune e che utilizzano le macro per esportare alcune funzionalità.
 \end{itemize}
-La parte realizzata in JavaScript consiste in un livello di astrazione, organizzato in moduli, che nascondere l'interazione con le componenti native, viene inoltre fornito il modulo \texttt{NativeModules} che permette di interagire direttamente con il ``\textit{ponte}'' in modo da utilizzare oggetti nativi personalizzati.
+La parte realizzata in JavaScript consiste in un livello di astrazione, organizzato in moduli, che nascondere l'interazione con le componenti native.
+Tra questi moduli è presente il modulo \texttt{NativeModules} che permette di interagire direttamente con il ``\textit{ponte}'' in modo da utilizzare oggetti nativi personalizzati.
 
-Quando viene avvita un'applicazione con React Native, viene eseguito del codice Obj-C che istanzia la virtual machine che andrà ad interpretare il JavaScript e il``\textit{ponte}'' tra la virutal machine e il codice nativo.
+Quando viene avvita un'applicazione con React Native, viene eseguito del codice Obj-C che istanzia sia la virtual machine che andrà ad interpretare il JavaScript, sia il ``\textit{ponte}'' tra la virutal machine e il codice nativo.
 
 Durante l'esecuzione del codice JavaScript è possibile richiedere l'esecuzione di codice nativo usando il modulo \texttt{NativeModules}, questo modulo fornisce all'oggetto ``\textit{ponte}'' le informazioni necessarie per permettergli di identificare la porzione di codice nativo da eseguire.
 Per poter essere eseguito il codice nativo deve utilizzare le macro fornite da React Native, altrimenti il ``\textit{ponte}'' non riesce ad identificare il metodo da invocare.
@@ -197,7 +207,7 @@ React Native fornisce un buon livello di astrazione rispetto la piattaforma nati
 
 A causa di questa astrazione non tutte le funzionalità native sono disponibili, tuttavia è possibile adattare classi Obj-C già esistenti mediante le macro messe a disposizione dal framework, anche se questo processo prevede una buona conoscenza del linguaggio Obj-C.
 
-Tra gli altri pregi di React Native c'è la community di sviluppatori creatasi attorno a framework, infatti, nonstante si tratti di un framework pubblicato recentemente, si è già creata una community numerosa ed è già possibile trovare dei moduli open source che estendono le funzionalità base del framework.
+Tra gli altri pregi di React Native c'è la community di sviluppatori creatasi attorno al framework, infatti, nonstante si tratti di un framework pubblicato recentemente, si è già creata una community numerosa ed è già possibile trovare dei moduli open source che estendono le funzionalità base del framework.
 
 Infine il flusso di lavoro per lo sviluppo di un'applicazione con React Native risulta molto veloce, in quanto grazie all'utilizzo dei WebSocket, non è necessario eseguire la build dell'applicazione ad ogni modifica del codice sorgente, portando un notevole risparmio di tempo.
 
@@ -230,7 +240,7 @@ Funzionamento & Utilizza dei plug-in di Cordova per rendere accessibili i compon
 
 \hline  
 
- Possibilità di personalizzazione & Limitata a quando offerto dal framework & Come se l'applicazione fosse scritta in linguaggio nativo & Limitata a quanto offerto dal framework   \\
+ Possibilità di personalizzazione & Limitata a quanto offerto dal framework & Come se l'applicazione fosse scritta in linguaggio nativo & Limitata a quanto offerto dal framework   \\
  
 \hline 
 
@@ -251,12 +261,13 @@ Funzionamento & Utilizza dei plug-in di Cordova per rendere accessibili i compon
 \FloatBarrier
 \section{Framework scelto}
 
-Dopo aver esaminato e confrontato i tre framework individuati si è scelto di utilizzare React Native nella seconda parte dello stage.
+Dopo aver esaminato e confrontato i tre framework individuati si è scelto di utilizzare React Native per la seconda parte dello stage.
 
 Questo perché React Native si è dimostrato un framework molto potente anche se non offre l'accesso completo alle API native come fa NativeScript.
-Inoltre, la diffusione già ampia del framework e il supporto da parte di Facebook, che sta usando React Native per sviluppare le proprie applicazione, fornisce al framework un'ampia possibilità di crescita, mediante l'estensione di nuove funzionalità o il supporto di ulteriori sistemi operativi, come Android.
+Inoltre, la diffusione già ampia del framework e il supporto da parte di Facebook, che sta attualmente utilizzando React Native per sviluppare alcune delle proprie applicazione, fornisce al framework un'ampia possibilità di crescita, mediante l'estensione di nuove funzionalità o il supporto di ulteriori sistemi operativi, come Android.
 
 Per quanto riguarda NativeScript, è stato scartato principalmente perché non raggiunge l'obiettivo di nascondere la complessità dello sviluppo di un'applicazione nativa con Obj-C o Swift.
+
 Infatti, l'obiettivo che si vuole raggiungere sviluppando un'applicazione nativa in JavaScript è quello di riutilizzare il più possibile le competenze derivate dallo sviluppo web senza dover imparare tutti i dettagli dello sviluppo con l'SDK nativo.
 
 Infine, Tabris.js è stato scartato perché è risultato troppo limitato e non è stato in grado di soddisfare alcune delle caratteristiche ricercate.

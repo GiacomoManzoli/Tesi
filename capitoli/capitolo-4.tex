@@ -66,7 +66,7 @@ Questo pulsante è caratterizzato da una freccia indietro e dal titolo del nodo 
 \caption{Dettaglio della griglia degli assets dell'applicazione attuale}  
 \end{figure}
 
-La griglia degli assets rappresenta il componente principale dell'applicazione, questa griglia permette di visualizzare per ogni assets contenuto nel nodo corrente un'immagine di anteprima e un pulsante che permette all'utente di visualizzare i dettagli dell'asset mediante un popover.
+La griglia degli assets rappresenta il componente principale dell'applicazione, questa griglia permette di visualizzare per ogni assets contenuto nel nodo corrente un'immagine di anteprima e un pulsante che permette all'utente di visualizzare i dettagli dell'asset mediante un \gls{popover}.
 
 \begin{figure}[htp]
 \centering
@@ -74,7 +74,7 @@ La griglia degli assets rappresenta il componente principale dell'applicazione, 
 \caption{Popover che mostra i dettagli di un asset}  
 \end{figure}
 
-Se l'utente esegue un tap sull'immagine di un asset, viene visualizzata una pagina dell'applicazione contenente i dettagli dell'asset e un'immagine ingrandita, maggiori informazioni riguardo questa pagina sono disponibili nella sezione §\ref{sec:pag-dettaglio-asset}.
+Se l'utente esegue un \gls{tap} sull'immagine di un asset, viene visualizzata una pagina dell'applicazione contenente i dettagli dell'asset e un'immagine ingrandita, maggiori informazioni riguardo questa pagina sono disponibili nella sezione §\ref{sec:pag-dettaglio-asset}.
 
 \todo[inline]{AskAlberto: Quanti assets vengono caricati per volta dalla griglia?}
 
@@ -95,7 +95,7 @@ Mediante un apposito pulsante l'utente può nascondere o rendere visibile la lis
 
 Sull'immagine l'utente può eseguire alcune gesture:
 \begin{itemize}
-\item Swipe verso sinistra, per visualizzare l'asset successivo contenuto nel nodo visualizzato dalla gallery.
+\item \gls{Swipe} verso sinistra, per visualizzare l'asset successivo contenuto nel nodo visualizzato dalla gallery.
 \item Swipe verso destra, per visualizzare l'asset precedente contenuto nel nodo visualizzato dalla gallery.
 \item Pinch-to-zoom, per ingrandire ulteriormente l'immagine.
 \end{itemize}
@@ -106,7 +106,7 @@ Infine, nella barra di navigazione della pagina è presente un pulsante che perm
 
 \section{Requisiti individuati}
 
-I requisiti individuati dall'analisi dell'applicazione attuale e dalle riunioni con il tutor aziendale sono stati categorizzati secondo il codice:
+I requisiti individuati dall'analisi dell'applicazione attuale e dalle riunioni con il tutor aziendale sono stati catalogati secondo il codice:
 \begin{center}
 \textit{R[T][I][C]}
 \end{center}
@@ -119,14 +119,13 @@ dove:
 	\end{itemize}
 \item \textbf{I}mportanza: specifica l'importanza del requisito e può assumere i seguenti valori:
 	\begin{itemize}
-	\item \textbf{O} - \textit{obbligatorio}, indica che il requisito deve essere soddisfatto per garantire il corretto funzionamento dell'applicazione;
-	\item \textbf{D} - \textit{desiderabile}, indica che il requisito non è fondamentale per il funzionamento minimo dell'applicazione, ma che comunque rappresenta un aspetto importante dell'applicazione;
-	\item \textbf{F} - \textit{facoltativo}, indica che il requisito fornisce del valore aggiunto all'applicazione
+	\item \textbf{O} - \textit{obbligatorio}, il requisito corrisponde ad un obbiettivo minimo del piano di stage e deve essere soddisfatto per garantire il funzionamento minimo dell'applicazione;
+	\item \textbf{D} - \textit{desiderabile}, il requisito corrisponde ad un obbiettivo massimo del piano di stage e deve essere soddisfatto per garantire il funzionamento dell'applicazione;
+	\item \textbf{F} - \textit{facoltativo}, indica che il requisito fornisce del valore aggiunto all'applicazione e non era stato previsto nel piano di stage.
 	\end{itemize}
 \item \textbf{C}odice: rappresenta un codice che identifica il requisito all'interno di una gerarchia. Questo codice è definito in modo che il il requisito \textit{RTIx.y} sia un requisito che va a definire con un grado maggiore di dettaglio alcuni degli aspetti del requisito \textit{RTIx}.
 \end{itemize}
 
-\todo[inline]{Descrizione dell'importanza dei requisiti}
 
 %subsection
 \input{./extra/requisiti.tex}

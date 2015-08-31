@@ -15,25 +15,25 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {lstlisting}{\numberline {5.5}JSON Schema di GET /g/{galleryCode}/filtro/{filtro}/{args}}{35}{lstlisting.5.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {lstlisting}{\numberline {5.6}Action: load nodes}{38}{lstlisting.5.6}
+\contentsline {lstlisting}{\numberline {5.6}Action - load nodes}{38}{lstlisting.5.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {lstlisting}{\numberline {5.7}Action: load assets}{38}{lstlisting.5.7}
+\contentsline {lstlisting}{\numberline {5.7}Action - load assets}{38}{lstlisting.5.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {lstlisting}{\numberline {5.8}Action: load more assets}{39}{lstlisting.5.8}
+\contentsline {lstlisting}{\numberline {5.8}Action - load more assets}{39}{lstlisting.5.8}
 \defcounter {refsection}{0}\relax 
-\contentsline {lstlisting}{\numberline {5.9}Action: clear assets}{39}{lstlisting.5.9}
+\contentsline {lstlisting}{\numberline {5.9}Action - clear assets}{39}{lstlisting.5.9}
 \defcounter {refsection}{0}\relax 
-\contentsline {lstlisting}{\numberline {5.10}Action: load asset details}{39}{lstlisting.5.10}
+\contentsline {lstlisting}{\numberline {5.10}Action - load asset details}{39}{lstlisting.5.10}
 \defcounter {refsection}{0}\relax 
-\contentsline {lstlisting}{\numberline {5.11}Action: load filter items}{40}{lstlisting.5.11}
+\contentsline {lstlisting}{\numberline {5.11}Action - load filter items}{40}{lstlisting.5.11}
 \defcounter {refsection}{0}\relax 
-\contentsline {lstlisting}{\numberline {5.12}Action: apply filter}{40}{lstlisting.5.12}
+\contentsline {lstlisting}{\numberline {5.12}Action - apply filter}{40}{lstlisting.5.12}
 \defcounter {refsection}{0}\relax 
-\contentsline {lstlisting}{\numberline {5.13}Action: remove filter}{40}{lstlisting.5.13}
+\contentsline {lstlisting}{\numberline {5.13}Action - remove filter}{40}{lstlisting.5.13}
 \defcounter {refsection}{0}\relax 
-\contentsline {lstlisting}{\numberline {5.14}Action: clear assets}{40}{lstlisting.5.14}
+\contentsline {lstlisting}{\numberline {5.14}Action - clear assets}{40}{lstlisting.5.14}
 \defcounter {refsection}{0}\relax 
-\contentsline {lstlisting}{\numberline {5.15}Action: network error}{41}{lstlisting.5.15}
+\contentsline {lstlisting}{\numberline {5.15}Action - network error}{41}{lstlisting.5.15}
 \defcounter {refsection}{0}\relax 
 \contentsline {lstlisting}{\numberline {6.1}Funzione che gestisce l'evento onScroll della griglia che visualizza gli assets}{46}{lstlisting.6.1}
 \defcounter {refsection}{0}\relax 
