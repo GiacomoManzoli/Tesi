@@ -10,7 +10,7 @@
 
 Questo capitolo contiene i requisiti dell'applicazione che sono stati individuati sia discutendo con il tutor aziendale, sia analizzando l'attuale client per iPad di WARDA.
 
-Infatti, dal momento che lo scopo dello stage è quello di riprodurre l'applicazione attuale non è stato necessario effettuare un'analisi dei requisiti a partire dai casi d'uso, in quanto possono essere estrapolati direttamente dall'applicazione attuale.
+Dal momento che lo scopo dello stage è quello di riprodurre l'applicazione attuale non è stato necessario effettuare un'analisi dei requisiti a partire dai casi d'uso, in quanto questi possono essere estrapolati direttamente dall'applicazione attuale.
 
 %Il contenuto di questo capitolo è il risultato dei vari sprint effettuati, in quanto l'intero processo di sviluppo del prodotto è stato svolto in modo simile a quanto previsto dalla metodologia agile Scrum.
 
@@ -27,16 +27,17 @@ Oltre alla visualizzazione della gallery è possibile anche creare nuovi asset, 
 
 Per il progetto dello stage, l'azienda è interessata solamente alla componente gallery dell'applicazione, in quanto si tratta della parte della applicazione che richiede la maggior quantità di risorse e che attualmente soffre di alcuni problemi prestazionali.
 
-La struttura dati alla base di una gallery realizzata con WARDA è un albero, composto da vari nodi, ognuno dei quali contenete un'insieme di assets e dei possibili filtrinzion
-Per WARDA un'asset è un'immagine a cui vengono associati dei meta dati che la descrivono, questi meta dati vengono poi utilizzati dal sistema di filtri definiti sul nodo per permettere all'utente di visualizzare un sotto insieme degli assets contenuti nel nodo.
+La struttura dati alla base di una gallery realizzata con WARDA è un albero, composto da vari nodi, ognuno dei quali contenete un'insieme di assets e dei possibili filtri.
+
+Per WARDA un'asset è un'immagine a cui vengono associati dei metadati che la descrivono, questi metadati possono poi essere utilizzati per filtrare gli assets presenti in un nodo, in modo da permettere all'utente di visualizzare solamente gli assets con determinate caratteristiche.
 
 \subsection{Pagina di visualizzazione della gallery}
 
 La pagina dell'applicazione che visualizza la gallery è composta da tre parti principali:
 \begin{itemize}
-\item Una lista che visualizza i nodi figli del nodo corrente;
-\item Una griglia che visualizza gli asset presenti nel nodo corrente;
-\item Una lista di filtri che visualizza i filtri che possono essere applicati sugli assets contenuti nel nodo corrente.
+\item una lista che visualizza i nodi figli del nodo corrente;
+\item una griglia che visualizza gli asset presenti nel nodo corrente;
+\item una lista di filtri che visualizza i filtri che possono essere applicati sugli assets contenuti nel nodo corrente.
 \end{itemize}
 Ognuno di questi componenti sarà descritto nelle seguenti sotto sezioni.
 
@@ -50,9 +51,10 @@ Ognuno di questi componenti sarà descritto nelle seguenti sotto sezioni.
 
 \todo[inline]{AskAlberto: Immagine della lista dei nodi, dove si vede più di qualche nodo }
 
-La lista dei figli del nodo corrente visualizza, per ogni nodo, il titolo e quando l'utente seleziona un nodo dalla lista, la lista viene aggiornata in modo che visualizzi i nodi figli del nodo selezionato, inoltre, viene anche aggiornata la griglia degli assets in modo che visualizzi gli assets contenuti nel nodo selezionato.
+La lista dei figli del nodo corrente visualizza il titolo di ogni nodo e, quando l'utente seleziona un nodo dalla lista, questa viene aggiornata in modo che visualizzi i nodi figli del nodo selezionato. 
+La selezione di un nodo dalla lista comporta anche l'aggiornamento della griglia degli assets, la quale andrà a visualizzare gli assets contenuti nel nodo selezionato.
 
-Durante il caricamento dei dati della lista viene visualizzato un indicatore di attività per fornire all'utente un feedback riguarda l'operazione di caricamento dei dati in corso.
+Durante il caricamento dei dati della lista viene visualizzato un indicatore di attività per fornire all'utente un feedback riguardo l'operazione di caricamento dei dati in corso.
 
 Sopra la lista dei nodi è presente un pulsante che permette di tornare al nodo padre del nodo correntemente visualizzato.
 
@@ -66,7 +68,7 @@ Questo pulsante è caratterizzato da una freccia indietro e dal titolo del nodo 
 \caption{Dettaglio della griglia degli assets dell'applicazione attuale}  
 \end{figure}
 
-La griglia degli assets rappresenta il componente principale dell'applicazione, questa griglia permette di visualizzare per ogni assets contenuto nel nodo corrente un'immagine di anteprima e un pulsante che permette all'utente di visualizzare i dettagli dell'asset mediante un \gls{popover}.
+La griglia degli assets rappresenta il componente principale dell'applicazione, questa griglia permette di visualizzare, per ogni asset contenuto nel nodo corrente, un'immagine di anteprima e un pulsante che permette all'utente di visualizzare i dettagli dell'asset mediante un \gls{popover}.
 
 \begin{figure}[htp]
 \centering
@@ -83,21 +85,21 @@ Per motivi prestazionali, la griglia non carica subito tutti gli assets contenut
 \subsubsection{Lista dei filtri}
 
 \todo[inline]{AskAlberto: Immagine della lista dei filtri}
-La lista dei filtri compare come pop up quando l'utente esegue un tap sul pulsante ``Filters'' presente nella barra di navigazione.
+La lista dei filtri compare come popovrt quando l'utente esegue un tap sul pulsante ``Filters'' presente nella barra di navigazione.
 
 Per ogni filtro presente nel nodo corrente, viene visualizzata una lista dei possibili valori che possono essere assegnati al filtro ed una casella di testo che permette all'utente di filtrare i valori presenti nella lista.
 
 \subsection{Pagina di dettaglio di un asset}\label{sec:pag-dettaglio-asset}
 
-Questa pagina contiene un'immagine ingrandita di un asset e una lista con tutti i dettagli dell'asset.
+Questa pagina contiene l'immagine ingrandita di un asset e una lista con tutti i dettagli dell'asset.
 
 Mediante un apposito pulsante l'utente può nascondere o rendere visibile la lista dei dettagli, in modo da lasciare più spazio all'immagine.
 
 Sull'immagine l'utente può eseguire alcune gesture:
 \begin{itemize}
-\item \gls{Swipe} verso sinistra, per visualizzare l'asset successivo contenuto nel nodo visualizzato dalla gallery.
-\item Swipe verso destra, per visualizzare l'asset precedente contenuto nel nodo visualizzato dalla gallery.
-\item Pinch-to-zoom, per ingrandire ulteriormente l'immagine.
+\item \gls{swipe} verso sinistra, per visualizzare l'asset successivo contenuto nel nodo visualizzato dalla gallery;
+\item swipe verso destra, per visualizzare l'asset precedente contenuto nel nodo visualizzato dalla gallery;
+\item pinch-to-zoom, per ingrandire ulteriormente l'immagine.
 \end{itemize}
 
 Infine, nella barra di navigazione della pagina è presente un pulsante che permette all'utente di tornare alla pagina con la visualizzazione a griglia.
@@ -106,7 +108,7 @@ Infine, nella barra di navigazione della pagina è presente un pulsante che perm
 
 \section{Requisiti individuati}
 
-I requisiti individuati dall'analisi dell'applicazione attuale e dalle riunioni con il tutor aziendale sono stati catalogati secondo il codice:
+I requisiti individuati dall'analisi dell'applicazione attuale e dalle discussioni con il tutor aziendale sono stati catalogati secondo il codice:
 \begin{center}
 \textit{R[T][I][C]}
 \end{center}

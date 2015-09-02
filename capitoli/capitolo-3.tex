@@ -37,7 +37,7 @@ Questo è reso possibile dal fatto che le informazioni riguardati lo stile sono 
 
 \subsection{La sintassi JSX}
 
-La sintassi JSX permette di inserire all'interno del codice JavaScript alcuni pezzi di codice XML, che devono essere poi trasfomati in JavaScript normale per poter essere eseguiti.
+La sintassi JSX permette di inserire all'interno del codice JavaScript alcuni pezzi di codice XML, che devono essere poi trasformati in JavaScript normale per poter essere eseguiti.
 
 Il vantaggio offerto da questa sintassi è quello di poter definire in modo dichiarativo come i vari componenti dell'applicazione si compongono tra loro, semplificando così la definizione dell'interfaccia grafica.
 
@@ -62,7 +62,7 @@ Nel caso di React Native, la traduzione da JSX a JavaScript viene fatta dal \tex
 
 Con React Native la definizione dello stile dei componenti di un'applicazione viene effettuata utilizzando degli oggetti JavaScript che hanno dei campi dati simili alle proprietà dei CSS.
 
-Questa scelta è stata effettuata perché il team di sviluppo di React Native ha dovuto implementare un sistema che trasformi le proprietà CSS in attributi dei componenti nativi ed ha ritenuto più compodo utilizzare degli oggetti JavaScript.
+Questa scelta è stata effettuata perché il team di sviluppo di React Native ha dovuto implementare un sistema che trasformi le proprietà CSS in attributi dei componenti nativi ed ha ritenuto più comodo utilizzare degli oggetti JavaScript.
 
 In questo modo vengono risolti alcuni problemi dei CSS, come la località dei nomi delle classi e la gestione delle variabili.
 Inoltre, non è più necessario riferirsi ad una determinata classe CSS utilizzando una stringa, in quanto basta usare un campo dati di un oggetto JavaScript, evidenziando così eventuali errori riguardanti il nome della classe errato.
@@ -113,7 +113,7 @@ Flux è un pattern architetturale per le applicazioni sviluppate con React e Rea
 
 Questo pattern sfrutta il sistema di composizione delle view di React costruendo un flusso di dati unidirezionale, che a partire da un oggetto \textit{store} diventano lo stato di un oggetto \textit{view-controller}, che a sua volta li fornisce ai propri componenti.
 
-L'unico modo per modificare i dati presenti in uno \textit{store} è mediante un \textit{action}, quando un \textit{view-controller} vuole modificare i dati a seguito di un evento scatenato dall'utente, crea un ogggeto \textit{action} che, mediante un \textit{dispatcher}, viene ricevuto dai vari \textit{stores} dell'applicazione.
+L'unico modo per modificare i dati presenti in uno \textit{store} è mediante un \textit{action}, quando un \textit{view-controller} vuole modificare i dati a seguito di un evento scatenato dall'utente, crea un oggeto \textit{action} che, mediante un \textit{dispatcher}, viene ricevuto dai vari \textit{stores} dell'applicazione.
 
 \begin{figure}[htp]
 \centering

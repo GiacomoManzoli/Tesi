@@ -8,16 +8,15 @@
 \label{cap:realizzazione}
 %**************************************************************
 
-Questo capitolo contiene la descrizione delle attività svolte e dei problemi incontrati durate lo sviluppo dell'applicazione, la quale è stata sviluppata a partire dal prototipo precedentemente realizzato per valutare React Native.
+Questo capitolo contiene la descrizione delle attività svolte e dei problemi incontrati durate lo sviluppo dell'applicazione, la quale è stata sviluppata a partire dal prototipo realizzato durante lo studio di React Native.
 
-L'attività di codifica è stata quindi organizzata in modo che venissero implementati di volta in volta dei determinati componenti, per soddisfare determinati requisiti, ottenendo così delle versioni intermedie e funzionanti dell'applicazione che sono state usate per effettuare delle demo all'interno dell'azienda.
-\todo{da rivedere}
+L'attività di codifica è stata organizzata in modo da riuscire a produrre delle versioni intermedie dell'applicazione, da utilizzare per effettuare delle demo all'interno dell'azienda e per valutare la necessità di alcune modifiche.
 
 \section{Dal prototipo alla gallery}
 
 Prima di iniziare lo sviluppo di nuove funzionalità sul prototipo è stato prima necessario adattarlo all'architettura progettata, modificano alcuni componenti.
 
-La versione del prototipo che è stata utilizzata implementava già il pattern Flux mediante il modulo npm \texttt{flux}, ed era organizzata con due \textit{stores}, uno che teneva gestiva le immagini e uno che si occupava di gestire le fonti disponibili per le immagini.
+La versione del prototipo che è stata utilizzata implementava già il pattern Flux mediante il modulo npm \texttt{flux}, ed era organizzata con due \textit{stores}, uno che gestiva le immagini e uno che si occupava di gestire le fonti disponibili per le immagini.
 
 Come prima cosa sono stati modificati gli \textit{stores} e le relative \textit{actions} secondo quando progettato, trasformando lo \textit{store} delle immagini in quello degli assets e lo \textit{store} delle fonti in quello dei nodi figli.
 
@@ -111,25 +110,35 @@ function loadNodes(parentUrl, nodes) {
 }
 \end{lstlisting}
 
+Questa versione dell'applicazione rispecchia gli obiettivi minimi previsti dal piano di stage ed è risultata particolarmente fluida, considerando che non è stata effettuata alcun tipo di ottimizzazione per quanto riugarda la gestione della memoria.
 
 \section{Sistema dei filtri}
 
-Nonostante la struttura del sistema dei filtri applicabili ai contenuti di una gallery risulti complesso, le API di WARDA forniscono un livello di astrazione tale da rendere l'implementazione lato client semplice.
+Una volta completati gli obiettivi minimi è stato implementato il sistema dei filtri per il contenuto di un nodo,la cui struttura risulta particolarmente complessa, in quanto i valori che può assumere un filtro dipendono sia dal nodo sul quale viene applicato il filtro, sia dai filtri che sono già stati applicati.
 
-Infatti, per inserire il sistema di filtri all'interno dell'applicazione è bastato implementare \texttt{FiltersStore} per tenere traccia dei filtri applicati ed modificare alcuni metodi di \texttt{AssetsActions} e di \texttt{WardaFetcher} in modo che prendessero un ulteriore parametro con i filtri da applicare.
+Fortunatamente le API di WARDA forniscono un livello di astrazione tale da rendere l'implementazione lato client semplice.
+
+Infatti, per inserire il sistema di filtri all'interno dell'applicazione è bastato implementare \texttt{FiltersStore} per tenere traccia dei filtri applicati e modificare alcuni metodi di \texttt{AssetsActions} e di \texttt{WardaFetcher} in modo che prendessero un ulteriore parametro con i filtri da applicare.
 
 \begin{lstlisting}[language=JavaScript, caption=WardaFetcher - Caricamento degli assets considerando i filtri]
 function fetchContents(contentUrl,start, filters){
+  //Funzione che scarica gli assets contenuti in un nodo
+
   var filtersString = '';
-  if (!contentUrl){ contentUrl = '';}
-  if (!start){start = 0;}
+  //Gestione dei casi limite
+  if (!contentUrl){ contentUrl = ''; }
+  if (!start){ start = 0; }
 
   if (filters && filters.length > 0){
+    //Conversione dell'array con i filtri da applicare in stringa
     filtersString = JSON.stringify(filters);
+    //Codifica della stringa
     filtersString = '&filter='+encodeURIComponent(filtersString);
   }
+  //Template string, una nuova tipologia di stringhe presente nello standard ES6 di JavaScript, le variabili presenti all'interno del blocco ${ } vengono sostituite con il loro valore
   var url=`${WARDA_URL+contentUrl}?start=${start}&limit=${Config.PAGE_SIZE}${filtersString}`;
 
+  //La richiesta effettiva dei dati viene effettuata in modo autenticato
   return authenticatedFetch(url)
     .then((response) => response.json());
 }
@@ -141,19 +150,19 @@ Per quanto riguarda l'implementazione grafica è stato utilizzato il componente 
 
 Durante questa fase è stato implementato il componente \texttt{AssetDetailPage} che viene visualizzato quanto l'utente effettua un tap sull'immagine di asset nella visualizzazione a griglia. 
 
-Una caratteristica di questa pagina è che quando l'utente esegue uno swipe sull'immagine dell'asset, devono essere visualizzati i dettagli dell'asset precedente o successivo rin base alla direzione dello swipe, ottenendo così una visualizzazione della gallery a carosello.
+Una caratteristica di questa pagina è che quando l'utente esegue uno swipe sull'immagine dell'asset, devono essere visualizzati i dettagli dell'asset precedente o successivo in base alla direzione dello swipe, ottenendo così una visualizzazione della gallery a carosello.
 
 L'ordine di visualizzazione degli assets nel carosello deve seguire l'ordine della griglia di \texttt{GalleryPage}, inoltre, dal momento che la visualizzazione a griglia può contenere solamente alcuni degli assets disponibili, è necessario che anche dalla visualizzazione a carosello sia possibile effettuare il download di ulteriori assets.
 
-Nell'implementare questo sistema si sono visti i alcuni dei vantaggi dell'architettura Flux, in quanto è bastato aggiungere due metodi a \texttt{NodesStore} per permette di recuperare l'asset precedente o successivo di un determinato oggetto \texttt{Asset} e di fornire a \texttt{AssetDetailPage} i dati che sono presenti su \texttt{NodesStore}.
+Nell'implementare questo sistema si sono visti i alcuni dei vantaggi dell'architettura Flux, in quanto è bastato alimentare \texttt{AssetDetailPage} con i dati presenti in \texttt{AssetsStore} e aggiungere due metodi a quest'ultimo, i quali permettono di recuperare l'asset precedente o successivo a partire da un determinato asset.
 
 Per la gestione del caricamento di ulteriori assets viene utilizzata la stessa \textit{action} che utilizza \texttt{GalleryPage} e, dal momento che i dati presenti in \texttt{NodesStore} sono comuni ad entrambe le pagine, quando \texttt{AssetDetailPage} richiede il caricamento di ulteriori dati, questi diventano subito disponibili anche per \texttt{GalleryPage} e viceversa, riducendo così il numero di download necessari.
 
 Una volta ultimato il carosello è stato implemento il componente \texttt{NetworkImage} in modo che l'utente ricevesse un feedback riguardo il caricamento dell'immagine.
-Questo si è reso necessario dal momento che l'immagine visualizzata in questa pagina è ad elevata risoluzione e il più delle volte il download richiede una quantità di tempo significativa.
+Questo si è reso necessario dal momento che l'immagine visualizzata in questa pagina è ad alta risoluzione e il più delle volte il download richiede una quantità di tempo significativa.
 
 L'implementazione di questo componente ha sofferto per un po' di tempo di alcuni problemi che derivavano da un bug del componente \texttt{Image} di React Native.
-La versione \texttt{0.9.0-rc} del framework ha poi risolto questi bug, rendendo così possibile l'implementazione finale di \texttt{NetworkImage}.
+La versione \texttt{0.9.0} del framework ha poi risolto questi bug, rendendo così possibile l'implementazione finale di \texttt{NetworkImage}.
 
 
 \section{Animazioni}
@@ -173,7 +182,7 @@ function onDetailButtonPress() {
 
 Come si può notare dall'esempio sopra riportato l'implementazione di queste animazioni risulta estremamente semplice.
 
-Una volta inserite tutte le animazioni necessarie alla modifica del layout si è animato lo swipe della visualizzazione a carosello di \texttt{AssetDetailPage}.
+Una volta inserite tutte le animazioni necessarie alla modifica del layout è stato animato lo swipe della visualizzazione a carosello di \texttt{AssetDetailPage}.
 
 Questa animazione ha richiesto l'utilizzo delle API \texttt{Animated} che permettono di definire animazioni più complesse.
 
@@ -311,7 +320,7 @@ Nell'ultima fase si è stata implementata la gestione degli errori di connession
 
 Le versioni precedenti dell'applicazione, infatti, non gestivano gli errori di comunicazione con il server, e nel caso se ne verificasse uno, i vari indicatori di attività rimanevano attivi fino al riavvio dell'applicazione.
 
-\`E stato quindi implementato \texttt{ErrorsStore} in modo che fosse possibile memorizzare i vari messaggi d'errore, inoltre, sono state modificati tutti i metodi che creano delle azioni, in modo che se la promessa ritornata dai metodi di \texttt{WardaFetcher} fallisce, anziché eseguire il \textit{dispatch} normale dell'azione, richiedano ad \texttt{ErrorsActions} la creazione di un errore di rete, mediante il metodo \texttt{networkError(errorData)}.
+\`E stato quindi implementato \texttt{ErrorsStore} in modo che fosse possibile memorizzare i vari messaggi d'errore, inoltre, sono state modificati tutti i metodi che creano delle azioni, in modo che, se la promessa ritornata dai metodi di \texttt{WardaFetcher} fallisce, anziché eseguire il \textit{dispatch} normale dell'azione, richiedano ad \texttt{ErrorsActions} la creazione di un errore di rete, mediante il metodo \texttt{networkError()}.
 
 La visualizzazione dei messaggi d'errore è stata affidata al componente di navigazione principale dell'applicazione, in modo quando si verifichi un errore venga renderizzato il messaggio al posto della tabbar.
 
