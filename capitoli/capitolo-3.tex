@@ -98,8 +98,26 @@ Il codice JavaScript prodotto utilizzando React Native segue lo standard ES5 dal
 Tuttavia è possibile utilizzare alcune funzionalità specifiche degli standard ES6 e ES7, come la destrutturazione degli oggetti e l'utilizzo delle classi, dal momento che il \textit{packager} di React Native (§\ref{sec:packager}), prima di compilare l'applicazione nativa, compila il codice JavaScript utilizzando Babel\footnote{\url{https://babeljs.io/}}, un compilatore per JavaScript che trasforma la sintassi ES6 e ES7 in modo che sia conforme allo standard ES5.
 
 \subsection{Animazioni}
-\todo[inline]{parlare di come funzionano le animazioni con React Native}
+Le animazioni sono una delle caratteristiche principali dell'esperienza d'uso delle applicazioni mobile e la fluidità delle animazioni è uno dei fattori che differenzia le applicazioni native da quelle ibride.
 
+Per la creazione delle animazioni React Native offre due moduli: \texttt{LayoutAnimation}, per le animazioni riguardanti le modifiche al layout dei componenti, e \texttt{Animated}, per definire animazioni specifiche per alcuni componenti e personalizzate.
+
+Entrambi questi moduli sono realizzati completamente in JavaScript e quindi non usufruiscono delle funzionalità offerte dalla piattaforma nativa. Nonostante ciò la fluidità delle animazioni può essere paragonabile a quella di un'applicazione nativa.
+
+Come già anticipato, il modulo \texttt{LayoutAnimation} permette di effettuare in modo animato le modifiche subite dal layout a causa dell'esecuzione delle funzione di rendering dei componenti.
+Questo, in combinazione con il sistema di layout flexbox, permette di ottenere animazioni come la comparsa o scomparsa di una barra laterale o il ridimensionamento animato dei componenti con una sola riga di codice, senza dover andare a modificare le dimensioni dei vari componenti.
+
+\begin{lstlisting}[language=JavaScript, caption=Utilizzo di LayoutAnimation]
+_onPress() {
+  LayoutAnimation.spring(); //Imposta l'esecuzione della prossima funzione di rendering in modo animato
+  this.setState({...}): //Modifica lo stato del componente in modo da causarne il re-rendering
+}
+\end{lstlisting}
+
+Il modulo \texttt{Animated} permette invece di andare a definire animazioni più complesse, sfruttando dei componenti ad hoc il cui layout può essere definito utilizzando particolari valori che quando vengono modificati, producono un'animazione.
+Un tipico utilizzo di questa tipologia di animazioni è quello di spostare alcuni elementi grafici in base ad un pan effettuato dall'utente.
+
+Le animazioni definite con questo modulo possono poi essere collegate tra loro, in modo da ottenere animazioni complesse come quelle legate al pinch-to-zoom su un'immagine.
 
 \subsection{Componenti esterni}
 
