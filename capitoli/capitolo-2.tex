@@ -20,7 +20,7 @@ La struttura del prototipo è stata scelta in modo tale da verificare le seguent
 \todo[inline]{Valutare se inserire le informazioni riguardo l'esecuzione di un'applicazione}
 
 \section{Considerazioni generali}
-Le applicazioni realizzate con questa tipologia di framework hanno alla base lo stesso funzionamento: una macchina virtuale interpreta il codice JavaScript e che utilizza un componente ``\textit{ponte}'' per modificare viene modifica l'interfaccia grafica dell'applicazione, la quale è realizzata con i componenti offerti dall'SDK nativo.
+Le applicazioni realizzate con questa tipologia di framework hanno alla base lo stesso funzionamento: una macchina virtuale interpreta il codice JavaScript e che utilizza un componente ``\textit{ponte}'' per modificare viene modifica l'interfaccia grafica dell'applicazione, la quale è realizzata con i componenti offerti dal \gls{SDK} nativo.
 Ognuno dei framework analizzati utilizza un ``\textit{ponte}'' diverso, il cui funzionamento verrà descritto più in dettaglio nell'apposita sezione.
 
 Un'altra caratteristica di questa tipologia di framework è l'assenza del \gls{DOM}.
@@ -28,8 +28,8 @@ Infatti, l'interfaccia di un'applicazione di questo tipo è composta da componen
 
 Nel complesso si ottengono due grossi vantaggi:
 \begin{itemize}
-\item L'esecuzione del codice JavaScript e il rendering dell'interfaccia grafica avviene su due thread distinti, rendendo l'applicazione più fluida;
-\item Utilizzando i componenti grafici nativi si ottiene un esperienza utente più simile a quella che si ottiene con un'applicazione realizzata in Obj-C/Java.
+\item l'esecuzione del codice JavaScript e il \gls{rendering} dell'interfaccia grafica avviene su due thread distinti, rendendo l'applicazione più fluida;
+\item utilizzando i componenti grafici nativi si ottiene un esperienza utente più simile a quella che si ottiene con un'applicazione realizzata in \gls{Obj-C}/Java.
 \end{itemize}
 
 \subsection{Differenze con le applicazioni ibride}
@@ -42,11 +42,11 @@ Inoltre, se è già disponibile un'applicazione web per desktop, la creazione di
 
 Questo approccio viene utilizzato da qualche anno e permette di creare applicazioni che possono accedere ad alcune funzionalità hardware del dispositivo come il giroscopio o la fotocamera e che possono essere commercializzate nei vari store online.
 
-Per supportare questo processo di sviluppo sono stati sviluppati dei framework come Cordova/PhoneGap che si occupano di gestire la WebView e di fornire un sistema di plug-in per accedere alle funzionalità native.
+Per supportare questo processo di sviluppo sono stati sviluppati dei framework come Cordova/\gls{PhoneGap} che si occupano di gestire la WebView e di fornire un sistema di plug-in per accedere alle funzionalità native.
 
 Questa tipologia di applicazioni ha però delle limitazioni:
 \begin{itemize}
-\item \textbf{Prestazioni:} trattandosi di una pagina web renderizzata all'interno di un browser, non è possibile sfruttare al massimo le potenzialità della piattaforma sottostante, come il multi-threading. Questo comporta che il codice JavaScript e il \gls{rendering} dell'interfaccia grafica vengano eseguiti nello stesso thread, ottenendo così un'interfaccia poco fluida.
+\item \textbf{Prestazioni:} trattandosi di una pagina web renderizzata all'interno di un browser, non è possibile sfruttare al massimo le potenzialità della piattaforma sottostante, come il multi-threading. Questo comporta che il codice JavaScript e il rendering dell'interfaccia grafica vengano eseguiti nello stesso thread, ottenendo così un'interfaccia poco fluida.
 \item \textbf{Esperienza d'uso:} una delle caratteristiche principali delle applicazioni native sono le \gls{gesture}, l'utente è abituato ad interagire con le applicazioni native, le quali sono dotate di un complessio sistema di riconoscimento delle gesture che non è ancora replicabile in ambito web.
 \item \textbf{Funzionalità:} non tutte le funzionalità che può sfruttare un'applicazione nativa sono disponibili in un'applicazione ibrida.
 \end{itemize}
@@ -120,7 +120,7 @@ In questo modo il runtime di NativeScript può utilizzare i metadati per riconos
 \end{figure}
 \FloatBarrier
 
-Di conseguenza il runtime di NativeScript permette di creare degli oggetti JavaScript che funzionano da proxy rispetto agli oggetti nativi specifici della piattaforma.
+Di conseguenza il runtime di NativeScript permette di creare degli oggetti JavaScript che funzionano da \gls{proxy} rispetto agli oggetti nativi specifici della piattaforma.
 Un esempio del funzionamento è dato dal seguente codice che su iOS crea un oggetto di tipo \texttt{UIAlertView}:
 
 \begin{lstlisting}[language=JavaScript, caption=Esempio di creazione di un oggetto nativo]
