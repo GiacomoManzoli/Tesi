@@ -12,15 +12,16 @@ Infatti, per valutare al meglio ogni framework è stato realizzata un'applicazio
 La struttura del prototipo è stata scelta in modo tale da verificare le seguenti caratteristiche:
 \begin{itemize}
 \item possibilità di disporre le immagini in una griglia;
-\item possibilità di implementare lo scroll infinito, cioè il caricamento di ulteriori dati una volta visualizzati tutti quelli disponibili;
-\item fluidità dello scroll, specialmente durante il caricamento dei dati;
+\item possibilità di implementare lo scroll infinito, una tecnica per ottimizzare il caricamento di grandi quantità di dati che prevede il caricamento iniziale di un limitato numero di elementi, per poi caricare gli elementi rimanenti man mano che l'utente prosegue nella visualizzazione dei dati.
+\item fluidità dell'applicazione, specialmente durante il caricamento dei dati;
 \item possibilità di personalizzare la barra di navigazione dell'applicazione.
 \end{itemize}
 
 \todo[inline]{Valutare se inserire le informazioni riguardo l'esecuzione di un'applicazione}
 
 \section{Considerazioni generali}
-Le applicazioni realizzate con questa tipologia di framework hanno alla base lo stesso funzionamento: una macchina virtuale interpreta il codice JavaScript e che utilizza un componente ``\textit{ponte}'' per modificare viene modifica l'interfaccia grafica dell'applicazione, la quale è realizzata con i componenti offerti dal \gls{SDK} nativo.
+Le applicazioni realizzate con questa tipologia di framework hanno alla base lo stesso funzionamento: una \gls{virtual machine} interpreta il codice JavaScript e utilizza un componente ``\textit{ponte}'' per modificare l'interfaccia grafica dell'applicazione, la quale è realizzata con i componenti offerti dal \gls{SDK} nativo.
+
 Ognuno dei framework analizzati utilizza un ``\textit{ponte}'' diverso, il cui funzionamento verrà descritto più in dettaglio nell'apposita sezione.
 
 Un'altra caratteristica di questa tipologia di framework è l'assenza del \gls{DOM}.
@@ -28,23 +29,23 @@ Infatti, l'interfaccia di un'applicazione di questo tipo è composta da componen
 
 Nel complesso si ottengono due grossi vantaggi:
 \begin{itemize}
-\item l'esecuzione del codice JavaScript e il \gls{rendering} dell'interfaccia grafica avviene su due thread distinti, rendendo l'applicazione più fluida;
+\item l'esecuzione del codice JavaScript e il \gls{rendering} dell'interfaccia grafica avvengono su due thread distinti, rendendo l'applicazione più fluida;
 \item utilizzando i componenti grafici nativi si ottiene un esperienza utente più simile a quella che si ottiene con un'applicazione realizzata in \gls{Obj-C}/Java.
 \end{itemize}
 
 \subsection{Differenze con le applicazioni ibride}
 
-Un'applicazione ibrida consiste in un'applicazione nativa composta da una \gls{WebView} che visualizza un'insieme di pagine web che replicano l'aspetto di un'applicazione nativa, le quali sono realizzate utilizzando HTML5, JavaScript e CSS3.
+Un'applicazione ibrida consiste in un'applicazione nativa composta da una \gls{WebView} che visualizza un'insieme di pagine web realizzate utilizzando HTML5, CSS3 e JavaScript, che replicano l'aspetto di un'applicazione nativa.
 
 Trattandosi quindi di un'applicazione web è possibile utilizzare tutti i framework e le tecnologie disponibili nell'ambito web, come AngularJS o jQuery.
 
-Inoltre, se è già disponibile un'applicazione web per desktop, la creazione di un'applicazione mobile ibrida risulta rapida in quanto è possibile riutilizzare sia parte del codice, sia tutte le competeneze legate allo sviluppo web.
+Inoltre, se è già disponibile un'applicazione web per desktop, la creazione di un'applicazione mobile ibrida risulta rapida in quanto è possibile riutilizzare sia parte del codice, sia le competenze legato allo sviluppo web dei vari sviluppatori.
 
 Questo approccio viene utilizzato da qualche anno e permette di creare applicazioni che possono accedere ad alcune funzionalità hardware del dispositivo come il giroscopio o la fotocamera e che possono essere commercializzate nei vari store online.
 
 Per supportare questo processo di sviluppo sono stati sviluppati dei framework come Cordova/\gls{PhoneGap} che si occupano di gestire la WebView e di fornire un sistema di plug-in per accedere alle funzionalità native.
 
-Questa tipologia di applicazioni ha però delle limitazioni:
+Questa tipologia di applicazioni ha però delle limitazioni riguardanti:
 \begin{itemize}
 \item \textbf{Prestazioni:} trattandosi di una pagina web renderizzata all'interno di un browser, non è possibile sfruttare al massimo le potenzialità della piattaforma sottostante, come il multi-threading. Questo comporta che il codice JavaScript e il rendering dell'interfaccia grafica vengano eseguiti nello stesso thread, ottenendo così un'interfaccia poco fluida.
 \item \textbf{Esperienza d'uso:} una delle caratteristiche principali delle applicazioni native sono le \gls{gesture}, l'utente è abituato ad interagire con le applicazioni native, le quali sono dotate di un complessio sistema di riconoscimento delle gesture che non è ancora replicabile in ambito web.
@@ -58,7 +59,7 @@ Il funzionamento dei framework analizzati in questo capitolo permette di risolve
 Framework pubblicato da EclipseSource\footnote{\url{http://eclipsesource.com/en/home/}} nel Maggio 2014, che permette di controllare mediante JavaScript i componenti dell'interfaccia grafica nativa, sia di iOS, sia di Android.
 
 \subsection{Come funziona}
-Tabris.js funziona utilizzando una versione modificata di Cordova, la quale grazie a dei plug-in sviluppati da EcplipseSoruce permette di interagire via JavaScript con i componenti nativi del sistema operativo.
+Tabris.js funziona utilizzando come "\textit{ponte}" una versione modificata di Cordova, la quale, grazie a dei plug-in sviluppati da EcplipseSoruce, permette di interagire via JavaScript con i componenti nativi del sistema operativo.
 
 Ognuno di questi plug-in incapsula un determinato componente dell'interfaccia grafica e fornisce delle API JavaScript per controllarlo.
 
@@ -77,7 +78,7 @@ Un altro pregio deriva dall'estensibilità, è infatti possibile utilizzare sia 
 
 Le criticità di Tabris.js riguardano per lo più il layout che deve essere fatto in modo imperativo, definendo prima la dimensione e la posizione dei vari componenti, per poi organizzarli in modo gerarchico.
 
-Sempre per quanto riguarda il layout, la personalizzazione è limitata in quanto risulta complesso se non impossibile definire dei componenti grafici composti o con layout particolari, come la visualizzazione a griglia.
+Sempre per quanto riguarda il layout, la personalizzazione è limitata in quanto risulta complesso, se non impossibile, definire dei componenti grafici composti o con layout particolari, come la visualizzazione a griglia.
 
 Infine, il framework non impone né suggerisce alcun pattern architetturale da adottare, lasciando completa libertà al programmatore, con il rischio che il codice sorgente dell'applicazione diventi complesso e difficile da manutenere.
 
@@ -93,7 +94,8 @@ Nel realizzare l'applicazione prototipo sono state riscontrate varie problematic
 Ad esempio, non è stato possibile disporre gli elementi in una griglia e la personalizzazione della barra di navigazione si è rilevata essere molto limitata.
 
 Un altro problema emerso durante la realizzazione del prototipo è stata la scarsa disponibilità di materiale online, infatti oltre alle risorse messe a disposizione da EclipseSource e alla documentazione ufficiale, non è stato possibile trovare altre informazioni riguardanti il framework.
-Tuttavia, l'applicazione realizzata è molto fluida e l'esperienza d'uso è paragonabile a quella di un'applicazione nativa.
+
+In ogni caso, l'applicazione realizzata è molto fluida e l'esperienza d'uso è paragonabile a quella di un'applicazione nativa.
 
 \FloatBarrier
 \section{NativeScript}
@@ -102,7 +104,7 @@ Framework rilasciato da Telerik nel Maggio 2015 che permette di realizzare appli
 
 \subsection{Come funziona}
 
-NativeScript utilizza come ``\textit{ponte}'' una \gls{virtual machine} appositamente modificata che all'occorrenza esegue del codice C++ per invocare le funzioni scritte in linguaggio nativo (Obj-C, Java).
+NativeScript utilizza come ``\textit{ponte}'' una virtual machine appositamente modificata che all'occorrenza esegue del codice C++ per invocare le funzioni scritte in linguaggio nativo (Obj-C, Java).
 
 Questa virtual machine deriva da \gls{V8} se l'applicazione viene eseguita su Android o da \gls{JavaScriptCore} nel caso l'applicazione venga eseguita su iOS.
 
@@ -133,7 +135,7 @@ Di conseguenza, utilizzando del codice C++, invoca la corrispondente funzione Ob
 
 Alla fine, la virtual machine crea un oggetto JavaScript che funziona come un proxy dell'oggetto nativo precedentemente creato e lo ritorna in modo che possa essere memorizzato e utilizzato come un normale oggetto JavaScript.
 
-I metadati che vengono iniettati nella virtual machine e che descrivono tutte le funzioni offerte dalle API native della piattaforma, vengono ricavati durante il processo di compilazione dell'applicazione utilizzando la proprietà di \gls{riflessione} dei linguaggi di programmazione.
+I metadati che vengono iniettati nella virtual machine e che descrivono tutte le funzioni offerte dalle API native della piattaforma, sono ricavati durante il processo di compilazione dell'applicazione utilizzando la proprietà di \gls{riflessione} dei linguaggi di programmazione.
 
 Il vantaggio di questa implementazione è che tutte le API native sono invocabili da JavaScript e anche le future versione delle API potranno essere supportate appena queste vegnono rilasciate.
 
@@ -190,7 +192,10 @@ La parte realizzata in Obj-C comprende:
 \item un'insieme di classi che derivano dai componenti nativi di uso comune e che utilizzano le macro per esportare alcune funzionalità.
 \end{itemize}
 La parte realizzata in JavaScript consiste in un livello di astrazione, organizzato in moduli, che nascondere l'interazione con le componenti native.
-Tra questi moduli è presente il modulo \texttt{NativeModules} che permette di interagire direttamente con il ``\textit{ponte}'' in modo da utilizzare oggetti nativi personalizzati.
+
+Tra questi moduli si trova la maggior parte dei componenti grafici necessari per la realizzazione di un'interfaccia grafica e per l'accesso ad alcune delle funzionalità del dispositivo, come le notifiche o i servizi di localizzazione. 
+
+\`E inoltre presente il modulo \texttt{NativeModules} che permette di interagire direttamente con il ``\textit{ponte}'' in modo da utilizzare oggetti nativi personalizzati.
 
 Quando viene avvita un'applicazione con React Native, viene eseguito del codice Obj-C che istanzia sia la virtual machine che andrà ad interpretare il JavaScript, sia il ``\textit{ponte}'' tra la virutal machine e il codice nativo.
 
@@ -203,9 +208,9 @@ Inoltre, la comunicazione tra questi due thread viene gestita in modo asicrono e
 
 \subsection{Pregi e difetti}
 
-React Native fornisce un buon livello di astrazione rispetto la piattaforma nativa, rendendo possibile ad uno sviluppatore web di realizzare un'applicazione nativa completa senza conoscere nulla riguardo il funzionamento della piattaforma sotto stante.
+React Native fornisce un buon livello di astrazione rispetto la piattaforma nativa, dando la possibilità ad uno sviluppatore web di realizzare un'applicazione nativa completa senza conoscere nulla riguardo il funzionamento della piattaforma sotto stante.
 
-A causa di questa astrazione non tutte le funzionalità native sono disponibili, tuttavia è possibile adattare classi Obj-C già esistenti mediante le macro messe a disposizione dal framework, anche se questo processo prevede una buona conoscenza del linguaggio Obj-C.
+A causa di questa astrazione non tutte le funzionalità native sono disponibili, tuttavia è possibile adattare classi Obj-C già esistenti mediante le macro messe a disposizione dal framework, tuttavia questo processo prevede una buona conoscenza del linguaggio Obj-C e della piattaforma sottostante.
 
 Tra gli altri pregi di React Native c'è la community di sviluppatori creatasi attorno al framework, infatti, nonstante si tratti di un framework pubblicato recentemente, si è già creata una community numerosa ed è già possibile trovare dei moduli open source che estendono le funzionalità base del framework.
 
