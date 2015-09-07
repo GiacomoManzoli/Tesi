@@ -22,13 +22,13 @@ Come prima cosa sono stati modificati gli \textit{stores} e le relative \textit{
 
 Inoltre, l'oggetto del prototipo che si occupava del recuperare i dati è stato modificato in modo che interroghi le API di WARDA e che gestisca l'autenticazione.
 
-L'implementazione dell'autenticazione è stata semplice in quanto è bastata una variabile booleana per specificare se l'autenticazione era già stata effettuata e, nel caso non lo fosse, veniva prima richiesta e poi veniva effettuata la chiamata alle API vera e propria.
+L'implementazione dell'autenticazione è stata semplice in quanto è bastato aggiungere una variabile buoolena che specifica se l'autenticazione è già stata effettuata. Nel caso questa non sia già stata effettuata, viene prima richiesta l'autenticazione e poi viene effettuata la chiamata alle API vera e propria.
 
 Non è stato necessario gestire cookie o quant'altro dal momento che l'oggetto \texttt{fetch} offerto da React Native per effettuare chiamate HTTP funziona come proxy del componente nativo di iOS che si occupa di gestire il traffico di rete e questo componente nativo gestisce in modo automatico i cookies.
 
 Per quanto riguarda l'interfaccia grafica è stato necessario modificare la griglia in modo che visualizzare oggetti di tipo \texttt{Asset} e che implementasse lo scroll infinito.
 
-Per implementare lo scroll infinito, il componente \texttt{ListView} di React Native, che sta alla base della visualizzazione a griglia, rende disponibile l'evento \texttt{onEndReached}, che viene sollevato ogni volta che l'utente raggiunge la fine della lista.
+La griglia degli assets è stata implementata utilizzando il componente \texttt{ListView} di React Native, il quale rende disponibile l'evento \texttt{onEndReached}, che viene sollevato ogni volta che l'utente raggiunge la fine della lista e che permette implementare lo scroll infinito. 
 
 Tuttavia questa implementazione aveva due problemi:
 \begin{itemize}
@@ -36,11 +36,12 @@ Tuttavia questa implementazione aveva due problemi:
 \item in alcuni casi l'evento veniva sollevato troppe volte il che portava a caricare più volte lo stesso blocco di dati.
 \end{itemize}
 
-Questi problemi sono stati risolti implementano lo scroll infinito utilizzando l'evento \texttt{onScroll} della \texttt{ListView}, che viene sollevato ogni volta che l'utente esegue uno scroll.
+Questi problemi sono stati risolti implementano lo scroll infinito utilizzando l'evento \texttt{onScroll} della \texttt{ListView}, evento che viene sollevato ogni volta che l'utente esegue uno scroll.
 
-Alla funzione che gestisce l'evento viene passato come parametro un oggetto con tutte le informazioni relative all'evento, in questo modo è stato possibile richiedere il caricamento di ulteriori dati ad una distanza personalizzabile dalla fine ed effettuare maggiori controlli in modo da evitare che la stessa porzione di dati venisse caricata più volte.
+Alla funzione che gestisce l'evento viene passato come parametro un oggetto con tutte le informazioni relative all'evento che si è verificato, in questo modo è stato possibile richiedere il caricamento di ulteriori dati ad una distanza personalizzata dalla fine ed effettuare maggiori controlli in modo da evitare che la stessa porzione di dati venisse caricata più volte.
 
 \begin{lstlisting}[language=JavaScript, caption=Funzione che gestisce l'evento onScroll della griglia che visualizza gli assets]
+//AssetsGrid.js
 function onScroll(args) {
   var scrollY = args.nativeEvent.contentOffset.y;
   var height = args.nativeEvent.contentSize.height;
@@ -62,6 +63,9 @@ function onScroll(args) {
 }
 \end{lstlisting}
 
+Una volta completata la visualizzazione a griglia è stato implementato il popover con l'anteprima dei dettagli, il quale è stato realizzato utilizzando il componente \texttt{react-native-popover}\footnote{\url{https://github.com/jeanregisser/react-native-popover}} presente in npm. 
+Questo componente permette di visualizzare un popover contenente altri componenti di React Native ed è stato utilizzato per contenere la lista dei dettagli di un asset.
+
 Al termine di questa prima fase l'applicazione è in grado di visualizzare il contenuto di un nodo e di visualizzare la lista dei nodi disponibili, anche se non è ancora possibile navigare tra i vari nodi.
 
 \section{Sistema di navigazione}
@@ -78,9 +82,11 @@ Inoltre, questo sistema deve essere in grado di tenere traccia del percorso che 
 Per far funzionare il tutto è stato necessario modificare la funzione che carica i nodi all'interno dello \textit{store} in modo che, prima di caricare i nuovi nodi, cerchi tra gli oggetti \texttt{Node} presenti all'interno dello \textit{store} l'oggetto rappresentante il nodo padre dei nuovi nodi, utilizzano l'URL dal quale sono stati scaricati i nuovi dati.
 L'oggetto viene poi inserito in coda ad un'array contenente tutti i nodi appartenenti al ramo della gallery che l'utente sta visualizzando.
 
-Nel caso che l'utente stia tornando ad un nodo precedente, anziché effettuare l'inserimento dell'oggetto nodo, viene rimosso l'ultimo elemento dell'array. 
+Nel caso che l'utente stia tornando all nodo precedente, anziché effettuare l'inserimento dell'oggetto nodo, viene rimosso l'ultimo elemento dell'array. 
 
 \begin{lstlisting}[language=JavaScript, caption=NodesStore - Caricamento dei nodi]
+//NodesStore.js
+
 //_nodes --> Array con i nodi correntemente visualizzati
 //_nodeHierarchy --> Array con i nodi visualizzati dall'utente, è inizializzato come array vuoto
 function loadNodes(parentUrl, nodes) {
@@ -114,13 +120,16 @@ Questa versione dell'applicazione rispecchia gli obiettivi minimi previsti dal p
 
 \section{Sistema dei filtri}
 
-Una volta completati gli obiettivi minimi è stato implementato il sistema dei filtri per il contenuto di un nodo,la cui struttura risulta particolarmente complessa, in quanto i valori che può assumere un filtro dipendono sia dal nodo sul quale viene applicato il filtro, sia dai filtri che sono già stati applicati.
+Una volta completati gli obiettivi minimi è stato implementato il sistema dei filtri per il contenuto di un nodo.
+
+La struttura di questo sistema risulta particolarmente complessa, in quanto i valori che può assumere un filtro dipendono sia dal nodo sul quale viene applicato il filtro, sia dai filtri che sono già stati applicati.
 
 Fortunatamente le API di WARDA forniscono un livello di astrazione tale da rendere l'implementazione lato client semplice.
 
 Infatti, per inserire il sistema di filtri all'interno dell'applicazione è bastato implementare \texttt{FiltersStore} per tenere traccia dei filtri applicati e modificare alcuni metodi di \texttt{AssetsActions} e di \texttt{WardaFetcher} in modo che prendessero un ulteriore parametro con i filtri da applicare.
 
 \begin{lstlisting}[language=JavaScript, caption=WardaFetcher - Caricamento degli assets considerando i filtri]
+//WardaFetcher.js
 function fetchContents(contentUrl,start, filters){
   //Funzione che scarica gli assets contenuti in un nodo
 
@@ -144,7 +153,7 @@ function fetchContents(contentUrl,start, filters){
 }
 \end{lstlisting}
 
-Per quanto riguarda l'implementazione grafica è stato utilizzato il componente \texttt{react-native-popover}\footnote{\url{https://github.com/jeanregisser/react-native-popover}} presente in npm, il quale permette di visualizzare un popover contenente altri componenti di React Native e che in questo caso è stato utilizzato per visualizzare la lista dei filtri.
+Per quanto riguarda l'implementazione grafica è stato riutilizzato il componente \texttt{react-native-popover}.
 
 \section{Visualizzazione di dettaglio}
 
@@ -174,6 +183,7 @@ Le prime animazioni introdotte riguardano la comparsa e la scomparsa della lista
 Queste animazioni sono state ottenute utilizzando le API \texttt{LayoutAnimation} che permettono di renderizzare l'interfaccia grafica in modo che le modifiche risultino animate.
 
 \begin{lstlisting}[language=JavaScript, caption=AssetDetailPage - Animazione della comparsa/scomparsa lista dei dettagli]
+//AssetDetailPage.js
 function onDetailButtonPress() {
   LayoutAnimation.easeInEaseOut(); //Imposta l'animazione
   this.setState({detailsVisible: !this.state.detailsVisible}); //Modifica lo stato del componente causandone il re-rendering
@@ -191,7 +201,7 @@ Per funzionare, queste API utilizzano dei particolari componenti grafici, il cui
 Ad esempio, il seguente codice implementa l'animazione dell'immagine in modo che l'immagine segua lo swipe dell'utente.
 
 \begin{lstlisting}[language=JavaScript, caption=AssetDetailImage - Spostamento dell'immagine allo swipe delll'utente]
-//costruttore di AssetDetailPage
+//AssetDetailPage.js - Costruttore
 
 this.state.panX = new Animated.Value(0); //Variabile che rappresenta lo spostamento dell'immagine
 this.state.swipePanResponder = PanResponder.create({ //Oggetto che si occupa di rilevare le gesture dell'utente
@@ -237,11 +247,12 @@ Infatti, nelle applicazioni native, una volta che l'utente ha completato uno swi
 
 Mentre se l'utente non completa lo swipe, l'immagine viene fatta ritornare alla posizione iniziale, sempre in modo animato.
 
-Per implementare ciò, è stato necessario modificare il gestore dello swipe, in modo che esegua le animazioni dell'immagine quando l'utente completa o annulla lo swipe.
+Per implementare ciò, è stato necessario modificare il gestore dello swipe, in modo che esegua le animazioni dell'immagine quando l'utente completa o annulla la gesture.
 
 Il codice utilizzato per effettuare le altre animazioni è il seguente:
 \begin{lstlisting}[language=JavaScript, caption=AssetDetailPage - Animazione dello swipe]
-this.state.swipePanResponder = PanResponder.create({
+//AssetDetailPage.js - Costruttore
+  this.state.swipePanResponder = PanResponder.create({
   ...
   onPanResponderRelease: (e, gestureState) => { //Funzione che viene invocata quando l'utente termina la gesture
     var swipeSize = 150; //Dimensione dello swipe in pixel
@@ -303,7 +314,7 @@ this.state.swipePanResponder = PanResponder.create({
 });
 \end{lstlisting}
 
-Sfruttando le stesse API si è inoltre provato da implementare il pinch-to-zoom, per permettere all'utente di zoomare l'immagine.
+Sfruttando le stesse API si è inoltre provato da implementare il pinch-to-zoom, per permettere all'utente di ingrandire l'immagine.
 
 Tuttavia il pinch-to-zoom è una gesture complessa che combina più gesture:
 \begin{itemize}
@@ -322,6 +333,6 @@ Le versioni precedenti dell'applicazione, infatti, non gestivano gli errori di c
 
 \`E stato quindi implementato \texttt{ErrorsStore} in modo che fosse possibile memorizzare i vari messaggi d'errore, inoltre, sono state modificati tutti i metodi che creano delle azioni, in modo che, se la promessa ritornata dai metodi di \texttt{WardaFetcher} fallisce, anziché eseguire il \textit{dispatch} normale dell'azione, richiedano ad \texttt{ErrorsActions} la creazione di un errore di rete, mediante il metodo \texttt{networkError()}.
 
-La visualizzazione dei messaggi d'errore è stata affidata al componente di navigazione principale dell'applicazione, in modo quando si verifichi un errore venga renderizzato il messaggio al posto della tabbar.
+La visualizzazione dei messaggi d'errore è stata affidata al componente di navigazione principale dell'applicazione, in modo quando si verifichi un errore venga renderizzato il messaggio al posto della \textit{tabbar}.
 
 \`E stato inoltre modificato il componente \texttt{NetworkImage} in modo che nel caso si verifichi un errore durante il caricamento dell'immagine venga visualizzato un messaggio d'errore al posto di un'immagine grigia.

@@ -5,9 +5,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ AskAlberto: Immagine della lista dei nodi, dove si vede pi\IeC {\`u} di qualche nodo }{26}{section*.31}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ AskAlberto: Quanti assets vengono caricati per volta dalla griglia?}{28}{section*.35}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ AskAlberto: Quanti assets vengono caricati per volta dalla griglia?}{27}{section*.35}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ AskAlberto: Immagine della lista dei filtri}{28}{section*.37}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ AskAlberto: Immagine della lista dei filtri}{27}{section*.37}
 \defcounter {refsection}{0}\relax 
 \contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ AskAlberto: immagine della visualizzazione di dettaglio, sia con la sidenav aperta, sia con la sidenav chiusa}{28}{section*.38}
 \defcounter {refsection}{0}\relax 
@@ -15,14 +15,10 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ se si decide di utilizzare Flow conviene implementare le varie classi}{38}{section*.44}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ valutare se ha senso aggiungere i diagrammi delle attivit\IeC {\`a}}{46}{section*.59}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Aggiornare questa frase se si implementa la pagina di login}{57}{section*.59}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ eventualmente aggiungere la storia della continuos delivery, magari fare un'appendice}{55}{section*.60}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Per lo stesso motivo non sono stati sviluppati test d'unit\IeC {\`a} automatizzati in quanto \IeC {\`e} stato ritenuto pi\IeC {\`u} interessante provare un maggior numero di funzionalit\IeC {\`a} del framework come le animazioni. }{58}{section*.60}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Aggiornare questa frase se si implementa la pagina di login}{55}{section*.61}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Aggiornare questa frase se si implementa la pagina di login}{58}{section*.61}
 \defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Per lo stesso motivo non sono stati sviluppati test d'unit\IeC {\`a} automatizzati in quanto \IeC {\`e} stato ritenuto pi\IeC {\`u} interessante provare un maggior numero di funzionalit\IeC {\`a} del framework come le animazioni. }{56}{section*.62}
-\defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ Aggiornare questa frase se si implementa la pagina di login}{56}{section*.63}
-\defcounter {refsection}{0}\relax 
-\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ AskAlberto: Giusto per curiosit\IeC {\`a}, la parte collaborativa del client comunica con i WebSocket? Nel caso aggiornare}{56}{section*.64}
+\contentsline {todo}{\color@box {}{orange}{\leavevmode {\color {orange}o}}\ AskAlberto: Giusto per curiosit\IeC {\`a}, la parte collaborativa del client comunica con i WebSocket? Nel caso aggiornare}{58}{section*.62}

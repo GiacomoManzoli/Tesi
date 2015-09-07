@@ -17,12 +17,12 @@ Questo capitolo inizia con una descrizione delle API REST messe a disposizione d
 
 \section{API REST di WARDA}
 
-Le API REST di WARDA rendono disponibili tutte le funzionalità dell'applicazione e nella realizzazione del progetto sono state usate solamente quelle relative all'autenticazione e alla navigazione della gallery.
+Le API REST di WARDA rendono disponibili tutte le funzionalità dell'applicazione, tuttavia, per la realizzazione dell'applicazione saranno utilizzate solamente quelle relative all'autenticazione e alla navigazione della gallery.
 
 \subsection{Autenticazione}
 
 Le API di WARDA offrono due risorse diverse per effettuare il login, \texttt{/authenticate} per le applicazioni e \texttt{/login} per le pagine html.
-Nel caso dell'applicazione sviluppata è stata usata la prima risorsa che deve essere richiesta come POST e con un corpo contenente i campi dati \textit{username} e \textit{password}, codificati come form-data.
+Nel caso dell'applicazione sviluppata deve essere utilizzata la prima risorsa che deve essere richiesta come POST e con un corpo contenente i campi dati \textit{username} e \textit{password}, codificati come form-data.
 
 Nel caso che l'autenticazione sia andata a buon fine, il server risponde con un header HTTP 200, mentre se l'autenticazione fallisce risponde con un header 401.
 
@@ -32,7 +32,7 @@ Le API di WARDA offrono varie risorse che permettono di navigare la gallery, di 
 Gli URL delle risorse richiedono sempre due parametri, \texttt{galleryCode} e \texttt{args}, il primo specifica l'id della gallery alla quale si vuole accedere e il secondo specifica il percorso a partire dal nodo radice della gallery.
 Ad esempio l'URL \texttt{/g/opt/nodi/20151/} corrisponde ai nodi figli del nodo \texttt{20151} che è il figlio del nodo radice della gallery \texttt{opt}.
 
-Nel realizzare l'applicazione sono state utilizzate solo alcune delle risorse disponibili, le quali verranno descritte nelle seguenti sotto sezioni. 
+Nel realizzare l'applicazione sono state utilizzate saranno utilizzate solamente alcune delle risorse disponibili, le quali verranno descritte nelle seguenti sotto sezioni. 
 
 \subsubsection{GET /g/\{galleryCode\}/nodi/\{args\}}\label{sec:nodes}
 
@@ -247,19 +247,30 @@ In particolare un modulo può essere:
 \end{itemize}
 
 Questi moduli verranno presentati nelle successive sezioni, organizzati per funzionalità.
-Tra questi moduli non è presente il \textit{dispatcher} del pattern Flux, dal momento che come è possibile utilizzare come \textit{dispatcher} quello fornito da \texttt{flux} (§\ref{sec:flux-npm}.
+Tra questi moduli non è presente il \textit{dispatcher} del pattern Flux, dal momento che come è possibile utilizzare come \textit{dispatcher} quello fornito da \texttt{flux} (§\ref{sec:flux-npm}).
 
 \subsection{Model}
 
-Come model dell'applicazione vengono usati gli oggetti ricevuti in risposta dalle chiamate alle API.
+Come \textit{model} dell'applicazione vengono usati gli oggetti ricevuti in risposta dalle chiamate alle API.
 
 I tipi di oggetti che possono essere ricevuti in risposta sono:
 \begin{itemize}
-\item \texttt{Node}: oggetti contenuti nell'array ricevuto in risposta da \texttt{/g/\{galleryCode\}/nodi/\{args\}};
+\item \texttt{Node}: oggetti contenuti nell'array ricevuto in risposta da \begin{center}
+\texttt{/g/\{galleryCode\}/nodi/\{args\}};
+\end{center} 
 \item \texttt{Filter}: oggetti contenuti nell'array \texttt{filters} di un oggetto \texttt{Node};
-\item \texttt{FilterItem}: oggetti contenuti nell'array ricevuto in risposta da \texttt{/g/\{galleryCode\}/filtro/\{filtro\}/\{args\}};
-\item \texttt{Asset}: oggetti contenuti nell'array \texttt{items} della risposta ricevuta da \texttt{/g/\{galleryCode\}/contents/\{args\}};
-\item \texttt{AssetDetail}: oggetti contenuti nell'array ricevuto in risposta da \texttt{/g/\{galleryCode\}/filtro/\{filtro\}/\{args\}}.
+\item \texttt{FilterItem}: oggetti contenuti nell'array ricevuto in risposta da 
+\begin{center}
+\texttt{/g/\{galleryCode\}/filtro/\{filtro\}/\{args\}};
+\end{center}
+\item \texttt{Asset}: oggetti contenuti nell'array \texttt{items} della risposta ricevuta da 
+\begin{center}
+\texttt{/g /\{galleryCode\}/contents/\{args\}};
+\end{center}
+\item \texttt{AssetDetail}: oggetti contenuti nell'array ricevuto in risposta da
+\begin{center}
+\texttt{/g/\{galleryCode\}/filtro/\{filtro\}/\{args\}}.
+\end{center}
 \end{itemize}
 
 Dal momento che l'applicazione verrà realizzata in JavaScript, non è necessario definire delle classi specifiche per ogni tipo di oggetti, in quanto è possibile utilizzare direttamente il tipo \texttt{object}.
@@ -272,7 +283,7 @@ Questa categoria di moduli fornisce delle funzioni di utilità globali.
 L'unico modulo appartenente a questa categoria è \texttt{WardaFetcher} che espone dei metodi che permettono di effettuare le chiamate alle API REST.
 inoltre, \texttt{WardaFetcher} si occupa anche di gestire la sessione, effettuando in modo automatico il login e mantenendone lo stato.
 
-I metodi di questo oggetto che lavorano in modo asincrono utilizzano gli oggetti \texttt{Promise} presenti nello standard ES6 di JavaScript, dal momento che l'utilizzo delle promesse permette di ottenere del codice più leggibile.
+I metodi di questo oggetto che lavorano in modo asincrono utilizzano gli oggetti \texttt{Promise} presenti nello standard ES6 di JavaScript, questo perché l'utilizzo delle promesse permette di ottenere del codice più leggibile.
 
 \subsection{Stores}
 
@@ -398,7 +409,7 @@ Questo componente rappresenta la toolbar per la pagina che visualizza la gallery
 \begin{itemize}
 \item un pulsante indietro, che visualizza il titolo del nodo corrente e che permette all'utente di tornare la nodo padre del nodo visualizzato;
 \item un pulsante che permette all'utente di visualizzare o nascondere la lista dei nodi figli del nodo corrente;
-\item un pulsante che permette all'utente di visualizzare la lista dei filtri disponibili e, nel caso ci siano dei filtri applicati, il testo del pulsante mostra il numero di filtri applicati.
+\item un pulsante che permette all'utente di visualizzare la lista dei filtri disponibili. Se sono stati applicati dei filtri, il testo del pulsante deve riportare anche il numero di filtri applicati.
 \end{itemize}
 
 Dal momento che si è definita la toolbar come un componente \textit{dumb}, è necessario che tutte le informazioni vengano fornite dal componente che contiene la toolbar, che nello specifico è \texttt{GalleryPage}.
@@ -414,14 +425,14 @@ Questo componente rappresenta la toolbar per la pagina di che visualizza i detta
 La navigazione tra le pagine dell'applicazione avviene mediante due componenti.
 Il primo è una \textit{tabbar}, una barra posta nella parte bassa dello schermo che visualizza un numero limitato di pulsanti, ad ognuno dei quali viene associata una \textit{tab} (pagina) da visualizzare. 
 
-La \textit{tabbar} contiene solamente una sola \textit{tab} per la gallery edè stata inserita solamente per replicare l'aspetto grafico dell'applicazione già esistente.
+La \textit{tabbar} contiene solamente una sola \textit{tab} per la gallery ed è stata inserita solamente per replicare l'aspetto grafico dell'applicazione già esistente.
 
 All'interno della \textit{tab} della gallery è presente un \textit{router}, un componente che permette di navigare tra più pagine che funziona come uno stack, in quanto per passare da una pagina ad un'altra viene effettuato il \textit{push} di un componente sopra lo stack, mentre per tornare alla pagina precedente viene effettuato il \textit{pop} del componente che si trova al primo posto dello stack.
 
 Questo \textit{router} permette di passare dalla pagina di visualizzazione della gallery alla pagina con i dettagli di un asset, per poi permette all'utente di tornare indietro.
 
-\section{Diagrammi di attività}
-\todo[inline]{valutare se ha senso aggiungere i diagrammi delle attività}
-\subsection{Navigazione nella gallery}
+%\section{Diagrammi di attività}
+%\todo[inline]{valutare se ha senso aggiungere i diagrammi delle attività}
+%\subsection{Navigazione nella gallery}
 
-\subsection{Applicazione di un filtro}
+%\subsection{Applicazione di un filtro}

@@ -10,7 +10,9 @@
 
 Questo capitolo contiene i requisiti dell'applicazione che sono stati individuati sia discutendo con il tutor aziendale, sia analizzando l'attuale client per iPad di WARDA.
 
-Dal momento che lo scopo dello stage è quello di riprodurre l'applicazione attuale non è stato necessario effettuare un'analisi dei requisiti a partire dai casi d'uso, in quanto questi possono essere estrapolati direttamente dall'applicazione attuale.
+Dal momento che lo scopo dello stage è quello di riprodurre l'applicazione attuale non è stato necessario effettuare un'analisi dei requisiti a partire dai casi d'uso, in quanto i requisiti possono essere estrapolati direttamente dall'applicazione attuale.
+
+Il capitolo inizia quindi con la descrizione delle caratteristiche d'interesse dell'applicazione attuale per poi elencare i requisiti individuati.
 
 %Il contenuto di questo capitolo è il risultato dei vari sprint effettuati, in quanto l'intero processo di sviluppo del prodotto è stato svolto in modo simile a quanto previsto dalla metodologia agile Scrum.
 
@@ -23,11 +25,11 @@ Dal momento che lo scopo dello stage è quello di riprodurre l'applicazione attu
 
 L'applicazione attuale per iPad di WARDA permette di visualizzare il contenuto di una gallery che si trovata sul server principale dell'applicazione.
 
-Oltre alla visualizzazione della gallery è possibile anche creare nuovi asset, recuperando un'immagine dalla libreria interna del dispositivo o dalla fotocamere e accedere alla funzionalità collaborative offerte dalla piattaforma WARDA.
+Oltre alla visualizzazione della gallery è possibile anche creare nuovi asset, recuperando un'immagine dalla libreria interna del dispositivo o dalla fotocamera e accedere alla funzionalità collaborative offerte dalla piattaforma WARDA.
 
 Per il progetto dello stage, l'azienda è interessata solamente alla componente gallery dell'applicazione, in quanto si tratta della parte della applicazione che richiede la maggior quantità di risorse e che attualmente soffre di alcuni problemi prestazionali.
 
-La struttura dati alla base di una gallery realizzata con WARDA è un albero, composto da vari nodi, ognuno dei quali contenete un'insieme di assets e dei possibili filtri.
+La struttura dati alla base di una gallery realizzata con WARDA è un albero, composto da vari nodi, ognuno dei quali contiene un'insieme di assets e dei possibili filtri.
 
 Per WARDA un'asset è un'immagine a cui vengono associati dei metadati che la descrivono, questi metadati possono poi essere utilizzati per filtrare gli assets presenti in un nodo, in modo da permettere all'utente di visualizzare solamente gli assets con determinate caratteristiche.
 
@@ -85,7 +87,7 @@ Per motivi prestazionali, la griglia non carica subito tutti gli assets contenut
 \subsubsection{Lista dei filtri}
 
 \todo[inline]{AskAlberto: Immagine della lista dei filtri}
-La lista dei filtri compare come popovrt quando l'utente esegue un tap sul pulsante ``Filters'' presente nella barra di navigazione.
+La lista dei filtri compare come popover quando l'utente esegue un tap sul pulsante ``Filters'' presente nella barra di navigazione.
 
 Per ogni filtro presente nel nodo corrente, viene visualizzata una lista dei possibili valori che possono essere assegnati al filtro ed una casella di testo che permette all'utente di filtrare i valori presenti nella lista.
 
@@ -125,7 +127,7 @@ dove:
 	\item \textbf{D} - \textit{desiderabile}, il requisito corrisponde ad un obbiettivo massimo del piano di stage e deve essere soddisfatto per garantire il funzionamento dell'applicazione;
 	\item \textbf{F} - \textit{facoltativo}, indica che il requisito fornisce del valore aggiunto all'applicazione e non era stato previsto nel piano di stage.
 	\end{itemize}
-\item \textbf{C}odice: rappresenta un codice che identifica il requisito all'interno di una gerarchia. Questo codice è definito in modo che il il requisito \textit{RTIx.y} sia un requisito che va a definire con un grado maggiore di dettaglio alcuni degli aspetti del requisito \textit{RTIx}.
+\item \textbf{C}odice: rappresenta un codice che identifica il requisito all'interno di una gerarchia. Questo codice è definito in modo che il requisito \textit{RTIx.y} sia un requisito che va a definire con un grado maggiore di dettaglio alcuni degli aspetti del requisito \textit{RTIx}.
 \end{itemize}
 
 

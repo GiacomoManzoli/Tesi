@@ -33,7 +33,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {lstlisting}{\numberline {5.13}Action - remove filter}{42}{lstlisting.5.13}
 \defcounter {refsection}{0}\relax 
-\contentsline {lstlisting}{\numberline {5.14}Action - clear assets}{42}{lstlisting.5.14}
+\contentsline {lstlisting}{\numberline {5.14}Action - clear assets}{43}{lstlisting.5.14}
 \defcounter {refsection}{0}\relax 
 \contentsline {lstlisting}{\numberline {5.15}Action - network error}{43}{lstlisting.5.15}
 \defcounter {refsection}{0}\relax 
