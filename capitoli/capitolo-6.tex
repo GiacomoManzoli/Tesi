@@ -48,7 +48,7 @@ function onScroll(args) {
   var visibleHeight = args.nativeEvent.layoutMeasurement.height;
 
   if (scrollY > height - 2 * visibleHeight){
-    //Se mancano menod di due schermate alla fine della lista, richiedo il caricamento di ulteriori dati
+    //Se mancano meno di due schermate alla fine della lista, richiedo il caricamento di ulteriori dati
     //Per evitare che il caricamento venga effettuato troppe volte controllo che i dati siano cambiati rispetto all'ultima volta che ho effettuato il caricamento.
     if (_dataChanged){ //Viene settata a true quando il componente riceve dei dati nuovi
       _dataChanged = false;
@@ -79,7 +79,7 @@ Questo sistema è inoltre vincolato dal funzionamento delle API di WARDA, le qua
 \`E stato quindi necessario implementare un sistema che, quando viene richiesto il caricamento dei nodi a partire da un determinato URL, sia in grado di recuperare un oggetto \texttt{Node} contenente le informazioni relative al nodo padre dei nodi di cui è richiesto il caricamento.
 Inoltre, questo sistema deve essere in grado di tenere traccia del percorso che l'utente ha effettuato durante la navigazione della gallery.
 
-Per far funzionare il tutto è stato necessario modificare la funzione che carica i nodi all'interno dello \textit{store} in modo che, prima di caricare i nuovi nodi, cerchi tra gli oggetti \texttt{Node} presenti all'interno dello \textit{store} l'oggetto rappresentante il nodo padre dei nuovi nodi, utilizzano l'URL dal quale sono stati scaricati i nuovi dati.
+Per far funzionare il tutto è stato necessario modificare la funzione che carica i nodi all'interno dello \textit{store} in modo che, prima di caricare i nuovi nodi, cerchi tra gli oggetti \texttt{Node} presenti all'interno dello \textit{store} l'oggetto rappresentante il nodo padre dei nuovi nodi utilizzando l'URL dal quale sono stati scaricati i nuovi dati.
 L'oggetto viene poi inserito in coda ad un'array contenente tutti i nodi appartenenti al ramo della gallery che l'utente sta visualizzando.
 
 Nel caso che l'utente stia tornando all nodo precedente, anziché effettuare l'inserimento dell'oggetto nodo, viene rimosso l'ultimo elemento dell'array. 
@@ -181,7 +181,6 @@ Una volta soddisfatti i requisiti obbligatori e desiderabili si è passati all'i
 Le prime animazioni introdotte riguardano la comparsa e la scomparsa della lista dei nodi nella visualizzazione della gallery e della lista dei dettagli di un asset nella visualizzazione di dettaglio.
 
 Queste animazioni sono state ottenute utilizzando le API \texttt{LayoutAnimation} che permettono di renderizzare l'interfaccia grafica in modo che le modifiche risultino animate.
-
 \begin{lstlisting}[language=JavaScript, caption=AssetDetailPage - Animazione della comparsa/scomparsa lista dei dettagli]
 //AssetDetailPage.js
 function onDetailButtonPress() {
@@ -189,7 +188,6 @@ function onDetailButtonPress() {
   this.setState({detailsVisible: !this.state.detailsVisible}); //Modifica lo stato del componente causandone il re-rendering
 }
 \end{lstlisting}
-
 Come si può notare dall'esempio sopra riportato l'implementazione di queste animazioni risulta estremamente semplice.
 
 Una volta inserite tutte le animazioni necessarie alla modifica del layout è stato animato lo swipe della visualizzazione a carosello di \texttt{AssetDetailPage}.
@@ -200,7 +198,7 @@ Per funzionare, queste API utilizzano dei particolari componenti grafici, il cui
 
 Ad esempio, il seguente codice implementa l'animazione dell'immagine in modo che l'immagine segua lo swipe dell'utente.
 
-\begin{lstlisting}[language=JavaScript, caption=AssetDetailImage - Spostamento dell'immagine allo swipe delll'utente]
+\begin{lstlisting}[language=JavaScript, caption=AssetDetailPage - Spostamento dell'immagine allo swipe delll'utente]
 //AssetDetailPage.js - Costruttore
 
 this.state.panX = new Animated.Value(0); //Variabile che rappresenta lo spostamento dell'immagine
@@ -263,7 +261,7 @@ Il codice utilizzato per effettuare le altre animazioni è il seguente:
       var toValue;
       
       if (gestureState.dx > 0) {
-        toValue = 1000; //Valore in modo che l'immagine venga renderizzata offscreen
+        toValue = 1000; //Valore sufficientemente grande in modo che l'immagine venga renderizzata fuori dallo schermo
       } else {
         toValue = -1000;
       }

@@ -8,7 +8,7 @@
 \label{cap:framework-analizzati}
 %**************************************************************
 Questo capitolo inizia con una descrizione generale della tipologia di framework analizzati, per poi andare a descrive più in dettaglio il funzionamento dei singoli framewrok, seguito da una sintesi dei pregi e difetti e un breve resoconto riguardo il prototipo realizzato.
-Infatti, per valutare al meglio ogni framework è stato realizzata un'applicazione prototipo che visualizza una gallery di immagini ottenuta mediante chiamate ad \gls{API} \gls{REST}.\\
+Infatti, per valutare al meglio ogni framework è stato realizzata un'applicazione prototipo che visualizza una serie di immagini ottenute effettuando delle chiamate ad \gls{API} \gls{REST}.\\
 La struttura del prototipo è stata scelta in modo tale da verificare le seguenti caratteristiche:
 \begin{itemize}
 \item possibilità di disporre le immagini in una griglia;
@@ -17,7 +17,6 @@ La struttura del prototipo è stata scelta in modo tale da verificare le seguent
 \item possibilità di personalizzare la barra di navigazione dell'applicazione.
 \end{itemize}
 
-\todo[inline]{Valutare se inserire le informazioni riguardo l'esecuzione di un'applicazione}
 
 \section{Considerazioni generali}
 Le applicazioni realizzate con questa tipologia di framework hanno alla base lo stesso funzionamento: una \gls{virtual machine} interpreta il codice JavaScript e utilizza un componente ``\textit{ponte}'' per modificare l'interfaccia grafica dell'applicazione, la quale è realizzata con i componenti offerti dal \gls{SDK} nativo.
@@ -25,7 +24,7 @@ Le applicazioni realizzate con questa tipologia di framework hanno alla base lo 
 Ognuno dei framework analizzati utilizza un ``\textit{ponte}'' diverso, il cui funzionamento verrà descritto più in dettaglio nell'apposita sezione.
 
 Un'altra caratteristica di questa tipologia di framework è l'assenza del \gls{DOM}.
-Infatti, l'interfaccia di un'applicazione di questo tipo è composta da componenti grafici del sistema operativo che vengono creati e composti a durante l'esecuzione dell'applicazione e non da elementi HTML come nelle applicazioni ibride.
+Infatti, l'interfaccia di un'applicazione di questo tipo è composta da componenti grafici del sistema operativo, che vengono creati e composti durante l'esecuzione dell'applicazione, e non da elementi HTML come nelle applicazioni ibride.
 
 Nel complesso si ottengono due grossi vantaggi:
 \begin{itemize}
@@ -35,11 +34,11 @@ Nel complesso si ottengono due grossi vantaggi:
 
 \subsection{Differenze con le applicazioni ibride}
 
-Un'applicazione ibrida consiste in un'applicazione nativa composta da una \gls{WebView} che visualizza un'insieme di pagine web realizzate utilizzando HTML5, CSS3 e JavaScript, che replicano l'aspetto di un'applicazione nativa.
+Un'applicazione ibrida consiste in un'applicazione nativa composta da una \gls{WebView} che visualizza un'insieme di pagine web realizzate utilizzando HTML5, CSS3 e JavaScript in modo da replicare l'aspetto di un'applicazione nativa.
 
 Trattandosi quindi di un'applicazione web è possibile utilizzare tutti i framework e le tecnologie disponibili nell'ambito web, come AngularJS o jQuery.
 
-Inoltre, se è già disponibile un'applicazione web per desktop, la creazione di un'applicazione mobile ibrida risulta rapida in quanto è possibile riutilizzare sia parte del codice, sia le competenze legato allo sviluppo web dei vari sviluppatori.
+Inoltre, se è già disponibile un'applicazione web per desktop, la creazione di un'applicazione mobile ibrida risulta rapida in quanto è possibile riutilizzare sia parte del codice, sia le competenze legate allo sviluppo web già in possesso dai vari sviluppatori.
 
 Questo approccio viene utilizzato da qualche anno e permette di creare applicazioni che possono accedere ad alcune funzionalità hardware del dispositivo come il giroscopio o la fotocamera e che possono essere commercializzate nei vari store online.
 
@@ -48,11 +47,12 @@ Per supportare questo processo di sviluppo sono stati sviluppati dei framework c
 Questa tipologia di applicazioni ha però delle limitazioni riguardanti:
 \begin{itemize}
 \item \textbf{Prestazioni:} trattandosi di una pagina web renderizzata all'interno di un browser, non è possibile sfruttare al massimo le potenzialità della piattaforma sottostante, come il multi-threading. Questo comporta che il codice JavaScript e il rendering dell'interfaccia grafica vengano eseguiti nello stesso thread, ottenendo così un'interfaccia poco fluida.
-\item \textbf{Esperienza d'uso:} una delle caratteristiche principali delle applicazioni native sono le \gls{gesture}, l'utente è abituato ad interagire con le applicazioni native, le quali sono dotate di un complessio sistema di riconoscimento delle gesture che non è ancora replicabile in ambito web.
+\item \textbf{Esperienza d'uso:} una delle caratteristiche principali delle applicazioni native sono le \gls{gesture} che l'utente può effettuare per interagire con le varie applicazioni. Queste applicazioni sfruttano un complesso sistema di riconoscimento delle gesture che non è ancora replicabile in ambito web e l'esperienza d'uso delle applicazioni ibride risente di questa limitazione.
 \item \textbf{Funzionalità:} non tutte le funzionalità che può sfruttare un'applicazione nativa sono disponibili in un'applicazione ibrida.
 \end{itemize}
+Il funzionamento dei framework analizzati in questo capitolo permette di risolvere i problemi principali delle applicazioni ibride, in quanto sfruttando i componenti nativi, non sono presenti i problemi prestazionali legati al rendering dell'interfaccia grafica, il quale non viene bloccato dall'esecuzione del codice JavaScript.
 
-Il funzionamento dei framework analizzati in questo capitolo permette di risolvere i problemi principali delle applicazioni ibride, in quanto sfruttando i componenti nativi, non sono presenti i problemi prestazionali legati al rendering dell'interfaccia grafica, il quale non viene bloccato dall'esecuzione del codice JavaScript. Inoltre, sempre per il fatto che  vengono utilizzati componenti nativi, è possibile sfruttare lo stesso sistema di riconoscimento delle gesture e le stesse animazioni, rendendo l'esperienza d'uso più simile a quella offerta da un'applicazione realizzata con l'SDK nativo.
+Inoltre, sempre per il fatto che  vengono utilizzati componenti nativi, è possibile sfruttare lo stesso sistema di riconoscimento delle gesture e le stesse animazioni, rendendo l'esperienza d'uso più simile a quella offerta da un'applicazione realizzata con l'SDK nativo.
 
 \section{Tabris.js}
 
@@ -111,9 +111,9 @@ Questa virtual machine deriva da \gls{V8} se l'applicazione viene eseguita su An
 Le modiche subite dalla virtual machine riguardano:
 \begin{itemize}
 \item la possibilità di intercettare l'esecuzione di una funzione JavaScript ed eseguire in risposta del determinato codice C++;
-\item l'iniezione di metadati che descrivono le API native;
+\item l'iniezione di metadati che descrivono le API native.
 \end{itemize} 
-In questo modo il runtime di NativeScript può utilizzare i metadati per riconoscere le funzioni JavaScript che hanno una corrispondente funzione nativa, in modo da poter richidere l'esecuzione della funzione nativa mediante del codice C++.
+In questo modo il runtime di NativeScript, ovvero la virtual machine modificata, può utilizzare i metadati per riconoscere le funzioni JavaScript che hanno una corrispondente funzione nativa, per poi richiedere l'esecuzione della funzione nativa mediante del codice C++.
 
 \begin{figure}[htp]
 \centering
@@ -122,10 +122,11 @@ In questo modo il runtime di NativeScript può utilizzare i metadati per riconos
 \end{figure}
 \FloatBarrier
 
-Di conseguenza il runtime di NativeScript permette di creare degli oggetti JavaScript che funzionano da \gls{proxy} rispetto agli oggetti nativi specifici della piattaforma.
+Il runtime di NativeScript permette quindi di creare degli oggetti JavaScript che funzionano da \gls{proxy} rispetto agli oggetti nativi della piattaforma e, quando l’oggetto proxy subisce delle modifiche, il runtime le riporta anche sull'oggetto nativo. 
+
 Un esempio del funzionamento è dato dal seguente codice che su iOS crea un oggetto di tipo \texttt{UIAlertView}:
 
-\begin{lstlisting}[language=JavaScript, caption=Esempio di creazione di un oggetto nativo]
+\begin{lstlisting}[language=JavaScript, caption=Esempio di creazione di un oggetto nativo con NativeScript]
 var alert = new UIAlertView();
 \end{lstlisting}
 
@@ -133,7 +134,7 @@ All'esecuzione del JavaScript la virtual machine riconosce, grazie ai metadati i
 
 Di conseguenza, utilizzando del codice C++, invoca la corrispondente funzione Obj-C che in questo caso istanzia un oggetto \texttt{UIAlertView} e memorizza un puntatore all'oggetto nativo in modo da poterlo recuperare in seguito per eseguire delle funzioni su di esso.
 
-Alla fine, la virtual machine crea un oggetto JavaScript che funziona come un proxy dell'oggetto nativo precedentemente creato e lo ritorna in modo che possa essere memorizzato e utilizzato come un normale oggetto JavaScript.
+Alla fine, la virtual machine crea un oggetto JavaScript che funziona come proxy dell'oggetto nativo precedentemente creato e lo ritorna in modo che possa essere memorizzato e utilizzato come un normale oggetto JavaScript.
 
 I metadati che vengono iniettati nella virtual machine e che descrivono tutte le funzioni offerte dalle API native della piattaforma, sono ricavati durante il processo di compilazione dell'applicazione utilizzando la proprietà di \gls{riflessione} dei linguaggi di programmazione.
 
@@ -178,7 +179,7 @@ Sono state individuate soluzioni alternative sfruttando librerie native di terze
 \FloatBarrier
 \section{React Native}
 
-Framework sviluppato da Facebook come progetto interno per la realizzazione di applicazioni native per iOS sfruttando il JavaScript e con un funzionamento analogo a quello di React\footnote{Framework per lo sviluppo di applicazioni web pubblicato da Facebook.}.
+Framework sviluppato da Facebook come progetto interno per la realizzazione di applicazioni native per iOS sfruttando il JavaScript e con un funzionamento analogo a quello di React\footnote{Framework per lo sviluppo di applicazioni web pubblicato da Facebook \url{http://facebook.github.io/react/}.}.
 
 React Native è stato successivamente rilasciato come progetto open source nel Marzo 2015.
 
@@ -197,7 +198,7 @@ Tra questi moduli si trova la maggior parte dei componenti grafici necessari per
 
 \`E inoltre presente il modulo \texttt{NativeModules} che permette di interagire direttamente con il ``\textit{ponte}'' in modo da utilizzare oggetti nativi personalizzati.
 
-Quando viene avvita un'applicazione con React Native, viene eseguito del codice Obj-C che istanzia sia la virtual machine che andrà ad interpretare il JavaScript, sia il ``\textit{ponte}'' tra la virutal machine e il codice nativo.
+Quando viene avvita un'applicazione con React Native, viene eseguito del codice Obj-C che istanzia sia la virtual machine che andrà ad interpretare il JavaScript, sia il ``\textit{ponte}'' tra la virutal machine e la piattaforma nativa.
 
 Durante l'esecuzione del codice JavaScript è possibile richiedere l'esecuzione di codice nativo usando il modulo \texttt{NativeModules}, questo modulo fornisce all'oggetto ``\textit{ponte}'' le informazioni necessarie per permettergli di identificare la porzione di codice nativo da eseguire.
 Per poter essere eseguito il codice nativo deve utilizzare le macro fornite da React Native, altrimenti il ``\textit{ponte}'' non riesce ad identificare il metodo da invocare.
@@ -214,7 +215,7 @@ A causa di questa astrazione non tutte le funzionalità native sono disponibili,
 
 Tra gli altri pregi di React Native c'è la community di sviluppatori creatasi attorno al framework, infatti, nonstante si tratti di un framework pubblicato recentemente, si è già creata una community numerosa ed è già possibile trovare dei moduli open source che estendono le funzionalità base del framework.
 
-Infine il flusso di lavoro per lo sviluppo di un'applicazione con React Native risulta molto veloce, in quanto grazie all'utilizzo dei WebSocket, non è necessario eseguire la build dell'applicazione ad ogni modifica del codice sorgente, portando un notevole risparmio di tempo.
+Infine, il flusso di lavoro per lo sviluppo di un'applicazione con React Native risulta molto veloce, in quanto grazie all'utilizzo dei WebSocket, non è necessario eseguire la build dell'applicazione ad ogni modifica del codice sorgente, portando un notevole risparmio di tempo.
 
 \subsection{Prototipo}
 
@@ -232,7 +233,7 @@ Tuttavia sono state individuate alcune soluzioni che prevedono l'utilizzo di mod
 
 \FloatBarrier
 \section{Confronto finale}
-\todo[inline]{Trovare un nome migliore}
+%\todo[inline]{Trovare un nome migliore}
 
 \begin{table}[h]
 \centering

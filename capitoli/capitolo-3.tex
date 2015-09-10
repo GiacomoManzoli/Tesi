@@ -14,9 +14,8 @@ Come anticipato nel precedente capitolo, si è scelto di utilizzare React Native
 
 \section{React Native}
 
-Trattandosi di un framework per la definizione di interfacce grafiche, React Native prevede di strutturare l'applicazione secondo \textit{compomenti}, ognuno dei quali viene definito combinando componenti standard offerti dalla libreria o altri componenti definiti dallo sviluppatore.
-
-Visto in un ottica MVC, un componente di React Native funziona da \textit{view-controller} in quanto la definizione di un componente comprende sia la definizione dell'aspetto (\textit{view}), sia la definizione della logica di funzionamento (\textit{controller}). 
+Trattandosi di un framework per la definizione di interfacce grafiche, React Native prevede di strutturare l'applicazione secondo componenti, ognuno dei quali viene definito combinando componenti standard offerti dalla libreria o altri componenti definiti dallo sviluppatore.
+%Visto in un ottica \gls{MVC}, un componente di React Native funziona da \textit{view-controller} in quanto la definizione% di un componente comprende sia la definizione dell'aspetto (\textit{view}), sia la definizione della logica di funzionamento (\textit{controller}). 
 
 React Native offre una serie di componenti basilari che permettono di definire l'interfaccia grafica dell'applicazione e che vengono poi tradotti in componenti nativi. Questi componenti possono essere sia semplici come \texttt{View}, \texttt{Text} o \texttt{Image}, sia più complessi come \texttt{TabBarIOS} o \texttt{MapView}.
 
@@ -35,9 +34,11 @@ Tipicamente un componente \textit{dumb} non ha un proprio stato e si limita a vi
 Un componente \textit{smart} invece è tipicamente composto da più componenti, sia \textit{dumb} che \textit{smart}, ed è dotato di un proprio stato, contenente i dati da passare ai componenti figli.
 Inoltre, un componente di questo tipo contiene la definizione delle funzioni che si occupano della gestione degli eventi.
 
+Riportando questo pattern in un ottica \gls{MVC}, i componenti \textit{dumb} funzionano come le \textit{view} mentre i componenti \textit{smart} funzionano da \textit{view-controller}. questo perché definiscono sia l'interfaccia grafica, utilizzando altri componenti, sia la logica applicativa.
+
 Nel caso l'applicazione segua il design pattern Flux (§\ref{sec:flux}), i componenti \textit{smart} sono quelli che si occupano di recuperare lo stato dagli \textit{stores} e di creare le varie \textit{actions}.
 
-Un altro pattern comune nelle applicazioni sviluppate con React Native è quello di definire un singolo componente per ogni file di codice che deve contenere tutto il codice del componente, sia quello riguardante la logica di funzionamento, sia quello riguardante la logica di layout.
+La divisione in componenti dell'applicazione influenza anche la l'organizzazione del codice. Tipicamente viene definito un singolo componente per file di codice, il quale contiene tutto il codice del componente, sia quello riguardante la logica di funzionamento, sia quello riguardante la logica di layout.
 Questo è reso possibile dal fatto che le informazioni riguardati lo stile sono definite come oggetti JavaScript e il layout viene definito utilizzando la sintassi JSX.
 
 \subsection{La sintassi JSX}
@@ -48,19 +49,19 @@ Il vantaggio offerto da questa sintassi è quello di poter definire in modo dich
 
 \begin{lstlisting}[language=JavaScript, caption=Esempio della sintassi JSX di React Native]
 render(){
-return (
-<View style={styles.container}>
-  <Text style={styles.welcome}>
-    Welcome to React Native!
-  </Text>
-  <Text style={styles.instructions}>
-    To get started, edit index.ios.js
-  </Text>
-  <Text style={styles.instructions}>
-    Press Cmd+R to reload,{'\n'}
-    Cmd+D or shake for dev menu
-  </Text>
-</View>);
+  return (
+    <View style={styles.container}>
+    <Text style={styles.welcome}>
+      Welcome to React Native!
+    </Text>
+    <Text style={styles.instructions}>
+      To get started, edit index.ios.js
+    </Text>
+    <Text style={styles.instructions}>
+      Press Cmd+R to reload,{'\n'}
+      Cmd+D or shake for dev menu
+    </Text>
+  </View>);
 }
 \end{lstlisting}
 
@@ -75,7 +76,7 @@ Con React Native la definizione dello stile dei componenti di un'applicazione vi
 Questa scelta è stata effettuata perché il team di sviluppo di React Native ha dovuto implementare un sistema che trasformi le proprietà CSS in attributi dei componenti nativi ed ha ritenuto più comodo utilizzare degli oggetti JavaScript.
 
 In questo modo vengono risolti alcuni problemi dei CSS, come la località dei nomi delle classi e la gestione delle variabili.
-Inoltre, non è più necessario riferirsi ad una determinata classe CSS utilizzando una stringa, in quanto basta usare il campo dati di un oggetto JavaScript, evidenziando così eventuali errori, come l'utilizzo di un nome della classe errato.
+Inoltre, non è più necessario riferirsi ad una determinata classe CSS utilizzando una stringa, in quanto basta usare il campo dati di un oggetto JavaScript, evidenziando così eventuali errori, come l'utilizzo di una classe inesistente.
 
 Per creare uno di questi oggetti è necessario utilizzare le StyleSheet API messe a disposizione da React Native.
 
@@ -120,10 +121,10 @@ Entrambi questi moduli sono realizzati completamente in JavaScript e quindi non 
 Nonostante ciò la fluidità delle animazioni può essere paragonabile a quella di un'applicazione nativa.
 
 Come già anticipato, il modulo \texttt{LayoutAnimation} permette di effettuare in modo animato le modifiche subite dal layout a causa dell'esecuzione delle funzione di rendering dei componenti.
-Questo, in combinazione con il sistema di layout flexbox, permette di ottenere animazioni come la comparsa o scomparsa di una barra laterale o il ridimensionamento animato dei componenti con una sola riga di codice, senza dover andare a modificare le dimensioni dei vari componenti.
+Questo, in combinazione con il sistema di layout flexbox, permette di ottenere animazioni come la comparsa o scomparsa di una barra laterale o il ridimensionamento animato dei componenti con una sola riga di codice.
 
 \begin{lstlisting}[language=JavaScript, caption=Utilizzo di LayoutAnimation]
-_onPress() {
+onPress() {
   LayoutAnimation.spring(); //Imposta l'esecuzione della prossima funzione di rendering in modo animato
   this.setState({...}): //Modifica lo stato del componente in modo da causarne il re-rendering
 }
@@ -182,7 +183,7 @@ Il menù è composto dalle voci:
 \begin{itemize}
 \item \textbf{Reload}: permette di ricaricare il bundle dell'applicazione.
 \item \textbf{Debug in ...}: permette di eseguire il debug dell'applicazione utilizzando Chrome o Safari, maggiori informazioni sono disponibili nella sezione §\ref{sec:chrome}.
-\item \textbf{Show FPS Monitor}: permette di visualizzare il numero di FPS dell'interfaccia grafica dell'applicazione.
+\item \textbf{Show FPS Monitor}: permette di visualizzare il numero di \gls{FPS} dell'interfaccia grafica dell'applicazione.
 \item \textbf{Inspect Element}: permette di analizzare i vari componenti dell'interfaccia grafica, visualizzando, per ogni componente selezionato, i componenti che lo contengono, lo stile del componente e le dimensioni effettive del componente.
 \item \textbf{Enable Live Reload}: quando abilitato l'applicazione viene ricaricata in modo automatico ad ogni modifica subita dai file sorgenti.
 \item \textbf{Start Profiling}: permette di visualizzare gli stack delle chiamate durante l'esecuzione dell'applicazione, relativi sia alla parte Obj-C, sia alla parte JavaScript. 
@@ -242,13 +243,13 @@ Come anticipato, Flux prevede tre tipologie principali di componenti:
 Nonostante Flux ed MVC possano sembrare due pattern totalmente diversi, in realtà Flux è una variante del MVC classico con delle modifiche che lo adattano al funzionamento di React e React Native.
 
 Infatti, con MVC, i \textit{controllers} interagiscono con il \textit{model} e le \textit{view} dell'applicazione visualizzano i dati presenti nel \textit{model}.
-Quando il \textit{model} viene modificato, le \textit{view} vengono notificate e recuperano i dati aggiornati dal model.
+Quando il \textit{model} viene modificato, le \textit{view} vengono notificate e recuperano i dati aggiornati dal \textit{model}.
 
-Mentre con Flux, i \textit{view-controller} aggiornano il model, definito dagli \textit{stores}, in un modo più strutturato utilizzando le \textit{actions} e, una volta che l'aggiornamento degli \textit{store} è completato, i \textit{view-controller} vengono notificati in modo che possano recuperare i nuovi dati.
+Mentre con Flux, i \textit{view-controller} aggiornano il \textit{model}, definito dagli \textit{stores}, in un modo più strutturato utilizzando le \textit{actions} e, una volta che l'aggiornamento degli \textit{store} è completato, questi vengono notificati in modo che possano recuperare i nuovi dati, che vengo poi passati ai componenti che compongono il \textit{view-controller}.
 
-Considerando che per React e React Native una \textit{view} e il relativo \textit{controller} sono rappresentati da un unico componente, diventa chiaro che la logica di base è la stessa, l'unica differenza è come viene effettuato l'aggiornamento dei dati, che con Flux deve passare attraverso delle \textit{actions}.
+La logica di base è quindi la stessa, l'unica differenza è come viene effettuato l'aggiornamento dei dati, che con Flux deve passare attraverso delle \textit{actions}.
 
-Questo vincolo imposto dall'utilizzo delle \textit{actions} permette di circoscrivere la logica di aggiornamento del \textit{model} all'interno del \textit{model} stesso, limitando la complessità dell'applicazione, che nel caso di grandi applicazioni può diventare ingestibile.
+Questo vincolo imposto dall'utilizzo delle \textit{actions} permette di circoscrivere la logica di aggiornamento del \textit{model} all'interno degli \textit{stores}, limitando la complessità dell'applicazione, che nel caso di grandi applicazioni può diventare ingestibile.
 
 Un altro vantaggio che viene dall'adozione di Flux con React riguarda l'aggiornamento dell'interfaccia grafica a seguito di una modifica dei dati, in quanto sia React che Flux ragionano a stati: con React l'interfaccia grafica visualizza uno stato dell'applicazione e un cambiamento dello stato comporta il re-rendering dell'interfaccia, mentre con Flux l'insieme degli \textit{stores} rappresenta lo stato dell'applicazione e l'esecuzione di un'azione comporta il cambiamento dello stato.
 

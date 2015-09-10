@@ -8,7 +8,6 @@
 \label{cap:progettazione}
 %**************************************************************
 
-\todo[inline]{Aggiungere dei mock up per i vari componenti grafici}
 
 Questo capitolo inizia con una descrizione delle API REST messe a disposizione dalla piattaforma WARDA, per poi andare a descrivere i vari componenti dell'applicazione realizzata.
 
@@ -17,11 +16,11 @@ Questo capitolo inizia con una descrizione delle API REST messe a disposizione d
 
 \section{API REST di WARDA}
 
-Le API REST di WARDA rendono disponibili tutte le funzionalità dell'applicazione, tuttavia, per la realizzazione dell'applicazione saranno utilizzate solamente quelle relative all'autenticazione e alla navigazione della gallery.
+Le API REST di WARDA rendono disponibili tutte le funzionalità dell'applicazione, tuttavia per la realizzazione dell'applicazione saranno utilizzate solamente quelle relative all'autenticazione e alla navigazione della gallery.
 
 \subsection{Autenticazione}
 
-Le API di WARDA offrono due risorse diverse per effettuare il login, \texttt{/authenticate} per le applicazioni e \texttt{/login} per le pagine html.
+Le API di WARDA offrono due risorse diverse per effettuare il login, \texttt{/authenticate} per le applicazioni e \texttt{/login} per le pagine HTML.
 Nel caso dell'applicazione sviluppata deve essere utilizzata la prima risorsa che deve essere richiesta come POST e con un corpo contenente i campi dati \textit{username} e \textit{password}, codificati come form-data.
 
 Nel caso che l'autenticazione sia andata a buon fine, il server risponde con un header HTTP 200, mentre se l'autenticazione fallisce risponde con un header 401.
@@ -265,7 +264,7 @@ I tipi di oggetti che possono essere ricevuti in risposta sono:
 \end{center}
 \item \texttt{Asset}: oggetti contenuti nell'array \texttt{items} della risposta ricevuta da 
 \begin{center}
-\texttt{/g /\{galleryCode\}/contents/\{args\}};
+\texttt{/g/\{galleryCode\}/contents/\{args\}};
 \end{center}
 \item \texttt{AssetDetail}: oggetti contenuti nell'array ricevuto in risposta da
 \begin{center}
@@ -274,14 +273,14 @@ I tipi di oggetti che possono essere ricevuti in risposta sono:
 \end{itemize}
 
 Dal momento che l'applicazione verrà realizzata in JavaScript, non è necessario definire delle classi specifiche per ogni tipo di oggetti, in quanto è possibile utilizzare direttamente il tipo \texttt{object}.
-\todo{se si decide di utilizzare Flow conviene implementare le varie classi}
+%\todo{se si decide di utilizzare Flow conviene implementare le varie classi}
 
 \subsection{Utils}
 
 Questa categoria di moduli fornisce delle funzioni di utilità globali.
 
 L'unico modulo appartenente a questa categoria è \texttt{WardaFetcher} che espone dei metodi che permettono di effettuare le chiamate alle API REST.
-inoltre, \texttt{WardaFetcher} si occupa anche di gestire la sessione, effettuando in modo automatico il login e mantenendone lo stato.
+Inoltre, \texttt{WardaFetcher} si occupa anche di gestire la sessione, effettuando in modo automatico il login e mantenendone lo stato.
 
 I metodi di questo oggetto che lavorano in modo asincrono utilizzano gli oggetti \texttt{Promise} presenti nello standard ES6 di JavaScript, questo perché l'utilizzo delle promesse permette di ottenere del codice più leggibile.
 
@@ -299,7 +298,7 @@ Sono stati definiti 4 \textit{stores}, ognuno con lo scopo di gestire varie tipo
 
 \subsection{Actions}
 
-Nel pattern Flux, le \textit{actions} sono degli oggetti che il \textit{dispatcher} invia agli \textit{stores} per modificare i dati in essi contenuti, questi oggetti hanno un campo dati \texttt{actionType} di tipo stringa, che rappresenta il nome dell'azione e altri campi dati contengono i dati che gli \textit{stores} devono utilizzare per aggiornarsi.
+Nel pattern Flux, le \textit{actions} sono degli oggetti che il \textit{dispatcher} invia agli \textit{stores} per modificare i dati in essi contenuti, questi oggetti hanno un campo dati \texttt{actionType} di tipo stringa, che rappresenta il nome dell'azione e altri campi dati contenenti i dati che gli \textit{stores} devono utilizzare per aggiornarsi.
 
 Per ognuno degli \textit{stores} precedentemente riportati è stato quindi definito un modulo contenente tutte le \textit{actions} che il corrispettivo \textit{store} può eseguire.
 
@@ -327,9 +326,9 @@ Le seguenti sezioni descrivono i moduli che contengo le possibili \textit{action
 
 \subsection{Pages}
 
-Questi moduli appartengono alla categoria dei componenti \textit{smart} dell'applicazione, in quanto si occupano di recuperare i dati dagli \textit{stores}, per poi passarli agli altri componenti in modo che vengano visualizzati all'utente.
+Questi moduli appartengono alla categoria dei componenti \textit{smart} dell'applicazione, in quanto si occupano di recuperare i dati dagli \textit{stores}, per poi passarli agli altri componenti in modo che vengano visualizzati dall'utente.
 
-Ognuno di questi moduli rappresenta una singola schermata dell'applicazione e si occupa di definire dei gestori degli eventi per le azioni che può compiere l'utente, questi gestori vengono passati ai componenti che compongono la pagina e tipicamente richiedono l'esecuzione di un \textit{action}.
+Ognuno di questi moduli rappresenta una singola schermata dell'applicazione e si occupa di definire dei gestori degli eventi per le azioni che può compiere l'utente, questi gestori vengono poi passati ai componenti che compongono la pagina e tipicamente richiedono l'esecuzione di un \textit{action}.
 
 \subsubsection{GalleryPage}
 
@@ -375,7 +374,7 @@ Questo componente rappresenta la griglia degli assets che viene visualizzata nel
 
 Visualizza gli assets che riceve dal componente padre utilizzando vari componenti \texttt{Asset}, inoltre, si occupa di implementare la funzionalità dello scroll infinito, controllando, quando l'utente effettua uno scroll, se è necessario caricare ulteriori dati e nel caso sia necessario, richiede il caricamento invocando l'apposita funzione ricevuta dal componente padre.
 
-\subsubsection{AssetDetails}
+\subsubsection{AssetDetail}
 
 Questo componente permette di visualizzare un'array di oggetti \texttt{AssetDetail}, sotto forma di lista.
 

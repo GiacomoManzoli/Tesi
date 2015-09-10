@@ -1,3 +1,12 @@
+% Imposta lo spazio nella list of listing in modo simile alla list of figures/tables
+\makeatletter
+\let\my@chapter\@chapter
+\renewcommand*{\@chapter}{%
+  \addtocontents{lol}{\protect\addvspace{10pt}}%
+  \my@chapter}
+\makeatother
+
+
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{backcolor}{rgb}{0.98,0.98,0.98}

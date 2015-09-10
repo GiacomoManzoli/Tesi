@@ -43,7 +43,7 @@ La pagina dell'applicazione che visualizza la gallery è composta da tre parti p
 \end{itemize}
 Ognuno di questi componenti sarà descritto nelle seguenti sotto sezioni.
 
-\begin{figure}[htp]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{../immagini/warda-gallery}
 \caption{Screenshot della gallery dell'applicazione attuale}  
@@ -51,7 +51,11 @@ Ognuno di questi componenti sarà descritto nelle seguenti sotto sezioni.
 
 \subsubsection{Lista dei nodi}
 
-\todo[inline]{AskAlberto: Immagine della lista dei nodi, dove si vede più di qualche nodo }
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.3]{../immagini/warda-gallery-lista-nodi}
+\caption{Screenshot della lista dei nodi dell'applicazione attuale}  
+\end{figure}
 
 La lista dei figli del nodo corrente visualizza il titolo di ogni nodo e, quando l'utente seleziona un nodo dalla lista, questa viene aggiornata in modo che visualizzi i nodi figli del nodo selezionato. 
 La selezione di un nodo dalla lista comporta anche l'aggiornamento della griglia degli assets, la quale andrà a visualizzare gli assets contenuti nel nodo selezionato.
@@ -60,11 +64,12 @@ Durante il caricamento dei dati della lista viene visualizzato un indicatore di 
 
 Sopra la lista dei nodi è presente un pulsante che permette di tornare al nodo padre del nodo correntemente visualizzato.
 
-Questo pulsante è caratterizzato da una freccia indietro e dal titolo del nodo correntemente visualizzato, nel caso il nodo corrente sia il nodo radice della gallery, il pulsante non deve essere visibile.
+Questo pulsante è caratterizzato da una freccia verso sinistra e dal titolo del nodo correntemente visualizzato, nel caso il nodo corrente sia il nodo radice della gallery, il pulsante non deve essere visibile.
 
+\FloatBarrier
 \subsubsection{Griglia degli assets}
 
-\begin{figure}[htp]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=\textwidth]{../immagini/warda-gallery-griglia}
 \caption{Dettaglio della griglia degli assets dell'applicazione attuale}  
@@ -72,25 +77,30 @@ Questo pulsante è caratterizzato da una freccia indietro e dal titolo del nodo 
 
 La griglia degli assets rappresenta il componente principale dell'applicazione, questa griglia permette di visualizzare, per ogni asset contenuto nel nodo corrente, un'immagine di anteprima e un pulsante che permette all'utente di visualizzare i dettagli dell'asset mediante un \gls{popover}.
 
-\begin{figure}[htp]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=\textwidth*3/4]{../immagini/warda-gallery-dettaglio}
+\includegraphics[scale=0.25]{../immagini/warda-gallery-dettaglio}
 \caption{Popover che mostra i dettagli di un asset}  
 \end{figure}
 
 Se l'utente esegue un \gls{tap} sull'immagine di un asset, viene visualizzata una pagina dell'applicazione contenente i dettagli dell'asset e un'immagine ingrandita, maggiori informazioni riguardo questa pagina sono disponibili nella sezione §\ref{sec:pag-dettaglio-asset}.
 
-\todo[inline]{AskAlberto: Quanti assets vengono caricati per volta dalla griglia?}
-
 Per motivi prestazionali, la griglia non carica subito tutti gli assets contenuti nel nodo corrente ma si limita a visualizzare solo i primi 25 assets, i successivi assets contenuti nel nodo vengono caricati man mano che l'utente prosegue nella visualizzazione della griglia, secondo il sistema dello scroll infinito.
 
+\FloatBarrier
 \subsubsection{Lista dei filtri}
 
-\todo[inline]{AskAlberto: Immagine della lista dei filtri}
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.20]{../immagini/warda-filtri}
+\caption{Screenshot della lista dei filtri dell'applicazione attuale}  
+\end{figure}
+
 La lista dei filtri compare come popover quando l'utente esegue un tap sul pulsante ``Filters'' presente nella barra di navigazione.
 
 Per ogni filtro presente nel nodo corrente, viene visualizzata una lista dei possibili valori che possono essere assegnati al filtro ed una casella di testo che permette all'utente di filtrare i valori presenti nella lista.
 
+\FloatBarrier
 \subsection{Pagina di dettaglio di un asset}\label{sec:pag-dettaglio-asset}
 
 Questa pagina contiene l'immagine ingrandita di un asset e una lista con tutti i dettagli dell'asset.
@@ -106,8 +116,19 @@ Sull'immagine l'utente può eseguire alcune gesture:
 
 Infine, nella barra di navigazione della pagina è presente un pulsante che permette all'utente di tornare alla pagina con la visualizzazione a griglia.
 
-\todo[inline]{AskAlberto: immagine della visualizzazione di dettaglio, sia con la sidenav aperta, sia con la sidenav chiusa}
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.25]{../immagini/warda-asset-no-dettaglio}
+\caption{Pagina di dettaglio di un asset}
+\end{figure}
 
+\begin{figure}[htp]
+\centering
+\includegraphics[scale=0.25]{../immagini/warda-asset-dettaglio}
+\caption{Pagina di dettaglio di un asset con i dettagli visibili}
+\end{figure}
+
+\FloatBarrier
 \section{Requisiti individuati}
 
 I requisiti individuati dall'analisi dell'applicazione attuale e dalle discussioni con il tutor aziendale sono stati catalogati secondo il codice:

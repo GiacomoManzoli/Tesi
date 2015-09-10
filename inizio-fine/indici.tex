@@ -10,7 +10,7 @@
 \pdfbookmark{\contentsname}{tableofcontents}
 \setcounter{tocdepth}{2}
 \tableofcontents
-%\markboth{\contentsname}{\contentsname} 
+\markboth{\contentsname}{\contentsname} 
 \clearpage
 
 \begingroup 
@@ -23,8 +23,9 @@
     \phantomsection
     \pdfbookmark{\listfigurename}{lof}
     \listoffigures
+    \raggedbottom
 
-    \vspace*{8ex}
+    %\vspace*{8em}
 
     %*******************************************************
     % Elenco delle tabelle
@@ -32,8 +33,9 @@
     \phantomsection
     \pdfbookmark{\listtablename}{lot}
     \listoftables
+    \raggedbottom
         
-    \vspace*{8ex}
+    %\vspace*{8ex}
     
     %*******************************************************
     % Elenco delle porzioni di codice
@@ -41,8 +43,8 @@
     \phantomsection
     \pdfbookmark{\listtablename}{loc}
     \lstlistoflistings
-        
-    \vspace*{8ex}
+     \raggedbottom
+    %\vspace*{8ex}
 \endgroup
 
 \cleardoublepage
