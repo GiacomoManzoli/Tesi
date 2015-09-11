@@ -16,13 +16,13 @@ L'attività di codifica è stata organizzata in modo da riuscire a produrre dell
 
 Prima di iniziare lo sviluppo di nuove funzionalità sul prototipo è stato prima necessario adattarlo all'architettura progettata, modificano alcuni componenti.
 
-La versione del prototipo che è stata utilizzata implementava già il pattern Flux mediante il modulo npm \texttt{flux}, ed era organizzata con due \textit{stores}, uno che gestiva le immagini e uno che si occupava di gestire le fonti disponibili per le immagini.
+La versione del prototipo che è stata utilizzata implementava già il pattern Flux mediante il modulo npm \texttt{flux} ed era organizzata con due \textit{stores}, uno che gestiva le immagini e uno che si occupava di gestire le fonti disponibili per le immagini.
 
-Come prima cosa sono stati modificati gli \textit{stores} e le relative \textit{actions} secondo quando progettato, trasformando lo \textit{store} delle immagini in quello degli assets e lo \textit{store} delle fonti in quello dei nodi figli.
+Come prima cosa sono stati modificati gli \textit{stores} e le relative \textit{actions} secondo quando progettato, trasformando lo \textit{store} delle immagini in quello degli assets e lo \textit{store} delle fonti in quello dei nodi.
 
 Inoltre, l'oggetto del prototipo che si occupava del recuperare i dati è stato modificato in modo che interroghi le API di WARDA e che gestisca l'autenticazione.
 
-L'implementazione dell'autenticazione è stata semplice in quanto è bastato aggiungere una variabile buoolena che specifica se l'autenticazione è già stata effettuata. Nel caso questa non sia già stata effettuata, viene prima richiesta l'autenticazione e poi viene effettuata la chiamata alle API vera e propria.
+L'implementazione dell'autenticazione è stata semplice in quanto è bastato aggiungere una variabile boolena che specifica se l'autenticazione è già stata effettuata. Nel caso questa non sia già stata effettuata, viene prima richiesta l'autenticazione e poi viene effettuata la chiamata alle API vera e propria.
 
 Non è stato necessario gestire cookie o quant'altro dal momento che l'oggetto \texttt{fetch} offerto da React Native per effettuare chiamate HTTP funziona come proxy del componente nativo di iOS che si occupa di gestire il traffico di rete e questo componente nativo gestisce in modo automatico i cookies.
 
@@ -50,7 +50,7 @@ function onScroll(args) {
   if (scrollY > height - 2 * visibleHeight){
     //Se mancano meno di due schermate alla fine della lista, richiedo il caricamento di ulteriori dati
     //Per evitare che il caricamento venga effettuato troppe volte controllo che i dati siano cambiati rispetto all'ultima volta che ho effettuato il caricamento.
-    if (_dataChanged){ //Viene settata a true quando il componente riceve dei dati nuovi
+    if (_dataChanged){ //Variabile che viene settata a true quando il componente riceve dei dati nuovi
       _dataChanged = false;
       var downloadStarted = this.props.onLoadMoreData();
       var temp = this.props.assets.concat([{loading:true}]); //Visualizza un'indicatore di caricamento
@@ -130,7 +130,7 @@ Infatti, per inserire il sistema di filtri all'interno dell'applicazione è bast
 
 \begin{lstlisting}[language=JavaScript, caption=WardaFetcher - Caricamento degli assets considerando i filtri]
 //WardaFetcher.js
-function fetchContents(contentUrl,start, filters){
+function fetchContents(contentUrl, start, filters){
   //Funzione che scarica gli assets contenuti in un nodo
 
   var filtersString = '';
@@ -200,7 +200,7 @@ Ad esempio, il seguente codice implementa l'animazione dell'immagine in modo che
 
 \begin{lstlisting}[language=JavaScript, caption=AssetDetailPage - Spostamento dell'immagine allo swipe delll'utente]
 //AssetDetailPage.js - Costruttore
-
+...
 this.state.panX = new Animated.Value(0); //Variabile che rappresenta lo spostamento dell'immagine
 this.state.swipePanResponder = PanResponder.create({ //Oggetto che si occupa di rilevare le gesture dell'utente
   ...
@@ -250,8 +250,8 @@ Per implementare ciò, è stato necessario modificare il gestore dello swipe, in
 Il codice utilizzato per effettuare le altre animazioni è il seguente:
 \begin{lstlisting}[language=JavaScript, caption=AssetDetailPage - Animazione dello swipe]
 //AssetDetailPage.js - Costruttore
-  this.state.swipePanResponder = PanResponder.create({
-  ...
+this.state.swipePanResponder = PanResponder.create({
+ ...
   onPanResponderRelease: (e, gestureState) => { //Funzione che viene invocata quando l'utente termina la gesture
     var swipeSize = 150; //Dimensione dello swipe in pixel
     
