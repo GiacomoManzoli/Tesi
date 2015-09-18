@@ -4,14 +4,14 @@
 % !TEX spellcheck = it-IT
 
 %**************************************************************
-\chapter{Strumenti e tecnologie utilizzati}
+\chapter{Strumenti e tecnologie legate a React Native}
 \label{cap:strumenti-tecnologie}
 %**************************************************************
 
 % Il contenuto di questo capitolo contiene una descrizione più dettagliata delle tecnologie e degli strumenti utilizzati per sviluppare l'applicativo oggetto dello stage.
 %Come anticipato nel precedente capitolo, si è scelto di utilizzare React Native come framework principale per lo sviluppo dell'applicazione, il che vincola la scelta di alcuni strumenti e tecnologie.
 
-Questo capitolo inizia con una descrizione più dettagliata di React Native e degli strumenti che offre per facilitare lo sviluppo di un'applicazione, per poi descrivere ulteriori framework e strumenti che possono essere utilizzati con React Native.
+Questo capitolo inizia con una descrizione più dettagliata di React Native e degli strumenti che offre per facilitare lo sviluppo di un'applicazione, per poi descrivere gli ulteriori framework e strumenti che possono essere utilizzati con React Native.
 
 \section{React Native}
 
@@ -301,7 +301,7 @@ In questo modo Chrome riesce a controllare l'esecuzione del JavaScript, ma non r
 \end{figure}
 
 Per avviare il debug è sufficiente preme \texttt{Cmd}+\texttt{D} e selezionare l'opzione \textit{Debug in Chrome}
-
+\FloatBarrier
 \section{Flow}
 
 Flow è uno strumento sviluppato da Facebook che effettua l'analisi statica del codice JavaScript per evidenziare potenziali errori dovuti ad un tipo di dato errato o all'utilizzo di valori \texttt{null}.
@@ -331,7 +331,7 @@ Utilizzando Flow è quindi possibile ottenere del codice JavaScript maggiormente
 
 Jest è un framework sviluppato da Facebook che permette di scrivere ed eseguire test d'unità per applicazioni realizzate in JavaScript e organizzate in moduli secondo lo standard CommonJS.
 
-Il framework è stato sviluppato a partire da Jasmine\footnote{Un framework per la definizione di test d'unità in JavaScript. \url{http://jasmine.github.io/}}, aggiungendoci alcune funzionalità come il supporto alla creazione di mock e l'esecuzione dei test in parallelo.
+Il framework è stato sviluppato a partire da Jasmine\footnote{Un framework per la definizione di test d'unità in JavaScript. \url{http://jasmine.github.io/}}, aggiungendoci alcune funzionalità come il supporto alla creazione di \gls{mock} e l'esecuzione dei test in parallelo.
 
 La funzionalità più interessante offerta da Jest è la creazione automatica dei mock delle dipendenze del modulo testato. Vengono cioè creati in modo automatico degli oggetti JavaScript che hanno la stessa interfaccia degli oggetti da cui dipende il modulo testato, con la differenza che il corpo dei metodi viene sostituito con delle funzioni che non eseguono alcuna operazione.
 
