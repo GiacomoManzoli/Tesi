@@ -422,16 +422,20 @@ Questo componente rappresenta la toolbar per la pagina di che visualizza i detta
 \subsection{Navigazione}
 
 La navigazione tra le pagine dell'applicazione avviene mediante due componenti.
-Il primo è una \textit{tabbar}, una barra posta nella parte bassa dello schermo che visualizza un numero limitato di pulsanti, ad ognuno dei quali viene associata una \textit{tab} (pagina) da visualizzare. 
+Il primo è una \textit{TabBar}, una barra posta nella parte bassa dello schermo che visualizza un numero limitato di pulsanti, ognuno dei quali prende il nome di \textit{tab} ed è associato ad una specifica pagina dell'applicazione, che viene visualizzata quando l'utente seleziona il \textit{tab} corrispondente.
 
-La \textit{tabbar} contiene solamente una sola \textit{tab} per la gallery ed è stata inserita solamente per replicare l'aspetto grafico dell'applicazione già esistente.
+La \textit{TabBar} dell'applicazione contiene una sola \textit{tab} per la gallery ed è stata inserita solamente per replicare l'aspetto grafico dell'applicazione già esistente.
 
-All'interno della \textit{tab} della gallery è presente un \textit{router}, un componente che permette di navigare tra più pagine che funziona come uno stack, in quanto per passare da una pagina ad un'altra viene effettuato il \textit{push} di un componente sopra lo stack, mentre per tornare alla pagina precedente viene effettuato il \textit{pop} del componente che si trova al primo posto dello stack.
+All'interno della \textit{tab} della gallery è presente un \textit{router}, un componente che si occupa di gestire la navigazione tra più pagine dell'applicazione. 
 
-Questo \textit{router} permette di passare dalla pagina di visualizzazione della gallery alla pagina con i dettagli di un asset, per poi permette all'utente di tornare indietro.
+React Native offre due componenti che possono essere utilizzati come \textit{router} ed entrambi funzionano come uno stack al quale possono essere aggiunte o tolte pagine e solamente la pagina che si trova in cima viene mostrata all'utente.
 
-%\section{Diagrammi di attività}
-%\todo[inline]{valutare se ha senso aggiungere i diagrammi delle attività}
-%\subsection{Navigazione nella gallery}
+Il primo componente è \texttt{NavigatorIOS}, il quale utilizza lo stesso sistema di navigazione offerto dalla piattaforma nativa, rendendo disponibili sia la barra di navigazione tipica delle applicazioni native, sia le gesture associate alla navigazione, come lo swipe per tornare alla pagina precedente.
+Oltre a queste funzionalità vengono anche offerti due metodi per modificare lo effettuando il \textit{push} e \textit{pop} delle pagine.
 
-%\subsection{Applicazione di un filtro}
+Questo componente però non offre grandi possibilità di personalizzazione ed è per questo che React Native offre anche il componente \texttt{Navigator}, il quale è realizzato interamente in JavaScript e implementa solamente la gestione dello stack delle pagine, lasciando allo sviluppatore l'implementazione della barra di navigazione e la gestione delle gesture.
+
+A seguito dell'esperienza maturata durante lo sviluppo del prototipo con React Native si è scelto di utilizzare il componente \texttt{Navigator} piuttosto che il componente \texttt{NavigatorIOS}.
+
+Questo perché la barra di navigazione offerta da \texttt{NavigatorIOS} si è rilevata molto limitata in termini di personalizzazione, mentre il componente \texttt{Navigator} lascia maggiore libertà riguardo l'implementazione della barra di navigazione, rendendo così possibile utilizzare le due toolbar precedentemente descritte come barra di navigazione.
+%con il componente \texttt{Navigator} è possibile evitare di implementare una barra di navigazione comune a tutte le pagine dell'applicazione, rendendo così possibile utilizzare le due toolbar precedentemente descritte.

@@ -4,13 +4,14 @@
 % !TEX spellcheck = it-IT
 
 %**************************************************************
-\chapter{Strumenti e tecnologie utilizzate}
+\chapter{Strumenti e tecnologie utilizzati}
 \label{cap:strumenti-tecnologie}
 %**************************************************************
 
-Il contenuto di questo capitolo contiene una descrizione più dettagliata delle tecnologie e degli strumenti utilizzati per sviluppare l'applicativo oggetto dello stage.
+% Il contenuto di questo capitolo contiene una descrizione più dettagliata delle tecnologie e degli strumenti utilizzati per sviluppare l'applicativo oggetto dello stage.
+%Come anticipato nel precedente capitolo, si è scelto di utilizzare React Native come framework principale per lo sviluppo dell'applicazione, il che vincola la scelta di alcuni strumenti e tecnologie.
 
-Come anticipato nel precedente capitolo, si è scelto di utilizzare React Native come framework principale per lo sviluppo dell'applicazione, il che vincola la scelta di alcuni strumenti e tecnologie.
+Questo capitolo inizia con una descrizione più dettagliata di React Native e degli strumenti che offre per facilitare lo sviluppo di un'applicazione, per poi descrivere ulteriori framework e strumenti che possono essere utilizzati con React Native.
 
 \section{React Native}
 
@@ -220,7 +221,7 @@ Come anticipato, Flux prevede tre tipologie principali di componenti:
 \end{itemize}
 
 
-\subsection{Sequenza delle azioni}
+\subsection{Sequenza delle operazioni}
 
 \begin{figure}[htp]
 \centering
@@ -301,11 +302,59 @@ In questo modo Chrome riesce a controllare l'esecuzione del JavaScript, ma non r
 
 Per avviare il debug è sufficiente preme \texttt{Cmd}+\texttt{D} e selezionare l'opzione \textit{Debug in Chrome}
 
+\section{Flow}
 
+Flow è uno strumento sviluppato da Facebook che effettua l'analisi statica del codice JavaScript per evidenziare potenziali errori dovuti ad un tipo di dato errato o all'utilizzo di valori \texttt{null}.
 
+La necessità di uno strumento come Flow deriva dal fatto che JavaScript è un linguaggio debolmente tipato e permette di scrivere codice dinamico in grado di funzionare con vari tipi di dato.
 
+Questo approccio però può portare ad introdurre bug all'interno dell'applicazione che possono essere difficili da trovare, rendendo costoso manutenere l'applicazione.
 
+Flow è quindi in grado di identificare queste situazioni e segnalarle allo sviluppatore.
 
+Per iniziare ad utilizzare Flow non è necessario modificare il codice sorgente dell'applicazione. Basta solamente aggiungere un commento contenente il tag \texttt{@flow} all'inizio dei file per segnalare a Flow che quel file deve essere analizzato.
 
+Infatti, Flow è quasi sempre in grado di inferire automaticamente i tipi di dato che le variabili andranno a contenere analizzando il flusso di controllo dell'applicazione.
 
+Quando Flow non riesce a inferire il tipo di dato è necessario esplicitarlo, modificando il codice sorgente dell'applicazione, in modo che a fianco della dichiarazione di una variabile o di un parametro sia presente un annotazione che specifica il tipo di dato.
 
+\begin{lstlisting}[language=JavaScript, caption=Esempio della notazione di Flow]
+var x: number = 42;
+var f = function(a: string): boolean {
+  return false;
+}
+\end{lstlisting}
+
+Utilizzando Flow è quindi possibile ottenere del codice JavaScript maggiormente prevedibile e di conseguenza più facile da manutenere.
+
+\section{Jest}
+
+Jest è un framework sviluppato da Facebook che permette di scrivere ed eseguire test d'unità per applicazioni realizzate in JavaScript e organizzate in moduli secondo lo standard CommonJS.
+
+Il framework è stato sviluppato a partire da Jasmine\footnote{Un framework per la definizione di test d'unità in JavaScript. \url{http://jasmine.github.io/}}, aggiungendoci alcune funzionalità come il supporto alla creazione di mock e l'esecuzione dei test in parallelo.
+
+La funzionalità più interessante offerta da Jest è la creazione automatica dei mock delle dipendenze del modulo testato. Vengono cioè creati in modo automatico degli oggetti JavaScript che hanno la stessa interfaccia degli oggetti da cui dipende il modulo testato, con la differenza che il corpo dei metodi viene sostituito con delle funzioni che non eseguono alcuna operazione.
+
+Queste funzioni sono però dotate di un campo dati \texttt{mock} che permette di ricavare informazioni riguardo le chiamate che sono state effettuate alla funzione, come il numero di invocazioni, il numero di parametri, il contesto di esecuzione, ecc.
+
+Per utilizzare gli oggetti creati da Jest non è necessario portare modiche al codice sorgente del modulo da testare, questo perché l'ambiente di esecuzione offerto da Jest ridefinisce la funzione \texttt{require()} dello standard CommonJS in modo che, anziché importare il modulo richiesto, importi il mock del modulo.
+
+\begin{lstlisting}[language=JavaScript, caption=Esempio di mock creato da Jest]
+//Ad esempio, quando viene richiesto il seguente modulo
+module.exports({
+  fun1: function(){ /*...*/}
+});
+
+//con l'istruzione
+var E = require('./Esempio');
+//Jest anziché importare il modulo, crea l'oggetto
+{
+  fun1: jest.genMockFunction()
+}
+
+//L'esecuzione della funzione jest.genMockFunction() ritorna una funzione con il corpo vuoto e con un campo dati .mock che, durante l'esecuzione del test, andrà a contenere le informazioni riguardo le varie invocazioni della funzione.
+\end{lstlisting}
+
+Nel caso il mock automatico offerto da Jest non sia sufficiente, vengono messe a disposizione delle API che permettono di creare manualmente dei mock.
+
+Jest può essere utilizzato per testare qualsiasi applicazione JavaScript, ma il mock automatico dei moduli CommonJS lo rende particolarmente adatto per le applicazioni organizzate a moduli, come quelle realizzate con React o React Native.
