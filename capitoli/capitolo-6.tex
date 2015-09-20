@@ -8,37 +8,37 @@
 \label{cap:realizzazione}
 %**************************************************************
 
-Questo capitolo contiene la descrizione delle attività svolte e dei problemi incontrati durate lo sviluppo dell'applicazione, la quale è stata sviluppata a partire dal prototipo realizzato durante lo studio di React Native.
+Questo capitolo contiene la descrizione delle attività svolte e dei problemi incontrati durate lo sviluppo dell'applicazione, che è iniziato a partire dal prototipo realizzato durante lo studio di React Native.
 
 L'attività di codifica è stata organizzata in modo da riuscire a produrre delle versioni intermedie dell'applicazione, da utilizzare per effettuare delle demo all'interno dell'azienda e per valutare la necessità di alcune modifiche.
 
 \section{Dal prototipo alla gallery}
 
-Prima di iniziare lo sviluppo di nuove funzionalità sul prototipo è stato prima necessario adattarlo all'architettura progettata, modificano alcuni componenti.
+Prima di iniziare lo sviluppo di nuove funzionalità sul prototipo è stato prima necessario adattarlo all'architettura progettata modificando alcuni componenti.
 
 La versione del prototipo che è stata utilizzata implementava già il pattern Flux mediante il modulo npm \texttt{flux} ed era organizzata con due \textit{stores}, uno che gestiva le immagini e uno che si occupava di gestire le fonti disponibili per le immagini.
 
-Come prima cosa sono stati modificati gli \textit{stores} e le relative \textit{actions} secondo quando progettato, trasformando lo \textit{store} delle immagini in quello degli assets e lo \textit{store} delle fonti in quello dei nodi.
+Come prima cosa sono stati modificati gli \textit{stores} e le relative \textit{actions} secondo quando progettato, trasformando cioè lo \textit{store} delle immagini in quello degli assets e lo \textit{store} delle fonti in quello dei nodi.
 
 Inoltre, l'oggetto del prototipo che si occupava del recuperare i dati è stato modificato in modo che interroghi le API di WARDA e che gestisca l'autenticazione.
 
 L'implementazione dell'autenticazione è stata semplice in quanto è bastato aggiungere una variabile boolena che specifica se l'autenticazione è già stata effettuata. Nel caso questa non sia già stata effettuata, viene prima richiesta l'autenticazione e poi viene effettuata la chiamata alle API vera e propria.
 
-Non è stato necessario gestire cookie o quant'altro dal momento che l'oggetto \texttt{fetch} offerto da React Native per effettuare chiamate HTTP funziona come proxy del componente nativo di iOS che si occupa di gestire il traffico di rete e questo componente nativo gestisce in modo automatico i cookies.
+Non è stato necessario gestire cookies o quant'altro dal momento che l'oggetto \texttt{fetch} offerto da React Native per effettuare chiamate HTTP funziona come proxy del componente nativo di iOS che si occupa di gestire il traffico di rete e questo componente gestisce in modo automatico i cookies.
 
-Per quanto riguarda l'interfaccia grafica è stato necessario modificare la griglia in modo che visualizzare oggetti di tipo \texttt{Asset} e che implementasse lo scroll infinito.
+Per quanto riguarda l'interfaccia grafica è stato necessario modificare la griglia in modo che visualizzi oggetti di tipo \texttt{Asset} e che implementi lo scroll infinito.
 
 La griglia degli assets è stata implementata utilizzando il componente \texttt{ListView} di React Native, il quale rende disponibile l'evento \texttt{onEndReached}, che viene sollevato ogni volta che l'utente raggiunge la fine della lista e che permette implementare lo scroll infinito. 
 
 Tuttavia questa implementazione aveva due problemi:
 \begin{itemize}
 \item il caricamento dei nuovi dati iniziava quanto l'utente arrivava alla fine delle lista, quando poteva essere anticipato, in modo da migliorare ulteriormente l'esperienza d'uso;
-\item in alcuni casi l'evento veniva sollevato troppe volte il che portava a caricare più volte lo stesso blocco di dati.
+\item in alcuni casi l'evento veniva sollevato troppe volte e questo causava il caricamento ripetuto dello stesso blocco di dati.
 \end{itemize}
 
 Questi problemi sono stati risolti implementano lo scroll infinito utilizzando l'evento \texttt{onScroll} della \texttt{ListView}, evento che viene sollevato ogni volta che l'utente esegue uno scroll.
 
-Alla funzione che gestisce l'evento viene passato come parametro un oggetto con tutte le informazioni relative all'evento che si è verificato, in questo modo è stato possibile richiedere il caricamento di ulteriori dati ad una distanza personalizzata dalla fine ed effettuare maggiori controlli in modo da evitare che la stessa porzione di dati venisse caricata più volte.
+Alla funzione che gestisce tale evento viene passato come parametro un oggetto con tutte le informazioni relative all'evento che si è verificato, in questo modo è stato possibile richiedere il caricamento di ulteriori dati ad una distanza dalla fine personalizzata ed effettuare maggiori controlli in modo da evitare che la stessa porzione di dati venga caricata più volte.
 
 \begin{lstlisting}[language=JavaScript, caption=Funzione che gestisce l'evento onScroll della griglia che visualizza gli assets]
 //AssetsGrid.js
@@ -70,7 +70,7 @@ Al termine di questa prima fase l'applicazione è in grado di visualizzare il co
 
 \section{Sistema di navigazione}
 
-Successivamente è stato sviluppato il sistema di navigazione completo, il quale fornisce la possibilità all'utente di scendere o risalire lungo la gerarchia dei nodi.
+Successivamente è stato sviluppato il sistema di navigazione, il quale fornisce la possibilità all'utente di scendere o risalire lungo la gerarchia dei nodi.
 
 La maggior parte delle modifiche effettuate in questa fase riguardano \texttt{NodesStores} in quanto è stato necessario implementare un sistema che tenga traccia del percorso effettuato dall'utente lungo la gerarchia della gallery.
 
@@ -116,7 +116,7 @@ function loadNodes(parentUrl, nodes) {
 }
 \end{lstlisting}
 
-Questa versione dell'applicazione rispecchia gli obiettivi minimi previsti dal piano di stage ed è risultata particolarmente fluida, considerando che non è stata effettuata alcun tipo di ottimizzazione per quanto riugarda la gestione della memoria.
+Questa versione dell'applicazione rispecchia gli obiettivi minimi previsti dal piano di stage ed è risultata particolarmente fluida, considerando anche che non è stata effettuata alcun tipo di ottimizzazione per quanto riguarda la gestione della memoria.
 
 \section{Sistema dei filtri}
 
@@ -161,13 +161,22 @@ Durante questa fase è stato implementato il componente \texttt{AssetDetailPage}
 
 Una caratteristica di questa pagina è che quando l'utente esegue uno swipe sull'immagine dell'asset, devono essere visualizzati i dettagli dell'asset precedente o successivo in base alla direzione dello swipe, ottenendo così una visualizzazione della gallery a carosello.
 
-L'ordine di visualizzazione degli assets nel carosello deve seguire l'ordine della griglia di \texttt{GalleryPage}, inoltre, dal momento che la visualizzazione a griglia può contenere solamente alcuni degli assets disponibili, è necessario che anche dalla visualizzazione a carosello sia possibile effettuare il download di ulteriori assets.
+L'introduzione di questa tipologia di visualizzazione ha sollevato alcune problematiche:
+\begin{itemize}
+\item l'ordine di visualizzazione degli assets nel carosello deve corrispondere all'ordine degli assets presenti nella griglia di \texttt{GalleryPage};
+\item nel client non sempre sono presenti tutti gli assets contenuti nel nodo selezionato ed è quindi necessario che anche dalla visualizzazione a carosello sia possibile effettuare il download di ulteriori assets in un modo analogo allo scroll infinito.
+\end{itemize}
 
-Nell'implementare questo sistema si sono visti i alcuni dei vantaggi dell'architettura Flux, in quanto è bastato alimentare \texttt{AssetDetailPage} con i dati presenti in \texttt{AssetsStore} e aggiungere due metodi a quest'ultimo, i quali permettono di recuperare l'asset precedente o successivo a partire da un determinato asset.
+In questo caso si sono visti alcuni dei vantaggi dell'architettura Flux, in quanto è bastato alimentare \texttt{AssetDetailPage} con i dati presenti in \texttt{AssetsStore} e aggiungere due metodi a quest'ultimo per permettere di recuperare l'asset precedente o successivo a partire da un determinato asset, risolvendo così il problema relativo all'ordine di visualizzazione.
 
-Per la gestione del caricamento di ulteriori assets viene utilizzata la stessa \textit{action} che utilizza \texttt{GalleryPage} e, dal momento che i dati presenti in \texttt{NodesStore} sono comuni ad entrambe le pagine, quando \texttt{AssetDetailPage} richiede il caricamento di ulteriori dati, questi diventano subito disponibili anche per \texttt{GalleryPage} e viceversa, riducendo così il numero di download necessari.
+Così facendo è stato possibile utilizzare anche la stessa \textit{action} che utilizza \texttt{GalleryPage} per caricare ulteriori assets.
+In questo caso l'\textit{action} viene eseguita quando è richiesta la visualizzazione dell'asset successivo e questo non è presente nel client.
 
-Una volta ultimato il carosello è stato implemento il componente \texttt{NetworkImage} in modo che l'utente ricevesse un feedback riguardo il caricamento dell'immagine.
+Per controllare l'esistenza dell'asset successivo viene confrontato il numero di assets presenti sul client con il numero di assets presenti nel nodo corrente e solo nel caso che ci sia un'asset successivo viene richiesto il download, diminuendo così il traffico di rete.
+
+Questa implementazione permette anche di limitare il numero di download, infatti, quando viene richiesto il caricamento di ulteriori dati dalla visualizzazione a carosello, questi diventano disponibili anche per la griglia di \texttt{GalleryPage}.
+
+Una volta ultimato il carosello, è stato implemento il componente \texttt{NetworkImage} in modo che l'utente riceva un feedback riguardo il caricamento dell'immagine.
 Questo si è reso necessario dal momento che l'immagine visualizzata in questa pagina è ad alta risoluzione e il più delle volte il download richiede una quantità di tempo significativa.
 
 L'implementazione di questo componente ha sofferto per un po' di tempo di alcuni problemi che derivavano da un bug del componente \texttt{Image} di React Native.
@@ -176,7 +185,7 @@ La versione \texttt{0.9.0} del framework ha poi risolto questi bug, rendendo cos
 
 \section{Animazioni}
 
-Una volta soddisfatti i requisiti obbligatori e desiderabili si è passati all'introduzione di alcune animazioni, sfruttando le API offerte da React Native, che hanno permesso di ottenere animazioni fluide con delle prestazioni paragonabili a quelle delle animazioni native.
+Una volta soddisfatti i requisiti obbligatori e desiderabili si è passati all'introduzione di alcune animazioni sfruttando le API offerte da React Native che hanno permesso di ottenere animazioni fluide con delle prestazioni paragonabili a quelle delle animazioni native.
 
 Le prime animazioni introdotte riguardano la comparsa e la scomparsa della lista dei nodi nella visualizzazione della gallery e della lista dei dettagli di un asset nella visualizzazione di dettaglio.
 
@@ -241,13 +250,13 @@ L'effetto prodotto dal quel codice è il seguente:
 \vspace{1em}
 Tuttavia, il codice sopra riportato sposta l'immagine in base al pan effettuato dall'utente e non esegue nessuna animazione quando lo swipe viene completato e viene visualizzata un'altra immagine.
 
-Infatti, nelle applicazioni native, una volta che l'utente ha completato uno swipe, l'immagine corrente viene mandata ``\textit{fuori dallo schermo}'' in modo animato, per poi visualizzare la nuova immagine.
+Nelle applicazioni native, una volta che l'utente ha completato uno swipe, l'immagine corrente viene mandata ``\textit{fuori dallo schermo}'' in modo animato per lasciare spazio ad una nuova immagine che entra dalla parte opposta.
 
-Mentre se l'utente non completa lo swipe, l'immagine viene fatta ritornare alla posizione iniziale, sempre in modo animato.
+Mentre, se l'utente non completa lo swipe, l'immagine viene fatta ritornare alla posizione iniziale in modo animato.
 
-Per implementare ciò, è stato necessario modificare il gestore dello swipe, in modo che esegua le animazioni dell'immagine quando l'utente completa o annulla la gesture.
+Per implementare ciò, è stato necessario modificare il gestore dello swipe, in modo che venga eseguita un'animazione che sposta l'immagine quando l'utente completa o annulla la gesture.
 
-Il codice utilizzato per effettuare le altre animazioni è il seguente:
+\`E stato quindi necessario modificare il codice precedentemente riportato aggiungendo le nuove animazioni:
 \begin{lstlisting}[language=JavaScript, caption=AssetDetailPage - Animazione dello swipe]
 //AssetDetailPage.js - Costruttore
 this.state.swipePanResponder = PanResponder.create({
@@ -312,7 +321,7 @@ this.state.swipePanResponder = PanResponder.create({
 });
 \end{lstlisting}
 
-Sfruttando le stesse API si è inoltre provato da implementare il pinch-to-zoom, per permettere all'utente di ingrandire l'immagine.
+Sfruttando le stesse API si è inoltre provato da implementare il pinch-to-zoom per permettere all'utente di ingrandire l'immagine.
 
 Tuttavia il pinch-to-zoom è una gesture complessa che combina più gesture:
 \begin{itemize}
@@ -325,12 +334,12 @@ Tuttavia il pinch-to-zoom è una gesture complessa che combina più gesture:
 
 \section{Gestione degli errori}
 
-Nell'ultima fase si è stata implementata la gestione degli errori di connessione.
+Nell'ultima fase è stata implementata la gestione degli errori di connessione.
 
 Le versioni precedenti dell'applicazione, infatti, non gestivano gli errori di comunicazione con il server, e nel caso se ne verificasse uno, i vari indicatori di attività rimanevano attivi fino al riavvio dell'applicazione.
 
-\`E stato quindi implementato \texttt{ErrorsStore} in modo che fosse possibile memorizzare i vari messaggi d'errore, inoltre, sono state modificati tutti i metodi che creano delle azioni, in modo che, se la promessa ritornata dai metodi di \texttt{WardaFetcher} fallisce, anziché eseguire il \textit{dispatch} normale dell'azione, richiedano ad \texttt{ErrorsActions} la creazione di un errore di rete, mediante il metodo \texttt{networkError()}.
+\`E stato quindi implementato \texttt{ErrorsStore} in modo che fosse possibile memorizzare i vari messaggi d'errore all'interno dell'applicazione, inoltre, sono stati modificati tutti i metodi che creano delle azioni che necessitano di una connessione con il server, in modo che, se la promessa ritornata dai metodi di \texttt{WardaFetcher} fallisce, anziché eseguire il \textit{dispatch} normale dell'azione, richiedano ad \texttt{ErrorsActions} la creazione di un errore di rete, mediante il metodo \texttt{networkError()}.
 
-La visualizzazione dei messaggi d'errore è stata affidata al componente di navigazione principale dell'applicazione, in modo quando si verifichi un errore venga renderizzato il messaggio al posto della \textit{tabbar}.
+La visualizzazione dei messaggi d'errore è stata affidata al componente di navigazione principale dell'applicazione, in modo che quando si verifichi un errore venga renderizzato il messaggio al posto della \textit{TabBar}.
 
 \`E stato inoltre modificato il componente \texttt{NetworkImage} in modo che nel caso si verifichi un errore durante il caricamento dell'immagine venga visualizzato un messaggio d'errore al posto di un'immagine grigia.

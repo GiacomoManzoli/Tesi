@@ -4,7 +4,7 @@ Questo modulo contiene i metodi che creano le azioni riguardanti la gestione deg
 
 L'oggetto esposto dal modulo contiene i seguenti metodi:
 \begin{itemize}
-\item \textbf{loadAssets(contentUrl,filters)}
+\item \texttt{loadAssets(contentUrl,filters)}
 
 Il metodo recupera gli assets dall'URL \texttt{contentUrl}, applicando i filtri presenti nell'array \texttt{filters}, che deve essere strutturato secondo quanto indicato nel codice \ref{lst:filters}.
 
@@ -19,7 +19,7 @@ Una volta ottenuti i dati richiede il \textit{dispatch} dell'oggetto:
 
 Quando \texttt{AssetsStore} riceve questo oggetto deve caricare al suo interno i dati contenuti nell'oggetto in modo che questi siano disponibili all'interno dell'applicazione. Nel caso siano già presenti dei dati, questi devono essere sovrascritti.
 
-\item \textbf{loadMoreAssets(contentUrl, start, filters)}
+\item \texttt{loadMoreAssets(contentUrl, start, filters)}
 
 Il metodo recupera gli assets dall'URL \texttt{contentUrl} a partire dall'asset di indice \texttt{start}, applicando i filtri presenti nell'array \texttt{filters}.
 
@@ -34,7 +34,7 @@ Una volta ottenuti i dati richiede il \textit{dispatch} dell'oggetto:
 Quando \texttt{AssetsStore} riceve questo oggetto deve caricare al suo interno i dati contenuti nell'oggetto in modo che questi siano disponibili all'interno dell'applicazione.
 I dati devono essere inseriti in coda a quelli già presenti, senza sovrascrivere nulla.
 
-\item \textbf{clearAssets()}
+\item \texttt{clearAssets()}
 
 Il metodo richiede il \textit{dispatch} dell'oggetto:
 \begin{lstlisting}[language=JSON, caption=Action - clear assets]
@@ -45,7 +45,7 @@ Il metodo richiede il \textit{dispatch} dell'oggetto:
 
 Quando \texttt{AssetsStore} riceve questo oggetto deve cancellare tutti i dati che contiene.
 
-\item \textbf{loadAssetDetail(asset)}
+\item \texttt{loadAssetDetail(asset)}
 
 Il metodo recupera i dettagli dell'asset ricevuto come parametro, utilizzando l'URL prensente nel campo dati \texttt{asset.details.products}.
 Una volta ottenuti i dati richiede il \textit{dispatch} dell'oggetto:

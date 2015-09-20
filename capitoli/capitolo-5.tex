@@ -31,15 +31,19 @@ Le API di WARDA offrono varie risorse che permettono di navigare la gallery, di 
 Gli URL delle risorse richiedono sempre due parametri, \texttt{galleryCode} e \texttt{args}, il primo specifica l'id della gallery alla quale si vuole accedere e il secondo specifica il percorso a partire dal nodo radice della gallery.
 Ad esempio l'URL \texttt{/g/opt/nodi/20151/} corrisponde ai nodi figli del nodo \texttt{20151} che è il figlio del nodo radice della gallery \texttt{opt}.
 
-Nel realizzare l'applicazione sono state utilizzate saranno utilizzate solamente alcune delle risorse disponibili, le quali verranno descritte nelle seguenti sotto sezioni. 
+Quando viene richiesta una di queste risorse, il server può rispondere con un header HTTP \texttt{404 Not found} per segnalare al client che non è stata trovata la risorsa richiesta, oppure con un header \texttt{200 Ok} per segnalare che la richiesta è andata a buon fine.
+In questo caso, i dati richiesti si trovano nel corpo della risposta e sono codificati in formato JSON in base al tipo di risorsa richiesta.
+
+Nel realizzare l'applicazione verranno utilizzate solamente alcune delle risorse disponibili, le quali saranno descritte nelle seguenti sotto sezioni. 
 
 \subsubsection{GET /g/\{galleryCode\}/nodi/\{args\}}\label{sec:nodes}
 
-Questa risorsa permette di ottenere l'elenco dei nodi figli del nodo specificato dal parametro \texttt{args}.
-
-Ad una richiesta di questo tipo il server può rispondere con un header 200, nel caso la risorsa sia presente o con un 404, nel caso in un cui non sia stato trovato alcun nodo corrispondente.
-
-Una caratteristica di questa risorsa è che può essere richiesta senza fornire il parametro \texttt{args}, in questo caso il server fornisce come risposta la lista dei nodi figli del nodo radice della gallery.
+Questa risorsa permette di ottenere l'elenco dei nodi figli del nodo specificato dal parametro opzionale \texttt{args}.
+Nel caso non venga fornito questo parametro, il server fornisce come risposta la lista dei nodi figli del nodo radice della gallery.
+%
+%Ad una richiesta di questo tipo il server può rispondere con un header 200, nel caso la risorsa sia presente o con un 404, nel caso in un cui non sia stato trovato alcun nodo corrispondente.
+%
+%Una caratteristica di questa risorsa è che può essere richiesta senza fornire il parametro \texttt{args}, in questo caso il server fornisce come risposta la lista dei nodi figli del nodo radice della gallery.
 
 Quando la richiesta va a buon fine, il corpo della risposta è definito secondo il seguente schema:
 \begin{lstlisting}[language=JSON, caption=JSON Schema di GET /g/\{galleryCode\}/nodi/\{args\}]
@@ -91,8 +95,8 @@ L'applicazione per iPad necessita solo di alcuni dei campi dati ricevuti in risp
 \subsubsection{GET /g/\{galleryCode\}/contents/\{args\}}
 
 Questa risorsa fornisce gli assets contenuti all'interno del nodo \texttt{args} della gallery \texttt{galleryCode}.
-
-Ad una richiesta di questo tipo il server può rispondere con un header 200, nel caso la risorsa sia presente o con un 404, nel caso in un cui non sia stato trovato alcun nodo corrispondente.
+%
+%Ad una richiesta di questo tipo il server può rispondere con un header 200, nel caso la risorsa sia presente o con un 404, nel caso in un cui non sia stato trovato alcun nodo corrispondente.
 
 Nel caso la richiesta vada a buon fine, il server risponde con del JSON conforme al seguente schema:
 \begin{lstlisting}[language=JSON, caption=JSON Schema di GET /g/{galleryCode}/contents/{args}]
@@ -180,8 +184,8 @@ Ad esempio, per recuperare 25 assets contenuti nel nodo \texttt{20141} della gal
 \subsubsection{GET /g/\{galleryCode\}/filtro/\{filtro\}/\{args\}}
 
 Questa risorsa fornisce i possibile valori che può assumere il filtro \texttt{filtro} quando viene applicato ai contenuti del nodo \texttt{args} della gallery \texttt{galleryCode}.
-
-Ad una richiesta di questo tipo il server può rispondere con un header 200, nel caso la risorsa sia presente o con un 404, nel caso in un cui non sia stato trovato alcun nodo corrispondente.
+%
+%Ad una richiesta di questo tipo il server può rispondere con un header 200, nel caso la risorsa sia presente o con un 404, nel caso in un cui non sia stato trovato alcun nodo corrispondente.
 
 Nel caso la richiesta vada a buon fine, il server risponde con del JSON conforme al seguente schema:
 
@@ -205,8 +209,8 @@ All'URL delle risorsa può essere passato lo stesso parametro \texttt{filter} de
 \subsubsection{GET /g/\{galleryCode\}/details/\{assetId\}/products}
 
 Questa risorsa fornisce i dettagli relativi prodotto identificato da \texttt{assetId}.
-
-Ad una richiesta di questo tipo il server può rispondere con un header 200, nel caso la risorsa sia presente o con un 404, nel caso in un cui non sia stato trovato alcun nodo corrispondente.
+%
+%Ad una richiesta di questo tipo il server può rispondere con un header 200, nel caso la risorsa sia presente o con un 404, nel caso in un cui non sia stato trovato alcun nodo corrispondente.
 
 I dettagli ricevuti in risposta dal server sono conformi al seguente schema:
 \begin{lstlisting}[language=JSON, caption=JSON Schema di GET /g/{galleryCode}/filtro/{filtro}/{args}]
@@ -231,18 +235,18 @@ I campi dati degli oggetti ricevuti, utilizzati dall'applicazione, sono:
 
 \section{Architettura generale dell'applicazione}
 
-La progettazione dell'architettura dell'applicazione è stata effettuata con un approccio \textit{top-down}, individuando prima le componenti di alto livello, per poi definire le componenti più specifiche, tenendo sempre come punto di riferimento l'applicazione il client per iPad attuale.
+La progettazione dell'architettura dell'applicazione è stata effettuata con un approccio \textit{top-down}, individuando prima le componenti di alto livello, per poi definire le componenti più specifiche, tenendo sempre come punto di riferimento l'applicazione per iPad attuale.
 
 In particolare, la progettazione è partita dall'interfaccia grafica, individuando prima le pagine che l'utente visualizza, per poi passare ai componenti delle pagine ed infine al come organizzare la logia applicativa.
 
-Per progettare l'architettura dell'applicazione sono stati seguiti i due pattern tipici di un'applicazione realizzata con React, in particolare il flusso delle informazioni segue il pattern Flux, mentre le varie componenti sono state divise secondo il pattern \textit{Smart \& Dumb}.
+Nel progettare l'architettura sono stati seguiti i due pattern tipici di un'applicazione realizzata con React, in particolare il flusso delle informazioni segue il pattern Flux, mentre le varie componenti sono state divise secondo il pattern \textit{Smart \& Dumb}.
 
 Considerando che l'applicazione verrà poi sviluppata in JavaScript ES6, l'architettura è stata scomposta in moduli, in modo che questi possano essere compatibili con lo standard CommonJS.
 In particolare un modulo può essere:
 \begin{itemize}
 \item \textit{un componente dell'interfaccia grafica}, in questo caso si tratta di una classe, che deriva dalla classe \texttt{Component} di React Native;
 \item \textit{un componente del pattern Flux}, in questo caso si tratta di un singolo oggetto che viene esportato direttamente come modulo CommonJS.
-\item \textit{un componente che fornisce funzioni d'utilità}, in questo caso si tratta sempre di un oggetto che viene esportato direttamente come modulo CommonJS.
+\item \textit{un componente che fornisce funzioni d'utilità},anche in questo caso si tratta sempre di un oggetto che viene esportato direttamente come modulo CommonJS.
 \end{itemize}
 
 Questi moduli verranno presentati nelle successive sezioni, organizzati per funzionalità.
@@ -304,9 +308,9 @@ Per ognuno degli \textit{stores} precedentemente riportati è stato quindi defin
 
 Ognuno di questi moduli contiene un oggetto che espone dei metodi che creano una determinata \textit{action} e ne richiedono il \textit{dispatch} al \textit{dispatcher}.
 
-Per identificare le \textit{actions} sono stati definiti dei moduli che contengono delle costanti di tipo stringa che identificano le \textit{actions} che riguardano un determinato di \textit{store}. Ad esempio, le \textit{actions} contenute in \texttt{NodesActions} sono relative ai dati di \texttt{NodesStore} e vengo identificate dalle costanti presenti in \texttt{NodesConstants}
+Per identificare le \textit{actions} sono stati definiti dei moduli che contengono delle costanti di tipo stringa che identificano le \textit{actions} riguardanti un determinato \textit{store}. Ad esempio, le \textit{actions} contenute in \texttt{NodesActions} sono relative ai dati di \texttt{NodesStore} e vengo identificate dalle costanti presenti in \texttt{NodesConstants}
 
-Nonostante ad uno \textit{store} corrisponda un modulo contenente le possibili \textit{actions}, il pattern Flux prevede che tutti gli \textit{stores} vengono notificati di tutte le \textit{actions} e quindi l'esecuzione di una di esse può comportare la modifica di più di uno \textit{store}.
+Nonostante ad uno \textit{store} corrisponda un modulo contenente le possibili \textit{actions}, il pattern Flux prevede che tutti gli \textit{stores} vengano notificati di tutte le \textit{actions} e quindi l'esecuzione di una di esse può comportare la modifica di più di uno \textit{store}.
 
 Le seguenti sezioni descrivono i moduli che contengo le possibili \textit{actions}, elencando per ogni modulo i metodi che vengono esposti e il relativo oggetto JavaScript che rappresenta l'\textit{action} creata.
 
@@ -328,7 +332,7 @@ Le seguenti sezioni descrivono i moduli che contengo le possibili \textit{action
 
 Questi moduli appartengono alla categoria dei componenti \textit{smart} dell'applicazione, in quanto si occupano di recuperare i dati dagli \textit{stores}, per poi passarli agli altri componenti in modo che vengano visualizzati dall'utente.
 
-Ognuno di questi moduli rappresenta una singola schermata dell'applicazione e si occupa di definire dei gestori degli eventi per le azioni che può compiere l'utente, questi gestori vengono poi passati ai componenti che compongono la pagina e tipicamente richiedono l'esecuzione di un \textit{action}.
+Ognuno di questi moduli rappresenta una singola schermata dell'applicazione e si occupa di definire dei gestori degli eventi per le azioni che può compiere l'utente. Questi gestori vengono poi passati ai componenti che compongono la pagina e tipicamente richiedono l'esecuzione di un \textit{action}.
 
 \subsubsection{GalleryPage}
 
@@ -370,15 +374,19 @@ Il componente deve essere in grado di rilevare quando l'utente esegue il tap sul
 
 \subsubsection{AssetsGrid}
 
-Questo componente rappresenta la griglia degli assets che viene visualizzata nella pagina principale dell'applicazione.
+Questo componente rappresenta la griglia degli assets presente nella pagina principale dell'applicazione.
 
-Visualizza gli assets che riceve dal componente padre utilizzando vari componenti \texttt{Asset}, inoltre, si occupa di implementare la funzionalità dello scroll infinito, controllando, quando l'utente effettua uno scroll, se è necessario caricare ulteriori dati e nel caso sia necessario, richiede il caricamento invocando l'apposita funzione ricevuta dal componente padre.
+Vengono visualizzati gli assets ricevuti dal componente padre e la rappresentazione di ogni asset avviene utilizzando vari componenti \texttt{Asset}.
+\texttt{AssetsGird} si occupa anche di implementare la funzionalità dello scroll infinito, controllando quando l'utente effettua uno scroll, se è necessario caricare ulteriori dati e, nel caso sia necessario, richiede il caricamento invocando l'apposita funzione ricevuta dal componente padre.
 
 \subsubsection{AssetDetail}
 
-Questo componente permette di visualizzare un'array di oggetti \texttt{AssetDetail}, sotto forma di lista.
+Questo componente permette di visualizzare un'array di oggetti \texttt{AssetDetail} sotto forma di lista.
+Per ogni valore presente nell'array viene visualizzato il valore dei campi dati \texttt{label} e \texttt{value}.
 
-Trattandosi di un componente generico, questo viene usato sia da \texttt{GalleryPage}, sia da \texttt{AssetDetailPage}, utilizzando però uno stile grafico diverso.
+Essendo un componente generico che viene utilizzato in contesti differenti, lo stile di \texttt{AssetDetail} deve poter essere impostato dal componente padre utilizzando l'oggetto \texttt{props}, in modo da poter adattare il componente al contesto nel quale viene utilizzato.
+
+%Trattandosi di un componente generico, questo viene usato sia da \texttt{GalleryPage}, sia da \texttt{AssetDetailPage}, utilizzando però uno stile grafico diverso.
 
 \subsubsection{NodesList}
 
@@ -392,9 +400,9 @@ Viene utilizzato da \texttt{GalleryPage} per visualizzare i nodi figli del nodo 
 Questo componente rappresenta la lista dei filtri disponibili per il nodo visualizzato.
 
 Nel caso l'utente selezioni un filtro dalla lista, la riga selezionata viene espansa in modo che sia visibile una casella di testo e la lista dei possibili valori che il filtro può assumere.
-La casella di testo permette all'utente di filtrare i valori presenti nella lista e la selezione di uno dei valori comporta l'applicazione del filtro, mediante l'invocazione di un'apposita funzione ricevuta dal componente padre.
+La casella di testo permette all'utente di filtrare i valori presenti nella lista e la selezione di uno dei valori comporta l'applicazione del filtro mediante l'invocazione di un'apposita funzione ricevuta dal componente padre.
 
-Nel caso ci siano uno o più filtri applicati, le righe della lista corrispondenti a tali figli contengono anche il valore selezionato per quel determinato filtro.
+Nel caso ci siano uno o più filtri applicati, le righe della lista corrispondenti a tali filtri contengono anche il valore selezionato per quel determinato filtro e un pulsante per rimuoverlo.
 
 \subsubsection{NetworkImage}
 
@@ -433,7 +441,7 @@ React Native offre due componenti che possono essere utilizzati come \textit{rou
 Il primo componente è \texttt{NavigatorIOS}, il quale utilizza lo stesso sistema di navigazione offerto dalla piattaforma nativa, rendendo disponibili sia la barra di navigazione tipica delle applicazioni native, sia le gesture associate alla navigazione, come lo swipe per tornare alla pagina precedente.
 Oltre a queste funzionalità vengono anche offerti due metodi per modificare lo effettuando il \textit{push} e \textit{pop} delle pagine.
 
-Questo componente però non offre grandi possibilità di personalizzazione ed è per questo che React Native offre anche il componente \texttt{Navigator}, il quale è realizzato interamente in JavaScript e implementa solamente la gestione dello stack delle pagine, lasciando allo sviluppatore l'implementazione della barra di navigazione e la gestione delle gesture.
+Però la personalizzazione dell'aspetto grafico di questo componente è limitata ed è per questo che React Native offre anche il componente \texttt{Navigator}, il quale è realizzato interamente in JavaScript e implementa solamente la gestione dello stack delle pagine, lasciando allo sviluppatore l'implementazione della barra di navigazione e la gestione delle gesture.
 
 A seguito dell'esperienza maturata durante lo sviluppo del prototipo con React Native si è scelto di utilizzare il componente \texttt{Navigator} piuttosto che il componente \texttt{NavigatorIOS}.
 
